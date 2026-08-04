@@ -22,13 +22,15 @@ Supports `createDocument` multipart (`file` + optional `title`) matching backend
 
 OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse` summary + translation fields, summary/translation/export paths, chat paths (`ChatResponse`, `ChatMessageResponse`, citations), `ExportRequest` / `ExportResponse`, and `NotificationResponse` / `NotificationListResponse` (+ list/mark-read paths) are present in the snapshot. Regen steps:
 
-1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json`.
+1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json` **or** `python backend/scripts/check_openapi_snapshot.py --update` (in-process dump, preferred for CI parity).
 2. Generate Dart Dio client into `lib/core/network/generated/` (never hand-edit generated files).
 3. Thin-wrap generated client from `api_client.dart`.
 
+**CI enforcement:** PRs run `./tool/check_openapi_snapshot.sh` — checked-in snapshot must match `create_app().openapi()`. Full dart-dio codegen is **optional** and does not fail the PR unless `enforce_codegen` is enabled later. Soft job skips when `lib/core/network/generated/` is absent.
+
 ## Env
 
-See `.env.example`: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`.
+See `.env.example`: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`, plus optional `SENTRY_DSN` / `POSTHOG_*`. Deployment secrets: [docs/deployment.md](deployment.md).
 
 ## Riverpod note
 
