@@ -26,10 +26,13 @@ from app.tasks.provider_overrides import (
     set_task_provider_overrides,
 )
 from tests.fakes import (
+    FakeAnalyticsProvider,
     FakeAuthProvider,
     FakeEmbedder,
     FakeLLMProvider,
+    FakeNotificationStore,
     FakeOCRProvider,
+    FakePushProvider,
     FakeStorageProvider,
 )
 
@@ -97,8 +100,61 @@ def fake_ocr() -> FakeOCRProvider:
 
 
 @pytest.fixture
+def fake_push() -> FakePushProvider:
+    return FakePushProvider()
+
+
+@pytest.fixture
+def fake_notification_store() -> FakeNotificationStore:
+    return FakeNotificationStore()
+
+
+@pytest.fixture
+def fake_analytics() -> FakeAnalyticsProvider:
+    return FakeAnalyticsProvider()
+
+
+@pytest.fixture
 def fake_embedder() -> FakeEmbedder:
     return FakeEmbedder()
+
+
+@pytest.fixture
+def master_with_all_agents(
+    fake_ocr: FakeOCRProvider,
+    fake_llm: FakeLLMProvider,
+    fake_storage: FakeStorageProvider,
+    fake_push: FakePushProvider,
+    fake_notification_store: FakeNotificationStore,
+    fake_analytics: FakeAnalyticsProvider,
+    rag_pipeline,
+):
+    """Master factory with all STEP 3.6 nodes wired to shared fakes."""
+    from app.agents.master_agent import build_master_agent
+
+    return build_master_agent(
+        ocr_provider=fake_ocr,
+        llm=fake_llm,
+        rag_pipeline=rag_pipeline,
+        storage=fake_storage,
+        push=fake_push,
+        notification_store=fake_notification_store,
+        analytics=fake_analytics,
+    )
+
+
+@pytest.fixture
+def export_section_payload() -> dict:
+    """Sample multi-section export input for PDF tests."""
+    return {
+        "document_id": "doc-export",
+        "include_summary": True,
+        "include_translation": True,
+        "include_chat": True,
+        "summary": "Fixture short summary",
+        "translation": "Fixture translation",
+        "chat": "User: hi\nAssistant: hello",
+    }
 
 
 @pytest.fixture
