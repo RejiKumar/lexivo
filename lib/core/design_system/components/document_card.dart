@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../tokens/color.dart';
+import '../tokens/radius.dart';
 import '../tokens/spacing.dart';
 import '../tokens/typography.dart';
 import 'badge.dart';
@@ -94,7 +95,7 @@ class _Thumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(8),
+      borderRadius: BorderRadius.circular(LexivoRadius.sm),
       child: SizedBox(
         width: 48,
         height: 48,

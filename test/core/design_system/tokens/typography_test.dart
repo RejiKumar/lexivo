@@ -62,6 +62,21 @@ void main() {
       expect(style.letterSpacing, 0.2);
     });
 
+    test('labelCompact is 12/16 weight 600 letter-spacing 0.2', () {
+      final style = LexivoTypography.labelCompact;
+      expect(style.fontSize, 12);
+      expect(style.height, closeTo(16 / 12, 0.001));
+      expect(style.fontWeight, FontWeight.w600);
+      expect(style.letterSpacing, 0.2);
+    });
+
+    test('captionCompact is 11 weight 400', () {
+      final style = LexivoTypography.captionCompact;
+      expect(style.fontSize, 11);
+      expect(style.height, 1.2);
+      expect(style.fontWeight, FontWeight.w400);
+    });
+
     test('TextTheme maps scale roles', () {
       expect(theme.displayLarge?.fontSize, LexivoTypography.display.fontSize);
       expect(theme.headlineMedium?.fontSize, LexivoTypography.headline.fontSize);

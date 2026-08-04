@@ -211,6 +211,13 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 - [x] F.5 Checklist: grep/architecture review — no design-system file imports `features/`; no feature-specific models in components
 - [x] F.6 Final review against ui_design_system.md §7 + openspec/specs/design-system/spec.md + nexora_spec.md reusability checklist; fix remaining gaps; commit “design-system DoD met” — **feature UI work may begin only after this**
 
+### DoD remediation (post REJECT 2026-08-04)
+
+- [x] R.1 LexivoButton hover (web) via MouseRegion; brandPrimaryHover + variant analogues; widget tests
+- [x] R.2 Token discipline: document_card radius, badge labelCompact, nav captionCompact/micro/iconSize
+- [x] R.3 LexivoColors.overlayScrim for bottom-sheet barrier
+- [ ] R.4 Reviewer re-review PASS (Orchestrator)
+
 ---
 
 ## Coverage matrix (planner verification)

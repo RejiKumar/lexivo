@@ -52,7 +52,7 @@ class LexivoBadge extends StatelessWidget {
       ),
       child: Text(
         label,
-        style: LexivoTypography.label.copyWith(color: fg, fontSize: 12),
+        style: LexivoTypography.labelCompact.copyWith(color: fg),
       ),
     );
   }

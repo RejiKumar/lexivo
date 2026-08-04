@@ -1,8 +1,19 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/design_system/components/button.dart';
+import 'package:lexivo/core/design_system/tokens/color.dart';
 
 import 'harness.dart';
+
+Material _buttonMaterial(WidgetTester tester) {
+  return tester.widget<Material>(
+    find.descendant(
+      of: find.byType(LexivoButton),
+      matching: find.byType(Material),
+    ),
+  );
+}
 
 void main() {
   group('LexivoButton', () {
@@ -145,6 +156,111 @@ void main() {
       expect(scale.scale, lessThan(1));
       await gesture.up();
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('hover applies brandPrimaryHover on primary', (tester) async {
+      final colors = LexivoColors.light();
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: LexivoButton(
+            label: 'Hover',
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      expect(_buttonMaterial(tester).color, colors.brandPrimary);
+
+      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await tester.pump();
+      await gesture.moveTo(tester.getCenter(find.byType(LexivoButton)));
+      await tester.pumpAndSettle();
+
+      expect(_buttonMaterial(tester).color, colors.brandPrimaryHover);
+
+      await gesture.moveTo(const Offset(-40, -40));
+      await tester.pumpAndSettle();
+      expect(_buttonMaterial(tester).color, colors.brandPrimary);
+    });
+
+    testWidgets('pressed takes precedence over hover on primary', (tester) async {
+      final colors = LexivoColors.light();
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: LexivoButton(
+            label: 'Press',
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      final mouse = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await mouse.addPointer(location: Offset.zero);
+      addTearDown(mouse.removePointer);
+      await tester.pump();
+      await mouse.moveTo(tester.getCenter(find.byType(LexivoButton)));
+      await tester.pumpAndSettle();
+      expect(_buttonMaterial(tester).color, colors.brandPrimaryHover);
+
+      final press = await tester.startGesture(
+        tester.getCenter(find.byType(LexivoButton)),
+      );
+      await tester.pump();
+      expect(_buttonMaterial(tester).color, colors.brandPrimaryPressed);
+      await press.up();
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('disabled ignores hover', (tester) async {
+      final colors = LexivoColors.light();
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: LexivoButton(
+            label: 'Nope',
+            onPressed: () {},
+            enabled: false,
+          ),
+        ),
+      );
+
+      final disabledBg = colors.contentDisabled.withValues(alpha: 0.24);
+      expect(_buttonMaterial(tester).color, disabledBg);
+
+      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await tester.pump();
+      await gesture.moveTo(tester.getCenter(find.byType(LexivoButton)));
+      await tester.pumpAndSettle();
+
+      expect(_buttonMaterial(tester).color, disabledBg);
+    });
+
+    testWidgets('secondary hover uses brandPrimary tint', (tester) async {
+      final colors = LexivoColors.light();
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: LexivoButton(
+            label: 'Secondary',
+            variant: LexivoButtonVariant.secondary,
+            onPressed: () {},
+          ),
+        ),
+      );
+
+      final gesture = await tester.createGesture(kind: PointerDeviceKind.mouse);
+      await gesture.addPointer(location: Offset.zero);
+      addTearDown(gesture.removePointer);
+      await tester.pump();
+      await gesture.moveTo(tester.getCenter(find.byType(LexivoButton)));
+      await tester.pumpAndSettle();
+
+      expect(
+        _buttonMaterial(tester).color,
+        colors.brandPrimary.withValues(alpha: 0.06),
+      );
     });
   });
 }

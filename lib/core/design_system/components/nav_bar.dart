@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../tokens/color.dart';
+import '../tokens/icon_size.dart';
 import '../tokens/motion.dart';
 import '../tokens/radius.dart';
 import '../tokens/spacing.dart';
@@ -182,16 +183,14 @@ class _NavDestination extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(icon, color: fg, size: 22),
-                      const SizedBox(height: 2),
+                      Icon(icon, color: fg, size: LexivoIconSize.md),
+                      const SizedBox(height: LexivoSpacing.micro),
                       Text(
                         item.label,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: LexivoTypography.caption.copyWith(
+                        style: LexivoTypography.captionCompact.copyWith(
                           color: fg,
-                          fontSize: 11,
-                          height: 1.2,
                           fontWeight:
                               selected ? FontWeight.w600 : FontWeight.w400,
                         ),
@@ -200,7 +199,7 @@ class _NavDestination extends StatelessWidget {
                   )
                 : Row(
                     children: [
-                      Icon(icon, color: fg, size: 22),
+                      Icon(icon, color: fg, size: LexivoIconSize.md),
                       const SizedBox(width: LexivoSpacing.sm),
                       Expanded(
                         child: Text(

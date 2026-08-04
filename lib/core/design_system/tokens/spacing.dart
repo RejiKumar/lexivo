@@ -1,5 +1,7 @@
 /// Spacing scale (logical pixels). Use these constants — never arbitrary padding.
 abstract final class LexivoSpacing {
+  /// Hairline gap (e.g. compact nav icon ↔ label). Prefer xxs+ for layout padding.
+  static const double micro = 2;
   static const double xxs = 4;
   static const double xs = 8;
   static const double sm = 12;

@@ -22,6 +22,7 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
     required this.feedbackWarning,
     required this.feedbackDanger,
     required this.feedbackInfo,
+    required this.overlayScrim,
   });
 
   /// Light theme values — see `BRAND.md`.
@@ -43,6 +44,8 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
         feedbackWarning: Color(0xFFB45309),
         feedbackDanger: Color(0xFFDC2626),
         feedbackInfo: Color(0xFF0369A1),
+        // Always-dark modal barrier (matches former Colors.black54).
+        overlayScrim: Color(0x8A000000),
       );
 
   /// Dark theme values — see `BRAND.md`.
@@ -64,6 +67,7 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
         feedbackWarning: Color(0xFFFBBF24),
         feedbackDanger: Color(0xFFF87171),
         feedbackInfo: Color(0xFF38BDF8),
+        overlayScrim: Color(0x8A000000),
       );
 
   // Background
@@ -93,6 +97,9 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
   final Color feedbackDanger;
   final Color feedbackInfo;
 
+  /// Modal / bottom-sheet barrier — always dark for readable dimming.
+  final Color overlayScrim;
+
   @override
   LexivoColors copyWith({
     Color? backgroundDefault,
@@ -112,6 +119,7 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
     Color? feedbackWarning,
     Color? feedbackDanger,
     Color? feedbackInfo,
+    Color? overlayScrim,
   }) {
     return LexivoColors(
       backgroundDefault: backgroundDefault ?? this.backgroundDefault,
@@ -132,6 +140,7 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
       feedbackWarning: feedbackWarning ?? this.feedbackWarning,
       feedbackDanger: feedbackDanger ?? this.feedbackDanger,
       feedbackInfo: feedbackInfo ?? this.feedbackInfo,
+      overlayScrim: overlayScrim ?? this.overlayScrim,
     );
   }
 
@@ -169,6 +178,7 @@ class LexivoColors extends ThemeExtension<LexivoColors> {
       feedbackWarning: Color.lerp(feedbackWarning, other.feedbackWarning, t)!,
       feedbackDanger: Color.lerp(feedbackDanger, other.feedbackDanger, t)!,
       feedbackInfo: Color.lerp(feedbackInfo, other.feedbackInfo, t)!,
+      overlayScrim: Color.lerp(overlayScrim, other.overlayScrim, t)!,
     );
   }
 }

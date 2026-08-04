@@ -34,6 +34,10 @@ void main() {
       expect(colors.feedbackDanger, const Color(0xFFDC2626));
       expect(colors.feedbackInfo, const Color(0xFF0369A1));
     });
+
+    test('overlayScrim is tokenized dark barrier', () {
+      expect(colors.overlayScrim, const Color(0x8A000000));
+    });
   });
 
   group('LexivoColors dark', () {
@@ -66,6 +70,10 @@ void main() {
       expect(colors.feedbackWarning, const Color(0xFFFBBF24));
       expect(colors.feedbackDanger, const Color(0xFFF87171));
       expect(colors.feedbackInfo, const Color(0xFF38BDF8));
+    });
+
+    test('overlayScrim is tokenized dark barrier', () {
+      expect(colors.overlayScrim, const Color(0x8A000000));
     });
   });
 

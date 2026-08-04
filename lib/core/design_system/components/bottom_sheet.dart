@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../tokens/color.dart';
 import '../tokens/elevation.dart';
+import '../tokens/icon_size.dart';
 import '../tokens/radius.dart';
 import '../tokens/spacing.dart';
 import '../tokens/typography.dart';
@@ -57,10 +58,11 @@ class LexivoBottomSheet extends StatelessWidget {
     String? title,
     bool isScrollControlled = true,
   }) {
+    final colors = Theme.of(context).extension<LexivoColors>()!;
     return showModalBottomSheet<T>(
       context: context,
       backgroundColor: Colors.transparent,
-      barrierColor: Colors.black54,
+      barrierColor: colors.overlayScrim,
       isScrollControlled: isScrollControlled,
       builder: (context) => LexivoBottomSheet(
         variant: variant,
@@ -191,7 +193,7 @@ class _ActionTile extends StatelessWidget {
             child: Row(
               children: [
                 if (action.icon != null) ...[
-                  Icon(action.icon, color: fg, size: 22),
+                  Icon(action.icon, color: fg, size: LexivoIconSize.md),
                   const SizedBox(width: LexivoSpacing.sm),
                 ],
                 Expanded(

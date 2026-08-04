@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/design_system/components/bottom_sheet.dart';
+import 'package:lexivo/core/design_system/tokens/color.dart';
 
 import 'harness.dart';
 
@@ -108,6 +109,34 @@ void main() {
       await tester.tap(find.text('Open'));
       await tester.pumpAndSettle();
       expect(find.text('Sheet shown'), findsOneWidget);
+    });
+
+    testWidgets('show uses tokenized overlayScrim barrier', (tester) async {
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: Builder(
+            builder: (context) {
+              return ElevatedButton(
+                onPressed: () {
+                  LexivoBottomSheet.show(
+                    context,
+                    child: const Text('Scrim sheet'),
+                  );
+                },
+                child: const Text('Open'),
+              );
+            },
+          ),
+        ),
+      );
+
+      await tester.tap(find.text('Open'));
+      await tester.pumpAndSettle();
+
+      final modal = tester.widget<ModalBarrier>(
+        find.byType(ModalBarrier).last,
+      );
+      expect(modal.color, LexivoColors.light().overlayScrim);
     });
   });
 }

@@ -42,6 +42,12 @@ Avoided AI-generic looks: no purple-on-white or purple→indigo gradients; no wa
 | `feedback.danger` | `#DC2626` | `#F87171` |
 | `feedback.info` | `#0369A1` | `#38BDF8` |
 
+### Overlay
+
+| Token | Light / Dark | Notes |
+|-------|--------------|-------|
+| `overlay.scrim` | `#000000` @ 54% (`0x8A000000`) | Modal / bottom-sheet barrier — always dark for dimming |
+
 ### Contrast (WCAG AA targets)
 
 - Light: `content.primary` on `background.default` / `surface` ≫ 4.5:1; white / near-white text on `brand.primary` for primary buttons.
@@ -71,6 +77,15 @@ These match ui_design_system.md §5 / Responsive Framework roles. Features scale
 Rationale: Plus Jakarta Sans is geometric enough to feel fast and modern, but soft enough to stay calm on long reading (chat, docs). Sora is reserved for display so the product stays one type family in daily UI.
 
 Type scale sizes/weights follow `ui_design_system.md` §2.5 (display 32/40 w700 … label 13/18 w600 ls 0.2).
+
+Dense UI roles (not in §2.5 core scale; named tokens for components):
+
+| Role | Size | Usage |
+|------|------|-------|
+| `labelCompact` | 12/16 w600 ls 0.2 | Badges / chips |
+| `captionCompact` | 11 @ height 1.2 w400 | Compact nav labels |
+
+Icon sizes: `LexivoIconSize` (`sm` 16 / `md` 22 / `lg` 24). Spacing hairline: `LexivoSpacing.micro` (2).
 
 ## Motion & spacing
 

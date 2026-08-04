@@ -13,6 +13,8 @@ enum LexivoButtonVariant { primary, secondary, ghost, destructive }
 enum LexivoButtonSize { sm, md, lg }
 
 /// Lexivo button — tokens only; ≥44×44 hit target.
+///
+/// States: default, hover (web / pointer), pressed, disabled, loading.
 class LexivoButton extends StatefulWidget {
   const LexivoButton({
     super.key,
@@ -45,6 +47,7 @@ class LexivoButton extends StatefulWidget {
 
 class _LexivoButtonState extends State<LexivoButton> {
   bool _pressed = false;
+  bool _hovered = false;
 
   double get _minHeight {
     switch (widget.size) {
@@ -87,46 +90,81 @@ class _LexivoButtonState extends State<LexivoButton> {
     }
   }
 
+  /// Pressed wins over hover; both only apply when interactive.
   _ButtonColors _resolveColors(LexivoColors colors) {
     final interactive = widget._interactive;
+    final pressed = interactive && _pressed;
+    final hovered = interactive && _hovered && !pressed;
+
     switch (widget.variant) {
       case LexivoButtonVariant.primary:
+        Color background;
+        if (!interactive) {
+          background = colors.contentDisabled.withValues(alpha: 0.24);
+        } else if (pressed) {
+          background = colors.brandPrimaryPressed;
+        } else if (hovered) {
+          background = colors.brandPrimaryHover;
+        } else {
+          background = colors.brandPrimary;
+        }
         return _ButtonColors(
-          background: interactive
-              ? (_pressed ? colors.brandPrimaryPressed : colors.brandPrimary)
-              : colors.contentDisabled.withValues(alpha: 0.24),
+          background: background,
           foreground: interactive
               ? colors.contentOnInverse
               : colors.contentDisabled,
           border: Colors.transparent,
         );
       case LexivoButtonVariant.secondary:
+        Color background;
+        if (!interactive) {
+          background = colors.backgroundSurface;
+        } else if (pressed) {
+          background = colors.brandPrimary.withValues(alpha: 0.12);
+        } else if (hovered) {
+          background = colors.brandPrimary.withValues(alpha: 0.06);
+        } else {
+          background = colors.backgroundSurface;
+        }
         return _ButtonColors(
-          background: interactive
-              ? (_pressed
-                  ? colors.backgroundSurfaceElevated
-                  : colors.backgroundSurface)
-              : colors.backgroundSurface,
+          background: background,
           foreground:
               interactive ? colors.brandPrimary : colors.contentDisabled,
           border: colors.borderDefault,
         );
       case LexivoButtonVariant.ghost:
+        Color background;
+        if (!interactive) {
+          background = Colors.transparent;
+        } else if (pressed) {
+          background = colors.brandPrimary.withValues(alpha: 0.12);
+        } else if (hovered) {
+          background = colors.brandPrimary.withValues(alpha: 0.08);
+        } else {
+          background = Colors.transparent;
+        }
         return _ButtonColors(
-          background: interactive && _pressed
-              ? colors.brandPrimary.withValues(alpha: 0.08)
-              : Colors.transparent,
+          background: background,
           foreground:
               interactive ? colors.brandPrimary : colors.contentDisabled,
           border: Colors.transparent,
         );
       case LexivoButtonVariant.destructive:
+        Color background;
+        if (!interactive) {
+          background = colors.contentDisabled.withValues(alpha: 0.24);
+        } else if (pressed) {
+          background = colors.feedbackDanger.withValues(alpha: 0.85);
+        } else if (hovered) {
+          background = Color.alphaBlend(
+            colors.contentOnInverse.withValues(alpha: 0.12),
+            colors.feedbackDanger,
+          );
+        } else {
+          background = colors.feedbackDanger;
+        }
         return _ButtonColors(
-          background: interactive
-              ? (_pressed
-                  ? colors.feedbackDanger.withValues(alpha: 0.85)
-                  : colors.feedbackDanger)
-              : colors.contentDisabled.withValues(alpha: 0.24),
+          background: background,
           foreground: interactive
               ? colors.contentOnInverse
               : colors.contentDisabled,
@@ -183,34 +221,47 @@ class _LexivoButtonState extends State<LexivoButton> {
             ],
           );
 
-    Widget button = AnimatedScale(
-      scale: _pressed && widget._interactive ? 0.98 : 1,
-      duration: LexivoMotion.fast.duration,
-      curve: LexivoMotion.fast.curve,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          minWidth: 44,
-          minHeight: _minHeight,
-        ),
-        child: Material(
-          color: palette.background,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(LexivoRadius.md),
-            side: BorderSide(
-              color: palette.border,
-              width: palette.border == Colors.transparent ? 0 : 1,
-            ),
+    Widget button = MouseRegion(
+      onEnter: (_) {
+        if (!widget._interactive) return;
+        setState(() => _hovered = true);
+      },
+      onExit: (_) {
+        if (!_hovered && !_pressed) return;
+        setState(() {
+          _hovered = false;
+          // Leave pressed to InkWell highlight lifecycle.
+        });
+      },
+      child: AnimatedScale(
+        scale: _pressed && widget._interactive ? 0.98 : 1,
+        duration: LexivoMotion.fast.duration,
+        curve: LexivoMotion.fast.curve,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minWidth: 44,
+            minHeight: _minHeight,
           ),
-          child: InkWell(
-            onTap: widget._interactive ? widget.onPressed : null,
-            onHighlightChanged: (highlighted) {
-              if (!widget._interactive) return;
-              setState(() => _pressed = highlighted);
-            },
-            borderRadius: BorderRadius.circular(LexivoRadius.md),
-            child: Padding(
-              padding: _padding,
-              child: Center(child: content),
+          child: Material(
+            color: palette.background,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(LexivoRadius.md),
+              side: BorderSide(
+                color: palette.border,
+                width: palette.border == Colors.transparent ? 0 : 1,
+              ),
+            ),
+            child: InkWell(
+              onTap: widget._interactive ? widget.onPressed : null,
+              onHighlightChanged: (highlighted) {
+                if (!widget._interactive) return;
+                setState(() => _pressed = highlighted);
+              },
+              borderRadius: BorderRadius.circular(LexivoRadius.md),
+              child: Padding(
+                padding: _padding,
+                child: Center(child: content),
+              ),
             ),
           ),
         ),

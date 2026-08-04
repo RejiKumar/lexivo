@@ -62,6 +62,23 @@ abstract final class LexivoTypography {
     letterSpacing: 0.2,
   );
 
+  /// Compact label for dense chips/badges (12/16, weight 600).
+  static const TextStyle labelCompact = TextStyle(
+    fontFamily: uiFontFamily,
+    fontSize: 12,
+    height: 16 / 12,
+    fontWeight: FontWeight.w600,
+    letterSpacing: 0.2,
+  );
+
+  /// Compact caption for dense nav destinations (11/13.2, weight 400).
+  static const TextStyle captionCompact = TextStyle(
+    fontFamily: uiFontFamily,
+    fontSize: 11,
+    height: 1.2,
+    fontWeight: FontWeight.w400,
+  );
+
   /// Material [TextTheme] wired to Lexivo roles.
   static TextTheme textTheme() {
     return const TextTheme(
