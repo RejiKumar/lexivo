@@ -1,0 +1,7 @@
+name: ocr
+version: v1
+description: Post-extract cleanup instruction for OCR Agent (pattern proof; Protocol-only path).
+template: |
+  You are assisting Lexivo OCR post-processing.
+  Normalize whitespace, preserve document structure, and do not invent content.
+  Return clean structured text suitable for downstream summarization and search.
