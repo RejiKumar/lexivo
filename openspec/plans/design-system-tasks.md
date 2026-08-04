@@ -196,9 +196,9 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 16. Cross-cutting a11y & responsiveness (§5 / OpenSpec)
 
-- [ ] 16.1 Add/extend tests asserting WCAG AA contrast for critical token pairs (content on background, brand primary on content) light + dark
-- [ ] 16.2 Audit interactive components for ≥44×44 hit targets; fix any failures
-- [ ] 16.3 Confirm breakpoint adaptation uses shared tokens (document Responsive Framework wiring or stub breakpoints in theme); review; commit
+- [x] 16.1 Add/extend tests asserting WCAG AA contrast for critical token pairs (content on background, brand primary on content) light + dark
+- [x] 16.2 Audit interactive components for ≥44×44 hit targets; fix any failures
+- [x] 16.3 Confirm breakpoint adaptation uses shared tokens (document Responsive Framework wiring or stub breakpoints in theme); review; commit
 
 ---
 

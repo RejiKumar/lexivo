@@ -81,7 +81,10 @@ class _LexivoCardState extends State<LexivoCard> {
         onTap: widget.onTap,
         onHighlightChanged: (v) => setState(() => _pressed = v),
         borderRadius: BorderRadius.circular(LexivoRadius.lg),
-        child: content,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+          child: content,
+        ),
       ),
     );
   }

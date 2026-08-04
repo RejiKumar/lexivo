@@ -47,7 +47,19 @@ Avoided AI-generic looks: no purple-on-white or purple→indigo gradients; no wa
 - Light: `content.primary` on `background.default` / `surface` ≫ 4.5:1; white / near-white text on `brand.primary` for primary buttons.
 - Dark: `content.primary` on `background.default` / `surface` ≫ 4.5:1; near-black text (`#0F172A`) on `brand.primary` (`#2DD4BF`) for primary buttons on dark.
 
-Full automated contrast checks land in task §16.1.
+Full automated contrast checks: `test/core/design_system/tokens/contrast_test.dart` (§16.1).
+
+## Responsiveness (breakpoints)
+
+Shared breakpoint stubs live in `tokens/breakpoints.dart` (`LexivoBreakpoint` / `LexivoBreakpoints`):
+
+| Breakpoint | Width |
+|------------|-------|
+| `mobile` | ≤ 599 |
+| `tablet` | 600–1023 |
+| `desktop` | ≥ 1024 |
+
+These match ui_design_system.md §5 / Responsive Framework roles. Features scale spacing via `LexivoBreakpoints.pagePadding` (and the same typography tokens) — not separate mobile/web component sets. Wire `responsive_framework` (or equivalent) in the app shell when it lands; until then resolve from `MediaQuery.sizeOf(context).width`.
 
 ## Typography
 
