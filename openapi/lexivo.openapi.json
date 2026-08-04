@@ -1,0 +1,208 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Lexivo API",
+    "version": "0.1.0",
+    "description": "Checked-in OpenAPI snapshot for Flutter typed client. Prefer regenerating from FastAPI GET /openapi.json via tool/generate_api_client.sh when the backend is available."
+  },
+  "paths": {
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": ["auth"],
+        "operationId": "auth_me",
+        "security": [{ "HTTPBearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AuthSessionResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "tags": ["users"],
+        "operationId": "get_my_profile",
+        "security": [{ "HTTPBearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserProfileResponse" }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": ["users"],
+        "operationId": "update_my_profile",
+        "security": [{ "HTTPBearer": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/UserProfileUpdateRequest" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/UserProfileResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents": {
+      "get": {
+        "tags": ["documents"],
+        "operationId": "list_documents",
+        "security": [{ "HTTPBearer": [] }],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DocumentListResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}": {
+      "get": {
+        "tags": ["documents"],
+        "operationId": "get_document",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DocumentResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/status": {
+      "get": {
+        "tags": ["documents"],
+        "operationId": "get_document_status",
+        "security": [{ "HTTPBearer": [] }],
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/DocumentStatusResponse" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "AuthSessionResponse": {
+        "type": "object",
+        "required": ["subject"],
+        "properties": {
+          "subject": { "type": "string" },
+          "email": { "type": "string", "nullable": true },
+          "display_name": { "type": "string", "nullable": true }
+        }
+      },
+      "UserProfileResponse": {
+        "type": "object",
+        "required": ["id", "external_id"],
+        "properties": {
+          "id": { "type": "string" },
+          "external_id": { "type": "string" },
+          "email": { "type": "string", "nullable": true },
+          "display_name": { "type": "string", "nullable": true },
+          "created_at": { "type": "string", "format": "date-time", "nullable": true },
+          "updated_at": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "UserProfileUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "display_name": { "type": "string", "nullable": true },
+          "email": { "type": "string", "nullable": true }
+        }
+      },
+      "DocumentResponse": {
+        "type": "object",
+        "required": ["id", "user_id", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "user_id": { "type": "string" },
+          "title": { "type": "string", "nullable": true },
+          "storage_key": { "type": "string", "nullable": true },
+          "status": {
+            "type": "string",
+            "enum": ["processing", "ready", "failed"]
+          },
+          "created_at": { "type": "string", "format": "date-time", "nullable": true },
+          "updated_at": { "type": "string", "format": "date-time", "nullable": true }
+        }
+      },
+      "DocumentListResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/DocumentResponse" }
+          }
+        }
+      },
+      "DocumentStatusResponse": {
+        "type": "object",
+        "required": ["id", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["processing", "ready", "failed"]
+          }
+        }
+      }
+    }
+  }
+}

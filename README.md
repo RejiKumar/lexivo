@@ -1,17 +1,36 @@
-# lexivo
+# Lexivo
 
-Lexivo AI Document Assistant
+Lexivo AI Document Assistant (Flutter + FastAPI).
+
+## Flutter setup
+
+```bash
+flutter pub get
+```
+
+### Environment
+
+Copy `.env.example` and supply (via `--dart-define` or your loader):
+
+| Variable | Purpose |
+|---|---|
+| `SUPABASE_URL` | Supabase project URL |
+| `SUPABASE_ANON_KEY` | Supabase anon key (public) |
+| `API_BASE_URL` | FastAPI base URL (e.g. `http://localhost:8000`) |
+
+Never commit real secrets.
+
+### API client
+
+See [docs/api_client.md](docs/api_client.md). OpenAPI snapshot: `openapi/lexivo.openapi.json`. Regen: `./tool/generate_api_client.sh`.
+
+### Design system showcase
+
+```bash
+flutter run --dart-define=LEXIVO_SHOWCASE=true
+```
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project is a starting point for a Flutter application. See the
+[Flutter documentation](https://docs.flutter.dev/) for tooling help.
