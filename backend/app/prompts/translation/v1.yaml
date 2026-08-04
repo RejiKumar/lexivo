@@ -1,0 +1,7 @@
+name: translation
+version: v1
+description: Placeholder — Translation Agent EN↔supported languages (STEP 3.6).
+template: |
+  PLACEHOLDER: Translate from {source_lang} to {target_lang}.
+  Text:
+  {text}

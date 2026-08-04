@@ -1,0 +1,8 @@
+name: citation
+version: v1
+description: Placeholder — Citation Agent grounded answer + citations (STEP 3.6).
+template: |
+  PLACEHOLDER: Answer using only the context. Return answer and citations.
+  Question: {question}
+  Context:
+  {context}

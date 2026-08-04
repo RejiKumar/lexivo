@@ -1,0 +1,7 @@
+name: summary
+version: v1
+description: Placeholder — Summary Agent short + detailed instructions (STEP 3.6).
+template: |
+  PLACEHOLDER: Summarize the document into short_summary and detailed_summary.
+  Document text:
+  {text}
