@@ -204,12 +204,12 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## Final. Definition of Done gate
 
-- [ ] F.1 Checklist: all §2 tokens implemented and theme-switchable (light/dark)
-- [ ] F.2 Checklist: all §3 components + listed variants/states implemented (`LexivoButton`, `LexivoCard`, `LexivoTextField`, `LexivoBottomSheet`, `LexivoDialog`, `LexivoBottomNav`, `LexivoNavRail`, `LexivoChatBubble`, `LexivoDocumentCard`, `LexivoEmptyState`, `LexivoErrorBanner`, `LexivoSkeleton`, `LexivoBadge`, `LexivoSnackbar`)
-- [ ] F.3 Checklist: golden tests passing for every component variant
-- [ ] F.4 Checklist: `design_system_showcase` exists and is dev-flag-gated
-- [ ] F.5 Checklist: grep/architecture review — no design-system file imports `features/`; no feature-specific models in components
-- [ ] F.6 Final review against ui_design_system.md §7 + openspec/specs/design-system/spec.md + nexora_spec.md reusability checklist; fix remaining gaps; commit “design-system DoD met” — **feature UI work may begin only after this**
+- [x] F.1 Checklist: all §2 tokens implemented and theme-switchable (light/dark)
+- [x] F.2 Checklist: all §3 components + listed variants/states implemented (`LexivoButton`, `LexivoCard`, `LexivoTextField`, `LexivoBottomSheet`, `LexivoDialog`, `LexivoBottomNav`, `LexivoNavRail`, `LexivoChatBubble`, `LexivoDocumentCard`, `LexivoEmptyState`, `LexivoErrorBanner`, `LexivoSkeleton`, `LexivoBadge`, `LexivoSnackbar`)
+- [x] F.3 Checklist: golden tests passing for every component variant
+- [x] F.4 Checklist: `design_system_showcase` exists and is dev-flag-gated
+- [x] F.5 Checklist: grep/architecture review — no design-system file imports `features/`; no feature-specific models in components
+- [x] F.6 Final review against ui_design_system.md §7 + openspec/specs/design-system/spec.md + nexora_spec.md reusability checklist; fix remaining gaps; commit “design-system DoD met” — **feature UI work may begin only after this**
 
 ---
 

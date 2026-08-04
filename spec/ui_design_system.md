@@ -164,8 +164,8 @@ Every component in §3 must have a golden test at the component level (all varia
 ---
 
 ## 7. Definition of Done for the Design System (gate before feature work begins)
-- [ ] All tokens in §2 implemented and theme-switchable (light/dark)
-- [ ] All components in §3 implemented with all listed variants/states
-- [ ] Golden tests passing for every component variant
-- [ ] A demo/catalog screen (`design_system_showcase`) exists in the app for visual QA of every component — removed or dev-flag-gated before production release
-- [ ] No component depends on any feature-specific model or logic
+- [x] All tokens in §2 implemented and theme-switchable (light/dark)
+- [x] All components in §3 implemented with all listed variants/states
+- [x] Golden tests passing for every component variant
+- [x] A demo/catalog screen (`design_system_showcase`) exists in the app for visual QA of every component — removed or dev-flag-gated before production release
+- [x] No component depends on any feature-specific model or logic
