@@ -1,0 +1,102 @@
+name: Deploy Cloud Run
+description: Deploy Lexivo API + Celery worker to Cloud Run (same image, different command)
+inputs:
+  environment:
+    description: GitHub Environment name (staging|production) — required; no hardcoded project IDs
+    required: true
+  image:
+    description: Fully qualified image reference to deploy
+    required: true
+  service-name:
+    description: Cloud Run API service name
+    required: true
+  worker-service-name:
+    description: Cloud Run worker service name
+    required: true
+  region:
+    description: GCP region
+    required: true
+  project-id:
+    description: GCP project id (from vars/secrets — never hardcode in callers)
+    required: true
+  workload-identity-provider:
+    description: WIF provider resource name (preferred auth)
+    required: false
+    default: ""
+  service-account:
+    description: Deployer service account email
+    required: false
+    default: ""
+  credentials-json:
+    description: Optional SA JSON key fallback when WIF unset
+    required: false
+    default: ""
+  env-vars:
+    description: Comma-separated KEY=VALUE pairs for Cloud Run (from Environment secrets/vars)
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Require environment input
+      shell: bash
+      run: |
+        if [[ -z "${{ inputs.environment }}" ]]; then
+          echo "environment input is required"
+          exit 1
+        fi
+        echo "Deploying to environment=${{ inputs.environment }}"
+
+    - name: Authenticate to Google Cloud (WIF)
+      if: inputs.workload-identity-provider != '' && inputs.service-account != ''
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ inputs.workload-identity-provider }}
+        service_account: ${{ inputs.service-account }}
+
+    - name: Authenticate to Google Cloud (SA key fallback)
+      if: inputs.workload-identity-provider == '' && inputs.credentials-json != ''
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ inputs.credentials-json }}
+
+    - name: Set up gcloud
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Deploy API service
+      shell: bash
+      run: |
+        ENV_ARGS="APP_ENV=${{ inputs.environment }}"
+        if [[ -n "${{ inputs.env-vars }}" ]]; then
+          EXTRA="${{ inputs.env-vars }}"
+          EXTRA="${EXTRA//[[:space:]]/}"
+          ENV_ARGS="${ENV_ARGS},${EXTRA}"
+        fi
+        gcloud run deploy "${{ inputs.service-name }}" \
+          --project="${{ inputs.project-id }}" \
+          --region="${{ inputs.region }}" \
+          --image="${{ inputs.image }}" \
+          --platform=managed \
+          --port=8000 \
+          --allow-unauthenticated \
+          --set-env-vars="${ENV_ARGS}"
+
+    - name: Deploy worker service
+      shell: bash
+      run: |
+        ENV_ARGS="APP_ENV=${{ inputs.environment }}"
+        if [[ -n "${{ inputs.env-vars }}" ]]; then
+          EXTRA="${{ inputs.env-vars }}"
+          EXTRA="${EXTRA//[[:space:]]/}"
+          ENV_ARGS="${ENV_ARGS},${EXTRA}"
+        fi
+        gcloud run deploy "${{ inputs.worker-service-name }}" \
+          --project="${{ inputs.project-id }}" \
+          --region="${{ inputs.region }}" \
+          --image="${{ inputs.image }}" \
+          --platform=managed \
+          --no-allow-unauthenticated \
+          --command=celery \
+          --args="-A,app.tasks.celery_app,worker,--loglevel=info" \
+          --set-env-vars="${ENV_ARGS}"

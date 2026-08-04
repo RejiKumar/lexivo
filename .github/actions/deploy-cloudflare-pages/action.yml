@@ -1,0 +1,42 @@
+name: Deploy Cloudflare Pages
+description: Deploy Flutter web build/ to Cloudflare Pages
+inputs:
+  environment:
+    description: GitHub Environment name (staging|production) — required
+    required: true
+  dist-path:
+    description: Build output directory
+    required: false
+    default: "build/web"
+  project-name:
+    description: Cloudflare Pages project name (from Environment vars)
+    required: true
+  api-token:
+    description: Cloudflare API token
+    required: true
+  account-id:
+    description: Cloudflare account ID
+    required: true
+  branch:
+    description: Pages deployment branch label
+    required: false
+    default: "main"
+
+runs:
+  using: composite
+  steps:
+    - name: Require environment input
+      shell: bash
+      run: |
+        if [[ -z "${{ inputs.environment }}" ]]; then
+          echo "environment input is required"
+          exit 1
+        fi
+        echo "Deploying Pages for environment=${{ inputs.environment }} project=${{ inputs.project-name }}"
+
+    - name: Deploy with Wrangler
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ inputs.api-token }}
+        accountId: ${{ inputs.account-id }}
+        command: pages deploy "${{ inputs.dist-path }}" --project-name="${{ inputs.project-name }}" --branch="${{ inputs.branch }}"
