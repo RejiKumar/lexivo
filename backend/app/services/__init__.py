@@ -1,12 +1,15 @@
 """Domain services."""
 
-from app.services.base import BaseService, NotFoundError
+from app.services.base import BaseService, ConflictError, NotFoundError
 from app.services.document_service import DocumentService
+from app.services.summary_service import SummaryService
 from app.services.user_service import UserService
 
 __all__ = [
     "BaseService",
+    "ConflictError",
     "DocumentService",
     "NotFoundError",
+    "SummaryService",
     "UserService",
 ]

@@ -5,6 +5,7 @@ from app.schemas.documents import (
     DocumentListResponse,
     DocumentResponse,
     DocumentStatusResponse,
+    SummaryStatusResponse,
 )
 from app.schemas.users import UserProfileResponse, UserProfileUpdateRequest
 
@@ -13,6 +14,7 @@ __all__ = [
     "DocumentListResponse",
     "DocumentResponse",
     "DocumentStatusResponse",
+    "SummaryStatusResponse",
     "UserProfileResponse",
     "UserProfileUpdateRequest",
 ]

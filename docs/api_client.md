@@ -8,7 +8,9 @@ Supports `createDocument` multipart (`file` + optional `title`) matching backend
 
 **OCR result text:** `GET /api/v1/documents/{id}` returns nullable `extracted_text` (DTO/domain: `extractedText`). Status polling stays on `GET /api/v1/documents/{id}/status` (`processing` | `ready` | `failed`). The OCR feature calls only `getDocument` / `getDocumentStatus` — never storage or OCR vendor SDKs.
 
-OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse.extracted_text` is present in the snapshot. Regen steps:
+**Summarization:** `GET /api/v1/documents/{id}` also returns nullable `short_summary` / `detailed_summary` and `summary_status` (`idle` | `processing` | `ready` | `failed`, separate from OCR `status`). Trigger with `POST /api/v1/documents/{id}/summary` (202 when enqueued; **409** when OCR incomplete / empty `extracted_text`). Poll `GET /api/v1/documents/{id}/summary/status` → `{ id, summary_status }`. The summarization feature uses only `requestSummary` / `getSummaryStatus` / `getDocument` on the typed client — never LLM vendor SDKs.
+
+OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse` summary fields and summary paths are present in the snapshot. Regen steps:
 
 1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json`.
 2. Generate Dart Dio client into `lib/core/network/generated/` (never hand-edit generated files).

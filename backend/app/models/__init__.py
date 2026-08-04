@@ -19,6 +19,13 @@ class DocumentStatus(str, enum.Enum):
     failed = "failed"
 
 
+class SummaryStatus(str, enum.Enum):
+    idle = "idle"
+    processing = "processing"
+    ready = "ready"
+    failed = "failed"
+
+
 class JobStatus(str, enum.Enum):
     queued = "queued"
     running = "running"
@@ -101,6 +108,12 @@ class Document(Base):
     title: Mapped[str | None] = mapped_column(String(512), nullable=True)
     storage_key: Mapped[str | None] = mapped_column(String(1024), nullable=True)
     extracted_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    short_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    detailed_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    summary_status: Mapped[SummaryStatus] = mapped_column(
+        Enum(SummaryStatus, name="summary_status"),
+        default=SummaryStatus.idle,
+    )
     status: Mapped[DocumentStatus] = mapped_column(
         Enum(DocumentStatus, name="document_status"),
         default=DocumentStatus.processing,

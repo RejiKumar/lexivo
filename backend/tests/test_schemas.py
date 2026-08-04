@@ -5,6 +5,7 @@ from app.schemas import (
     DocumentListResponse,
     DocumentResponse,
     DocumentStatusResponse,
+    SummaryStatusResponse,
     UserProfileResponse,
     UserProfileUpdateRequest,
 )
@@ -53,6 +54,9 @@ def test_document_create_list_status_schemas() -> None:
     )
     assert doc.status == "processing"
     assert doc.extracted_text is None
+    assert doc.summary_status == "idle"
+    assert doc.short_summary is None
+    assert doc.detailed_summary is None
 
     ready = DocumentResponse(
         id="d2",
@@ -61,13 +65,26 @@ def test_document_create_list_status_schemas() -> None:
         storage_key="documents/u1/ready.pdf",
         status="ready",
         extracted_text="OCR body text",
+        short_summary="Brief",
+        detailed_summary="Long form",
+        summary_status="ready",
         created_at=None,
         updated_at=None,
     )
-    assert ready.model_dump()["extracted_text"] == "OCR body text"
+    dumped = ready.model_dump()
+    assert dumped["extracted_text"] == "OCR body text"
+    assert dumped["short_summary"] == "Brief"
+    assert dumped["detailed_summary"] == "Long form"
+    assert dumped["summary_status"] == "ready"
 
     listing = DocumentListResponse(items=[doc])
     assert len(listing.items) == 1
 
     status = DocumentStatusResponse(id="d1", status="ready")
     assert status.model_dump() == {"id": "d1", "status": "ready"}
+
+    summary_status = SummaryStatusResponse(id="d2", summary_status="processing")
+    assert summary_status.model_dump() == {
+        "id": "d2",
+        "summary_status": "processing",
+    }

@@ -155,3 +155,15 @@ def test_document_processing_task_enters_via_master_only() -> None:
         assert f"app.agents.{module_stem}" not in source
     for name in SPECIALIST_CLASS_NAMES:
         assert name not in source
+
+
+def test_summary_task_enters_via_master_only() -> None:
+    """Thin summary Celery hook may call run_master; must not import specialists."""
+    tasks_dir = Path(__file__).resolve().parents[1] / "app" / "tasks"
+    source = (tasks_dir / "summary.py").read_text(encoding="utf-8")
+    assert "run_master" in source
+    assert "from app.agents.master_agent import run_master" in source
+    for module_stem in SPECIALIZED_AGENT_MODULES:
+        assert f"app.agents.{module_stem}" not in source
+    for name in SPECIALIST_CLASS_NAMES:
+        assert name not in source

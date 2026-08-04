@@ -4,6 +4,7 @@ from app.core.config import Settings
 from app.tasks.celery_app import celery_app
 from app.tasks.document_processing import enqueue_document_processing, run_ocr
 from app.tasks.embeddings import enqueue_generate_embeddings, generate_embeddings
+from app.tasks.summary import enqueue_summary, run_summary
 import app.tasks.celery_app as celery_mod
 
 
@@ -33,3 +34,10 @@ def test_embeddings_task_units_are_registered() -> None:
     assert "app.tasks.embeddings.generate_embeddings" in registered
     assert callable(generate_embeddings)
     assert callable(enqueue_generate_embeddings)
+
+
+def test_summary_task_units_are_registered() -> None:
+    registered = set(celery_app.tasks.keys())
+    assert "app.tasks.summary.run_summary" in registered
+    assert callable(run_summary)
+    assert callable(enqueue_summary)

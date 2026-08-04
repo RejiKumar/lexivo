@@ -15,6 +15,14 @@ class NotFoundError(Exception):
         super().__init__(message)
 
 
+class ConflictError(Exception):
+    """Raised when a domain operation cannot proceed (e.g. document not ready)."""
+
+    def __init__(self, message: str = "Conflict") -> None:
+        self.message = message
+        super().__init__(message)
+
+
 class RepositoryProtocol(Protocol[T]):
     def create(self, **fields: Any) -> T: ...
 
