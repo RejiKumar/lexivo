@@ -80,64 +80,64 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 3. LexivoCard (§3.2)
 
-- [ ] 3.1 Write failing widget tests for variants `flat`, `elevated`, `interactive` (pressed elevation change)
-- [ ] 3.2 Implement `LexivoCard` in `components/card.dart`
-- [ ] 3.3 Golden tests for all three variants (default + pressed for interactive)
-- [ ] 3.4 Review vs §3.2; fix; commit
+- [x] 3.1 Write failing widget tests for variants `flat`, `elevated`, `interactive` (pressed elevation change)
+- [x] 3.2 Implement `LexivoCard` in `components/card.dart`
+- [x] 3.3 Golden tests for all three variants (default + pressed for interactive)
+- [x] 3.4 Review vs §3.2; fix; commit
 
 ---
 
 ## 4. LexivoTextField (§3.3)
 
-- [ ] 4.1 Write failing widget tests for variants `text`, `multiline`, `search` (leading search icon + clear); states default, focused, error (+ helper text), disabled
-- [ ] 4.2 Implement `LexivoTextField` in `components/input.dart`
-- [ ] 4.3 Golden tests for all variants × key states
-- [ ] 4.4 Review vs §3.3; fix; commit
+- [x] 4.1 Write failing widget tests for variants `text`, `multiline`, `search` (leading search icon + clear); states default, focused, error (+ helper text), disabled
+- [x] 4.2 Implement `LexivoTextField` in `components/input.dart`
+- [x] 4.3 Golden tests for all variants × key states
+- [x] 4.4 Review vs §3.3; fix; commit
 
 ---
 
 ## 5. LexivoBadge (§3.12)
 
-- [ ] 5.1 Write failing widget tests for variants `neutral`, `success`, `warning`, `danger`
-- [ ] 5.2 Implement `LexivoBadge` in `components/badge.dart`
-- [ ] 5.3 Golden tests for all four variants
-- [ ] 5.4 Review vs §3.12; fix; commit
+- [x] 5.1 Write failing widget tests for variants `neutral`, `success`, `warning`, `danger`
+- [x] 5.2 Implement `LexivoBadge` in `components/badge.dart`
+- [x] 5.3 Golden tests for all four variants
+- [x] 5.4 Review vs §3.12; fix; commit
 
 ---
 
 ## 6. LexivoSkeleton (§3.11)
 
-- [ ] 6.1 Write failing widget tests for variants `line`, `card`, `avatar` (shimmer uses motion tokens)
-- [ ] 6.2 Implement `LexivoSkeleton` in `components/skeleton_loader.dart`
-- [ ] 6.3 Golden tests for all three variants (static frame acceptable if shimmer is deterministic in goldens)
-- [ ] 6.4 Review vs §3.11; fix; commit
+- [x] 6.1 Write failing widget tests for variants `line`, `card`, `avatar` (shimmer uses motion tokens)
+- [x] 6.2 Implement `LexivoSkeleton` in `components/skeleton_loader.dart`
+- [x] 6.3 Golden tests for all three variants (static frame acceptable if shimmer is deterministic in goldens)
+- [x] 6.4 Review vs §3.11; fix; commit
 
 ---
 
 ## 7. LexivoErrorBanner (§3.10)
 
-- [ ] 7.1 Write failing widget tests for message + optional retry + optional dismiss
-- [ ] 7.2 Implement `LexivoErrorBanner` in `components/error_banner.dart`
-- [ ] 7.3 Golden tests: message-only, with retry, with dismiss, with both
-- [ ] 7.4 Review vs §3.10; fix; commit
+- [x] 7.1 Write failing widget tests for message + optional retry + optional dismiss
+- [x] 7.2 Implement `LexivoErrorBanner` in `components/error_banner.dart`
+- [x] 7.3 Golden tests: message-only, with retry, with dismiss, with both
+- [x] 7.4 Review vs §3.10; fix; commit
 
 ---
 
 ## 8. LexivoEmptyState (§3.9)
 
-- [ ] 8.1 Write failing widget tests for illustration/icon slot, title, description, optional CTA (`LexivoButton`)
-- [ ] 8.2 Implement `LexivoEmptyState` in `components/empty_state.dart` composing design-system atoms only
-- [ ] 8.3 Golden tests: with/without CTA, with icon vs illustration slot
-- [ ] 8.4 Review vs §3.9; fix; commit
+- [x] 8.1 Write failing widget tests for illustration/icon slot, title, description, optional CTA (`LexivoButton`)
+- [x] 8.2 Implement `LexivoEmptyState` in `components/empty_state.dart` composing design-system atoms only
+- [x] 8.3 Golden tests: with/without CTA, with icon vs illustration slot
+- [x] 8.4 Review vs §3.9; fix; commit
 
 ---
 
 ## 9. LexivoSnackbar (§3.13)
 
-- [ ] 9.1 Write failing widget/integration tests for `LexivoSnackbar.show(context, …)` variants `info`, `success`, `error` (assert no ad-hoc `ScaffoldMessenger` styling outside helper)
-- [ ] 9.2 Implement `LexivoSnackbar` in `components/snackbar.dart`
-- [ ] 9.3 Golden tests for all three variants
-- [ ] 9.4 Review vs §3.13; fix; commit
+- [x] 9.1 Write failing widget/integration tests for `LexivoSnackbar.show(context, …)` variants `info`, `success`, `error` (assert no ad-hoc `ScaffoldMessenger` styling outside helper)
+- [x] 9.2 Implement `LexivoSnackbar` in `components/snackbar.dart`
+- [x] 9.3 Golden tests for all three variants
+- [x] 9.4 Review vs §3.13; fix; commit
 
 ---
 
