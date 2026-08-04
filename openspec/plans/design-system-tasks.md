@@ -161,28 +161,28 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 12. Navigation — LexivoBottomNav + LexivoNavRail (§3.6)
 
-- [ ] 12.1 Write failing unit tests for shared `NavItem` model (design-system owned, not feature models) and widget tests that BottomNav (≤5 items) and NavRail (collapsible) consume the same item list
-- [ ] 12.2 Implement `NavItem`, `LexivoBottomNav`, `LexivoNavRail` in `components/nav_bar.dart` (or split files with barrel); stub route ids as strings for later `app_router` binding — no feature imports
-- [ ] 12.3 Golden tests: BottomNav (≤5 items, selected states); NavRail expanded + collapsed
-- [ ] 12.4 Review vs §3.6 + OpenSpec shared NavItem requirement; fix; commit
+- [x] 12.1 Write failing unit tests for shared `NavItem` model (design-system owned, not feature models) and widget tests that BottomNav (≤5 items) and NavRail (collapsible) consume the same item list
+- [x] 12.2 Implement `NavItem`, `LexivoBottomNav`, `LexivoNavRail` in `components/nav_bar.dart` (or split files with barrel); stub route ids as strings for later `app_router` binding — no feature imports
+- [x] 12.3 Golden tests: BottomNav (≤5 items, selected states); NavRail expanded + collapsed
+- [x] 12.4 Review vs §3.6 + OpenSpec shared NavItem requirement; fix; commit
 
 ---
 
 ## 13. LexivoChatBubble (§3.7)
 
-- [ ] 13.1 Write failing widget tests for variants `user`, `assistant`, `assistantStreaming`; optional citation chips slot (generic chip widgets / slots — no rag feature models)
-- [ ] 13.2 Implement `LexivoChatBubble` in `components/chat_bubble.dart`
-- [ ] 13.3 Golden tests for user, assistant, assistantStreaming (+ citation slot occupied)
-- [ ] 13.4 Review vs §3.7; fix; commit
+- [x] 13.1 Write failing widget tests for variants `user`, `assistant`, `assistantStreaming`; optional citation chips slot (generic chip widgets / slots — no rag feature models)
+- [x] 13.2 Implement `LexivoChatBubble` in `components/chat_bubble.dart`
+- [x] 13.3 Golden tests for user, assistant, assistantStreaming (+ citation slot occupied)
+- [x] 13.4 Review vs §3.7; fix; commit
 
 ---
 
 ## 14. LexivoDocumentCard (§3.8)
 
-- [ ] 14.1 Write failing widget tests for thumbnail + name + status badge (`processing`, `ready`, `failed` via `LexivoBadge`) + timestamp; props are plain display data only
-- [ ] 14.2 Implement `LexivoDocumentCard` in `components/document_card.dart` composing `LexivoCard` + `LexivoBadge`
-- [ ] 14.3 Golden tests for all three status states (and missing-thumbnail fallback if defined)
-- [ ] 14.4 Review vs §3.8 + “no feature-specific models”; fix; commit
+- [x] 14.1 Write failing widget tests for thumbnail + name + status badge (`processing`, `ready`, `failed` via `LexivoBadge`) + timestamp; props are plain display data only
+- [x] 14.2 Implement `LexivoDocumentCard` in `components/document_card.dart` composing `LexivoCard` + `LexivoBadge`
+- [x] 14.3 Golden tests for all three status states (and missing-thumbnail fallback if defined)
+- [x] 14.4 Review vs §3.8 + “no feature-specific models”; fix; commit
 
 ---
 
