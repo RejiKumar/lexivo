@@ -9,7 +9,7 @@ settings = get_settings()
 celery_app = Celery(
     "lexivo",
     broker=settings.celery_broker_url,
-    include=["app.tasks.document_processing"],
+    include=["app.tasks.document_processing", "app.tasks.embeddings"],
 )
 
 celery_app.conf.update(
@@ -21,3 +21,4 @@ celery_app.conf.update(
 
 # Register task units (safe: celery_app already constructed above).
 import app.tasks.document_processing  # noqa: E402, F401
+import app.tasks.embeddings  # noqa: E402, F401

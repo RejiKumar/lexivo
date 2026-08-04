@@ -3,6 +3,7 @@
 from app.core.config import Settings
 from app.tasks.celery_app import celery_app
 from app.tasks.document_processing import enqueue_document_processing, run_ocr
+from app.tasks.embeddings import enqueue_generate_embeddings, generate_embeddings
 import app.tasks.celery_app as celery_mod
 
 
@@ -25,3 +26,10 @@ def test_ocr_task_units_are_registered() -> None:
     assert "app.tasks.document_processing.run_ocr" in registered
     assert callable(run_ocr)
     assert callable(enqueue_document_processing)
+
+
+def test_embeddings_task_units_are_registered() -> None:
+    registered = set(celery_app.tasks.keys())
+    assert "app.tasks.embeddings.generate_embeddings" in registered
+    assert callable(generate_embeddings)
+    assert callable(enqueue_generate_embeddings)
