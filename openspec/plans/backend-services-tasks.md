@@ -129,21 +129,21 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 7.B BaseService
 
-- [ ] 7.4 Write failing unit tests for `BaseService[T]` CRUD shape: `create`, `get`, `list`, `update`, `delete` (architecture.md §3.2)
-- [ ] 7.5 Implement `BaseService` generic; domain services extend it
-- [ ] 7.6 Review vs OpenSpec “Service-layer CRUD shape”; fix; commit
+- [x] 7.4 Write failing unit tests for `BaseService[T]` CRUD shape: `create`, `get`, `list`, `update`, `delete` (architecture.md §3.2)
+- [x] 7.5 Implement `BaseService` generic; domain services extend it
+- [x] 7.6 Review vs OpenSpec “Service-layer CRUD shape”; fix; commit
 
 ### 7.C UserService
 
-- [ ] 7.7 Write failing unit tests for `UserService`: upsert/get from `UserIdentity`, get/update allowed profile fields (account settings backend surface)
-- [ ] 7.8 Implement `UserService` + wire repository; no Auth SDK in service (identity already verified)
-- [ ] 7.9 Review vs auth “Account settings” backend persistence; fix; commit
+- [x] 7.7 Write failing unit tests for `UserService`: upsert/get from `UserIdentity`, get/update allowed profile fields (account settings backend surface)
+- [x] 7.8 Implement `UserService` + wire repository; no Auth SDK in service (identity already verified)
+- [x] 7.9 Review vs auth “Account settings” backend persistence; fix; commit
 
 ### 7.D DocumentService
 
-- [ ] 7.10 Write failing unit tests for `DocumentService`: create document metadata, attach storage key via StorageProvider Protocol, update/query status lifecycle (`processing` / `ready` / `failed`), list/filter by user
-- [ ] 7.11 Implement `DocumentService` extending BaseService; inject StorageProvider + repository via DI; enqueue hook stubbed to task interface (implement enqueue in §9)
-- [ ] 7.12 Review vs backend-services document status lifecycle + document-scan backend boundary (create + upload + enqueue, no Flutter); fix; commit
+- [x] 7.10 Write failing unit tests for `DocumentService`: create document metadata, attach storage key via StorageProvider Protocol, update/query status lifecycle (`processing` / `ready` / `failed`), list/filter by user
+- [x] 7.11 Implement `DocumentService` extending BaseService; inject StorageProvider + repository via DI; enqueue hook stubbed to task interface (implement enqueue in §9)
+- [x] 7.12 Review vs backend-services document status lifecycle + document-scan backend boundary (create + upload + enqueue, no Flutter); fix; commit
 
 ---
 
