@@ -1,26 +1,56 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
 import 'package:lexivo/core/design_system/showcase/design_system_flags.dart';
 import 'package:lexivo/core/design_system/showcase/design_system_showcase.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
+import 'package:lexivo/features/auth/auth.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   AppRouter.showcaseEnabled = LexivoDesignSystemFlags.showcaseEnabled;
-  runApp(const LexivoApp());
+
+  const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
+  const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
+
+  if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
+    await Supabase.initialize(
+      url: supabaseUrl,
+      anonKey: supabaseAnonKey,
+    );
+  } else if (kDebugMode) {
+    debugPrint(
+      'SUPABASE_URL / SUPABASE_ANON_KEY not set — auth SDK deferred. '
+      'See .env.example.',
+    );
+  }
+
+  runApp(
+    ProviderScope(
+      overrides: [
+        ...authCoreOverrides(),
+        showcaseEnabledProvider.overrideWith(
+          (ref) => AppRouter.showcaseEnabled,
+        ),
+      ],
+      child: const LexivoRouterApp(),
+    ),
+  );
 }
 
-/// Root application widget for Lexivo.
+/// Lightweight root used by design-system showcase tests (no auth wiring).
 class LexivoApp extends StatelessWidget {
   const LexivoApp({
     super.key,
     this.showcaseEnabled,
   });
 
-  /// Override for tests; defaults to compile-time / [AppRouter] flag.
   final bool? showcaseEnabled;
 
-  bool get _showcaseOn =>
-      showcaseEnabled ?? AppRouter.showcaseEnabled;
+  bool get _showcaseOn => showcaseEnabled ?? AppRouter.showcaseEnabled;
 
   @override
   Widget build(BuildContext context) {
