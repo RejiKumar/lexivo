@@ -49,6 +49,7 @@ abstract class DocumentDto with _$DocumentDto {
     String? title,
     @JsonKey(name: 'storage_key') String? storageKey,
     required String status,
+    @JsonKey(name: 'extracted_text') String? extractedText,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _DocumentDto;

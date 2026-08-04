@@ -1,0 +1,10 @@
+{
+  "id": "doc-proc",
+  "user_id": "db-user-1",
+  "title": "Processing",
+  "storage_key": "uploads/doc-proc.pdf",
+  "status": "processing",
+  "extracted_text": null,
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

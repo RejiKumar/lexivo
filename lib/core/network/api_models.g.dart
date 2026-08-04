@@ -64,6 +64,7 @@ _DocumentDto _$DocumentDtoFromJson(Map<String, dynamic> json) => _DocumentDto(
   title: json['title'] as String?,
   storageKey: json['storage_key'] as String?,
   status: json['status'] as String,
+  extractedText: json['extracted_text'] as String?,
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
@@ -79,6 +80,7 @@ Map<String, dynamic> _$DocumentDtoToJson(_DocumentDto instance) =>
       'title': instance.title,
       'storage_key': instance.storageKey,
       'status': instance.status,
+      'extracted_text': instance.extractedText,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

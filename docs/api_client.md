@@ -6,7 +6,9 @@
 
 Supports `createDocument` multipart (`file` + optional `title`) matching backend `POST /api/v1/documents` (`create_with_upload`). Feature code must call this method only — never storage SDKs.
 
-OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. Regen steps:
+**OCR result text:** `GET /api/v1/documents/{id}` returns nullable `extracted_text` (DTO/domain: `extractedText`). Status polling stays on `GET /api/v1/documents/{id}/status` (`processing` | `ready` | `failed`). The OCR feature calls only `getDocument` / `getDocumentStatus` — never storage or OCR vendor SDKs.
+
+OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse.extracted_text` is present in the snapshot. Regen steps:
 
 1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json`.
 2. Generate Dart Dio client into `lib/core/network/generated/` (never hand-edit generated files).

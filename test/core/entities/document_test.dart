@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/design_system/components/document_card.dart';
 import 'package:lexivo/core/entities/document.dart';
+import 'package:lexivo/core/entities/document_mapper.dart';
+import 'package:lexivo/core/network/api_models.dart';
 import 'package:lexivo/features/document_scan/presentation/document_status_ui.dart';
 
 void main() {
@@ -11,18 +13,38 @@ void main() {
         userId: 'u',
         status: DocumentStatus.processing,
         title: 'A',
+        extractedText: 'body',
       );
       const b = Document(
         id: '1',
         userId: 'u',
         status: DocumentStatus.processing,
         title: 'A',
+        extractedText: 'body',
       );
       expect(a, b);
       expect(
         a.copyWith(status: DocumentStatus.ready).status,
         DocumentStatus.ready,
       );
+      expect(
+        a.copyWith(extractedText: 'new').extractedText,
+        'new',
+      );
+    });
+
+    test('mapper includes extractedText from DTO', () {
+      final dto = DocumentDto.fromJson({
+        'id': 'doc-1',
+        'user_id': 'u1',
+        'title': 'T',
+        'storage_key': 'k',
+        'status': 'ready',
+        'extracted_text': 'Hello OCR',
+      });
+      final doc = documentFromDto(dto);
+      expect(doc.extractedText, 'Hello OCR');
+      expect(doc.status, DocumentStatus.ready);
     });
 
     test('API string mapping', () {

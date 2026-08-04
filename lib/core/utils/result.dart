@@ -17,6 +17,9 @@ sealed class Failure {
 
   @override
   int get hashCode => Object.hash(runtimeType, message);
+
+  @override
+  String toString() => message;
 }
 
 final class NetworkFailure extends Failure {

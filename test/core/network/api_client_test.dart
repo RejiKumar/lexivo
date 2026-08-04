@@ -74,9 +74,48 @@ void main() {
 
       final doc = await client.getDocument('doc-1');
       expect(doc.valueOrNull?.status, 'ready');
+      expect(
+        doc.valueOrNull?.extractedText,
+        'Extracted OCR body from the lease agreement.',
+      );
 
       final status = await client.getDocumentStatus('doc-1');
       expect(status.valueOrNull?.status, 'processing');
+    });
+
+    test('getDocument parses nullable extracted_text', () async {
+      adapter.onGet(
+        '/api/v1/documents/doc-1',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/get_with_extracted_text.json'),
+        ),
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-empty',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/get_ready_empty_text.json'),
+        ),
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-proc',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/get_processing.json'),
+        ),
+      );
+
+      final ready = await client.getDocument('doc-1');
+      expect(ready.valueOrNull?.extractedText, isNotNull);
+
+      final empty = await client.getDocument('doc-empty');
+      expect(empty.valueOrNull?.extractedText, isNull);
+      expect(empty.valueOrNull?.status, 'ready');
+
+      final processing = await client.getDocument('doc-proc');
+      expect(processing.valueOrNull?.extractedText, isNull);
+      expect(processing.valueOrNull?.status, 'processing');
     });
 
     test('createDocument multipart file + optional title', () async {

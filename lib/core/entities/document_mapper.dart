@@ -9,6 +9,7 @@ Document documentFromDto(DocumentDto dto) {
     title: dto.title,
     storageKey: dto.storageKey,
     status: DocumentStatusApiX.fromApi(dto.status),
+    extractedText: dto.extractedText,
     createdAt: dto.createdAt,
     updatedAt: dto.updatedAt,
   );

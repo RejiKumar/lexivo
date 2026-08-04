@@ -17,6 +17,7 @@ abstract class Document with _$Document {
     String? title,
     String? storageKey,
     required DocumentStatus status,
+    String? extractedText,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Document;

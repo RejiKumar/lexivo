@@ -47,10 +47,24 @@ def test_document_create_list_status_schemas() -> None:
         title="Lease",
         storage_key="documents/u1/lease.pdf",
         status="processing",
+        extracted_text=None,
         created_at=None,
         updated_at=None,
     )
     assert doc.status == "processing"
+    assert doc.extracted_text is None
+
+    ready = DocumentResponse(
+        id="d2",
+        user_id="u1",
+        title="Ready",
+        storage_key="documents/u1/ready.pdf",
+        status="ready",
+        extracted_text="OCR body text",
+        created_at=None,
+        updated_at=None,
+    )
+    assert ready.model_dump()["extracted_text"] == "OCR body text"
 
     listing = DocumentListResponse(items=[doc])
     assert len(listing.items) == 1

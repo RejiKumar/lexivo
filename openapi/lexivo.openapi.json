@@ -209,6 +209,7 @@
             "type": "string",
             "enum": ["processing", "ready", "failed"]
           },
+          "extracted_text": { "type": "string", "nullable": true },
           "created_at": { "type": "string", "format": "date-time", "nullable": true },
           "updated_at": { "type": "string", "format": "date-time", "nullable": true }
         }

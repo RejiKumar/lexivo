@@ -1,0 +1,10 @@
+{
+  "id": "doc-empty",
+  "user_id": "db-user-1",
+  "title": "Empty OCR",
+  "storage_key": "uploads/doc-empty.pdf",
+  "status": "ready",
+  "extracted_text": null,
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

@@ -16,6 +16,7 @@ class DocumentResponse(BaseModel):
     title: str | None = None
     storage_key: str | None = None
     status: DocumentStatusLiteral
+    extracted_text: str | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
 

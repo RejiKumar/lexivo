@@ -6,6 +6,7 @@ Document sampleDocument({
   String id = 'doc-1',
   DocumentStatus status = DocumentStatus.ready,
   String? title = 'Sample',
+  String? extractedText,
 }) {
   return Document(
     id: id,
@@ -13,6 +14,7 @@ Document sampleDocument({
     title: title,
     storageKey: 'uploads/$id.pdf',
     status: status,
+    extractedText: extractedText,
     createdAt: DateTime.utc(2026, 1, 1),
     updatedAt: DateTime.utc(2026, 1, 1),
   );
