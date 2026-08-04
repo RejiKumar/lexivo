@@ -31,6 +31,11 @@ typedef DocumentScreenBuilders = ({
   Widget Function(BuildContext context) scan,
 });
 
+/// OCR feature screen builders — injected from `features/ocr` barrel.
+typedef OcrScreenBuilders = ({
+  Widget Function(BuildContext context, String documentId) result,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -47,9 +52,16 @@ final documentScreenBuildersProvider = Provider<DocumentScreenBuilders>((ref) {
   );
 });
 
+final ocrScreenBuildersProvider = Provider<OcrScreenBuilders>((ref) {
+  return (
+    result: (_, documentId) => _StubPage(title: 'OCR $documentId'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
+  final ocrBuilders = ref.watch(ocrScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -100,6 +112,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             path: 'scan',
             name: 'document-scan',
             builder: (context, state) => documentBuilders.scan(context),
+          ),
+          GoRoute(
+            path: ':documentId/ocr',
+            name: 'document-ocr',
+            builder: (context, state) {
+              final documentId = state.pathParameters['documentId']!;
+              return ocrBuilders.result(context, documentId);
+            },
           ),
         ],
       ),

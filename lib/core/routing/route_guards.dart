@@ -17,6 +17,10 @@ abstract final class RouteGuards {
   static const documents = '/documents';
   static const documentScan = '/documents/scan';
 
+  /// OCR result for [documentId].
+  static String documentOcr(String documentId) =>
+      '/documents/$documentId/ocr';
+
   static const authRoutes = {signIn, signUp};
 
   /// Unauthenticated users hitting protected routes → sign-in.

@@ -58,6 +58,8 @@ class DocumentLibraryScreen extends ConsumerWidget {
                               : 'Untitled',
                           status: toLexivoDocumentStatus(doc.status),
                           timestamp: formatDocumentTimestamp(doc.createdAt),
+                          onTap: () =>
+                              context.go(RouteGuards.documentOcr(doc.id)),
                         );
                       },
                     );
