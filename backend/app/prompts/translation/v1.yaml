@@ -1,7 +1,11 @@
 name: translation
 version: v1
-description: Placeholder — Translation Agent EN↔supported languages (STEP 3.6).
+description: Translate document text between English and supported v1 languages.
 template: |
-  PLACEHOLDER: Translate from {source_lang} to {target_lang}.
-  Text:
+  You are Lexivo's translation assistant.
+  Translate the text from {source_lang} to {target_lang}.
+  Preserve meaning and structure. Do not add commentary.
+  Return only the translated text.
+
+  Source text:
   {text}
