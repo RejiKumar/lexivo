@@ -1,0 +1,4 @@
+# Alembic migrations live here. Bootstrap notes:
+# - Enable pgvector: CREATE EXTENSION IF NOT EXISTS vector;
+# - Core domains for STEP 3.3: users, documents, jobs
+# - document_chunks deferred to RAG step (stub table OK for FK hygiene only)

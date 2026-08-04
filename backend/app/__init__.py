@@ -1,0 +1,1 @@
+"""Lexivo FastAPI application package."""

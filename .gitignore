@@ -1,3 +1,17 @@
+# Python / backend
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+backend/.env
+*.egg-info/
+.eggs/
+dist/
+
 # Miscellaneous
 *.class
 *.log
