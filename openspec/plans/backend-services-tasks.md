@@ -78,44 +78,44 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ## 3. Auth adapters (Supabase default + Clerk stub)
 
-- [ ] 3.1 Write failing unit tests for Supabase Auth adapter: valid token → `UserIdentity`; invalid/missing → raises/maps to unauthorized domain error (mock Supabase JWT/JWKS or client)
-- [ ] 3.2 Implement `adapters/auth/supabase_adapter.py` implementing `AuthProvider`
-- [ ] 3.3 Write failing unit tests for Clerk stub adapter: same Protocol surface; returns deterministic stub identity or clear “not configured” behavior for local tests
-- [ ] 3.4 Implement `adapters/auth/clerk_adapter.py` stub behind `AuthProvider` (no production Clerk requirement)
-- [ ] 3.5 Wire DI: default `AUTH_PROVIDER=supabase`; selector can switch to `clerk`
-- [ ] 3.6 Integration test: protected dependency using AuthProvider rejects bad bearer; accepts mocked valid token
-- [ ] 3.7 Review vs OpenSpec auth “Token verification via AuthProvider” (backend only — no Flutter auth module); fix; commit
+- [x] 3.1 Write failing unit tests for Supabase Auth adapter: valid token → `UserIdentity`; invalid/missing → raises/maps to unauthorized domain error (mock Supabase JWT/JWKS or client)
+- [x] 3.2 Implement `adapters/auth/supabase_adapter.py` implementing `AuthProvider`
+- [x] 3.3 Write failing unit tests for Clerk stub adapter: same Protocol surface; returns deterministic stub identity or clear “not configured” behavior for local tests
+- [x] 3.4 Implement `adapters/auth/clerk_adapter.py` stub behind `AuthProvider` (no production Clerk requirement)
+- [x] 3.5 Wire DI: default `AUTH_PROVIDER=supabase`; selector can switch to `clerk`
+- [x] 3.6 Integration test: protected dependency using AuthProvider rejects bad bearer; accepts mocked valid token
+- [x] 3.7 Review vs OpenSpec auth “Token verification via AuthProvider” (backend only — no Flutter auth module); fix; commit
 
 ---
 
 ## 4. Storage adapter (R2)
 
-- [ ] 4.1 Write failing unit tests for R2 adapter: `upload` returns object key/URL string; `signed_url` returns time-limited URL (mock boto3/S3-compatible client)
-- [ ] 4.2 Implement `adapters/storage/r2_adapter.py` implementing `StorageProvider`
-- [ ] 4.3 Bind DI default `STORAGE_PROVIDER=r2`
-- [ ] 4.4 Review vs architecture §3.3 StorageProvider + document upload boundary; fix; commit
+- [x] 4.1 Write failing unit tests for R2 adapter: `upload` returns object key/URL string; `signed_url` returns time-limited URL (mock boto3/S3-compatible client)
+- [x] 4.2 Implement `adapters/storage/r2_adapter.py` implementing `StorageProvider`
+- [x] 4.3 Bind DI default `STORAGE_PROVIDER=r2`
+- [x] 4.4 Review vs architecture §3.3 StorageProvider + document upload boundary; fix; commit
 
 ---
 
 ## 5. LLM adapters (Gemini default + OpenAI stub)
 
-- [ ] 5.1 Write failing unit tests for Gemini adapter: `complete(prompt, **kwargs)` returns string (mock Gemini SDK/HTTP)
-- [ ] 5.2 Implement `adapters/llm/gemini_adapter.py` implementing `LLMProvider`
-- [ ] 5.3 Write failing unit tests for OpenAI stub adapter: same Protocol; deterministic stub completion for tests
-- [ ] 5.4 Implement `adapters/llm/openai_adapter.py` stub behind `LLMProvider`
-- [ ] 5.5 Wire DI: default `LLM_PROVIDER=gemini`; selector can switch to `openai`
-- [ ] 5.6 Review vs OpenSpec default Gemini / swap OpenAI; confirm no route/service imports SDK; fix; commit
+- [x] 5.1 Write failing unit tests for Gemini adapter: `complete(prompt, **kwargs)` returns string (mock Gemini SDK/HTTP)
+- [x] 5.2 Implement `adapters/llm/gemini_adapter.py` implementing `LLMProvider`
+- [x] 5.3 Write failing unit tests for OpenAI stub adapter: same Protocol; deterministic stub completion for tests
+- [x] 5.4 Implement `adapters/llm/openai_adapter.py` stub behind `LLMProvider`
+- [x] 5.5 Wire DI: default `LLM_PROVIDER=gemini`; selector can switch to `openai`
+- [x] 5.6 Review vs OpenSpec default Gemini / swap OpenAI; confirm no route/service imports SDK; fix; commit
 
 ---
 
 ## 6. OCR adapters (Mistral default + Document AI stub)
 
-- [ ] 6.1 Write failing unit tests for Mistral OCR adapter: `extract_text(file: bytes)` → `OCRResult` (mock HTTP/SDK)
-- [ ] 6.2 Implement `adapters/ocr/mistral_ocr_adapter.py` implementing `OCRProvider`
-- [ ] 6.3 Write failing unit tests for Document AI stub: same Protocol surface; stub `OCRResult`
-- [ ] 6.4 Implement `adapters/ocr/doc_ai_adapter.py` stub behind `OCRProvider`
-- [ ] 6.5 Wire DI: default `OCR_PROVIDER=mistral`; selector can switch to `document_ai`
-- [ ] 6.6 Review vs OpenSpec OCR adapter defaults (backend Protocol only — no OCR agent); fix; commit
+- [x] 6.1 Write failing unit tests for Mistral OCR adapter: `extract_text(file: bytes)` → `OCRResult` (mock HTTP/SDK)
+- [x] 6.2 Implement `adapters/ocr/mistral_ocr_adapter.py` implementing `OCRProvider`
+- [x] 6.3 Write failing unit tests for Document AI stub: same Protocol surface; stub `OCRResult`
+- [x] 6.4 Implement `adapters/ocr/doc_ai_adapter.py` stub behind `OCRProvider`
+- [x] 6.5 Wire DI: default `OCR_PROVIDER=mistral`; selector can switch to `document_ai`
+- [x] 6.6 Review vs OpenSpec OCR adapter defaults (backend Protocol only — no OCR agent); fix; commit
 
 ---
 
@@ -216,8 +216,8 @@ Run after §§2–9 land; blockers must be fixed before declaring STEP 3.3 done.
 - [x] Scaffold matches architecture.md §3.1 (minus agents/rag deferred)
 - [ ] Compose stack: Postgres+pgvector, Redis, backend, Celery
   <!-- Compose files shipped; host smoke (1.9) still needed — Docker unavailable in agent session -->
-- [ ] All four Protocols + DI defaults (Supabase / R2 / Gemini / Mistral) and stubs (Clerk / OpenAI / Document AI)
-  <!-- Protocols + DI + temporary stubs done (§2); concrete SDK adapters remain §§3–6 -->
+- [x] All four Protocols + DI defaults (Supabase / R2 / Gemini / Mistral) and stubs (Clerk / OpenAI / Document AI)
+  <!-- Concrete adapters §§3–6 done; BaseService/repos/routers/Celery remain §§7–9 -->
 - [ ] BaseService + UserService + DocumentService + repositories
 - [ ] Thin routers: auth, users, documents; OpenAPI from Pydantic
 - [ ] Minimal Celery upload/OCR enqueue path

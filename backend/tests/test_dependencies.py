@@ -2,16 +2,19 @@
 
 import pytest
 
-from app.adapters.auth.stubs import ClerkAuthAdapter, SupabaseAuthAdapter
-from app.adapters.llm.stubs import GeminiLLMAdapter, OpenAILLMAdapter
-from app.adapters.ocr.stubs import DocAIAdapter, MistralOCRAdapter
+from app.adapters.auth.clerk_adapter import ClerkAuthAdapter
+from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter
+from app.adapters.llm.gemini_adapter import GeminiLLMAdapter
+from app.adapters.llm.openai_adapter import OpenAILLMAdapter
+from app.adapters.ocr.doc_ai_adapter import DocAIAdapter
+from app.adapters.ocr.mistral_ocr_adapter import MistralOCRAdapter
 from app.adapters.protocols import (
     AuthProvider,
     LLMProvider,
     OCRProvider,
     StorageProvider,
 )
-from app.adapters.storage.stubs import R2StorageAdapter
+from app.adapters.storage.r2_adapter import R2StorageAdapter
 from app.core.config import Settings, get_settings
 from app.core.dependencies import (
     get_auth_provider,
