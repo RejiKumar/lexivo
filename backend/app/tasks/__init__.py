@@ -10,6 +10,7 @@ OCR — keeps the OCR unit free of chunker/retriever logic).
 
 from app.tasks.document_processing import enqueue_document_processing, run_ocr
 from app.tasks.embeddings import enqueue_generate_embeddings, generate_embeddings
+from app.tasks.export import enqueue_export, run_export
 from app.tasks.summary import enqueue_summary, run_summary
 from app.tasks.translation import enqueue_translation, run_translation
 
@@ -22,4 +23,6 @@ __all__ = [
     "run_summary",
     "enqueue_translation",
     "run_translation",
+    "enqueue_export",
+    "run_export",
 ]

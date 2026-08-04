@@ -16,13 +16,16 @@ from app.rag.retriever import HybridRetriever
 from app.repositories.chat_repo import ChatMessageRepository, ChatRepository
 from app.repositories.chunk_repo import DocumentChunkRepository
 from app.repositories.document_repo import DocumentRepository
+from app.repositories.export_repo import ExportRepository
 from app.repositories.user_repo import UserRepository
 from app.services.chat_service import ChatService
 from app.services.document_service import DocumentService
+from app.services.export_service import ExportService
 from app.services.summary_service import SummaryService
 from app.services.translation_service import TranslationService
 from app.services.user_service import UserService
 from app.tasks.document_processing import enqueue_document_processing
+from app.tasks.export import enqueue_export
 from app.tasks.provider_overrides import (
     get_task_embedding_provider,
     get_task_llm_provider,
@@ -61,6 +64,18 @@ def get_translation_service(
     return TranslationService(
         DocumentRepository(db),
         enqueue_translation=enqueue_translation,
+    )
+
+
+def get_export_service(
+    db: Annotated[Session, Depends(get_db)],
+) -> ExportService:
+    return ExportService(
+        ExportRepository(db),
+        DocumentRepository(db),
+        ChatRepository(db),
+        ChatMessageRepository(db),
+        enqueue_export=enqueue_export,
     )
 
 

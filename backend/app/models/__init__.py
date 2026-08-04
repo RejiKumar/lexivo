@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Any
 
 from sqlalchemy import (
+    Boolean,
     DateTime,
     Enum,
     ForeignKey,
@@ -54,6 +55,13 @@ class JobStatus(str, enum.Enum):
 class ChatMessageRole(str, enum.Enum):
     user = "user"
     assistant = "assistant"
+
+
+class ExportStatus(str, enum.Enum):
+    idle = "idle"
+    processing = "processing"
+    ready = "ready"
+    failed = "failed"
 
 
 class EmbeddingVector(TypeDecorator):
@@ -118,6 +126,7 @@ class User(Base):
 
     documents: Mapped[list["Document"]] = relationship(back_populates="owner")
     chats: Mapped[list["Chat"]] = relationship(back_populates="owner")
+    exports: Mapped[list["Export"]] = relationship(back_populates="owner")
 
 
 class Document(Base):
@@ -163,6 +172,10 @@ class Document(Base):
         cascade="all, delete-orphan",
     )
     chats: Mapped[list["Chat"]] = relationship(
+        back_populates="document",
+        cascade="all, delete-orphan",
+    )
+    exports: Mapped[list["Export"]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
     )
@@ -272,3 +285,38 @@ class ChatMessage(Base):
     )
 
     chat: Mapped[Chat] = relationship(back_populates="messages")
+
+
+class Export(Base):
+    """PDF export job — section toggles + StorageProvider signed URL."""
+
+    __tablename__ = "exports"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    document_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("documents.id", ondelete="CASCADE"), index=True
+    )
+    include_summary: Mapped[bool] = mapped_column(Boolean, default=False)
+    include_translation: Mapped[bool] = mapped_column(Boolean, default=False)
+    include_chat: Mapped[bool] = mapped_column(Boolean, default=False)
+    status: Mapped[ExportStatus] = mapped_column(
+        Enum(ExportStatus, name="export_status"),
+        default=ExportStatus.idle,
+    )
+    storage_key: Mapped[str | None] = mapped_column(String(1024), nullable=True)
+    signed_url: Mapped[str | None] = mapped_column(String(2048), nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    owner: Mapped[User] = relationship(back_populates="exports")
+    document: Mapped[Document] = relationship(back_populates="exports")

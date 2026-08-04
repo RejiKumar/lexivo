@@ -179,3 +179,30 @@ def test_translation_task_enters_via_master_only() -> None:
         assert f"app.agents.{module_stem}" not in source
     for name in SPECIALIST_CLASS_NAMES:
         assert name not in source
+
+
+def test_export_task_enters_via_master_only() -> None:
+    """Thin export Celery hook may call run_master; must not import specialists."""
+    tasks_dir = Path(__file__).resolve().parents[1] / "app" / "tasks"
+    source = (tasks_dir / "export.py").read_text(encoding="utf-8")
+    assert "run_master" in source
+    assert "from app.agents.master_agent import run_master" in source
+    for module_stem in SPECIALIZED_AGENT_MODULES:
+        assert f"app.agents.{module_stem}" not in source
+    for name in SPECIALIST_CLASS_NAMES:
+        assert name not in source
+    service = (
+        Path(__file__).resolve().parents[1] / "app" / "services" / "export_service.py"
+    ).read_text(encoding="utf-8")
+    router = (
+        Path(__file__).resolve().parents[1]
+        / "app"
+        / "api"
+        / "v1"
+        / "routers"
+        / "exports.py"
+    ).read_text(encoding="utf-8")
+    for src in (service, router):
+        assert "ExportAgent" not in src
+        assert "export_agent" not in src
+        assert "app.agents.export_agent" not in src

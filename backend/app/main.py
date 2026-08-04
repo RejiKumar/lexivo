@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 
-from app.api.v1.routers import auth, chats, documents, health, users
+from app.api.v1.routers import auth, chats, documents, exports, health, users
 
 
 def create_app() -> FastAPI:
@@ -12,6 +12,7 @@ def create_app() -> FastAPI:
     app.include_router(users.router, prefix="/api/v1")
     app.include_router(documents.router, prefix="/api/v1")
     app.include_router(chats.router, prefix="/api/v1")
+    app.include_router(exports.router, prefix="/api/v1")
     return app
 
 

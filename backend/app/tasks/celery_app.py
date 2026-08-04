@@ -14,6 +14,7 @@ celery_app = Celery(
         "app.tasks.embeddings",
         "app.tasks.summary",
         "app.tasks.translation",
+        "app.tasks.export",
     ],
 )
 
@@ -29,3 +30,4 @@ import app.tasks.document_processing  # noqa: E402, F401
 import app.tasks.embeddings  # noqa: E402, F401
 import app.tasks.summary  # noqa: E402, F401
 import app.tasks.translation  # noqa: E402, F401
+import app.tasks.export  # noqa: E402, F401
