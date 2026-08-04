@@ -123,9 +123,9 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 7.A ORM models + repositories
 
-- [ ] 7.1 Write failing model/repo unit tests for `User` and `Document` (+ minimal `Job` for status) CRUD via repositories
-- [ ] 7.2 Implement SQLAlchemy models in `app/models/` and repositories in `app/repositories/` (SQL only; no business rules)
-- [ ] 7.3 Review layering: repos never import adapters or routers; fix; commit
+- [x] 7.1 Write failing model/repo unit tests for `User` and `Document` (+ minimal `Job` for status) CRUD via repositories
+- [x] 7.2 Implement SQLAlchemy models in `app/models/` and repositories in `app/repositories/` (SQL only; no business rules)
+- [x] 7.3 Review layering: repos never import adapters or routers; fix; commit
 
 ### 7.B BaseService
 
