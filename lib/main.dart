@@ -8,6 +8,7 @@ import 'package:lexivo/core/design_system/showcase/design_system_showcase.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/auth/auth.dart';
+import 'package:lexivo/features/document_scan/document_scan.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +33,7 @@ Future<void> main() async {
     ProviderScope(
       overrides: [
         ...authCoreOverrides(),
+        ...documentScanCoreOverrides(),
         showcaseEnabledProvider.overrideWith(
           (ref) => AppRouter.showcaseEnabled,
         ),

@@ -14,6 +14,8 @@ abstract final class RouteGuards {
   static const signUp = '/sign-up';
   static const account = '/account';
   static const home = '/';
+  static const documents = '/documents';
+  static const documentScan = '/documents/scan';
 
   static const authRoutes = {signIn, signUp};
 

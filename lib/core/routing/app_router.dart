@@ -25,6 +25,12 @@ typedef AuthScreenBuilders = ({
   Widget Function(BuildContext context) home,
 });
 
+/// Document feature screen builders — injected from `features/document_scan` barrel.
+typedef DocumentScreenBuilders = ({
+  Widget Function(BuildContext context) library,
+  Widget Function(BuildContext context) scan,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -34,8 +40,16 @@ final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   );
 });
 
+final documentScreenBuildersProvider = Provider<DocumentScreenBuilders>((ref) {
+  return (
+    library: (_) => const _StubPage(title: 'Documents'),
+    scan: (_) => const _StubPage(title: 'Scan'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
+  final documentBuilders = ref.watch(documentScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -77,6 +91,18 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         name: 'account',
         builder: (context, state) => builders.account(context),
       ),
+      GoRoute(
+        path: RouteGuards.documents,
+        name: 'documents',
+        builder: (context, state) => documentBuilders.library(context),
+        routes: [
+          GoRoute(
+            path: 'scan',
+            name: 'document-scan',
+            builder: (context, state) => documentBuilders.scan(context),
+          ),
+        ],
+      ),
       if (showcaseEnabled)
         GoRoute(
           path: DesignSystemShowcase.routeName,
@@ -95,6 +121,8 @@ abstract final class AppRouter {
   static const String signIn = RouteGuards.signIn;
   static const String signUp = RouteGuards.signUp;
   static const String account = RouteGuards.account;
+  static const String documents = RouteGuards.documents;
+  static const String documentScan = RouteGuards.documentScan;
   static const String designSystemShowcase = DesignSystemShowcase.routeName;
 
   static Widget? pageForRoute(String routeName) {
