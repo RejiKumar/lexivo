@@ -221,3 +221,30 @@ abstract class ExportStatusDto with _$ExportStatusDto {
   factory ExportStatusDto.fromJson(Map<String, dynamic> json) =>
       _$ExportStatusDtoFromJson(json);
 }
+
+@freezed
+abstract class NotificationDto with _$NotificationDto {
+  const factory NotificationDto({
+    required String id,
+    required String type,
+    required String title,
+    required String body,
+    @Default(<String, dynamic>{}) Map<String, dynamic> payload,
+    @JsonKey(name: 'read_at') DateTime? readAt,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+  }) = _NotificationDto;
+
+  factory NotificationDto.fromJson(Map<String, dynamic> json) =>
+      _$NotificationDtoFromJson(json);
+}
+
+@freezed
+abstract class NotificationListDto with _$NotificationListDto {
+  const factory NotificationListDto({
+    @Default(<NotificationDto>[]) List<NotificationDto> items,
+    @Default(0) int total,
+  }) = _NotificationListDto;
+
+  factory NotificationListDto.fromJson(Map<String, dynamic> json) =>
+      _$NotificationListDtoFromJson(json);
+}

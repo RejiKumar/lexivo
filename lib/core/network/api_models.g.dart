@@ -292,3 +292,44 @@ Map<String, dynamic> _$ExportStatusDtoToJson(_ExportStatusDto instance) =>
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
+
+_NotificationDto _$NotificationDtoFromJson(Map<String, dynamic> json) =>
+    _NotificationDto(
+      id: json['id'] as String,
+      type: json['type'] as String,
+      title: json['title'] as String,
+      body: json['body'] as String,
+      payload:
+          json['payload'] as Map<String, dynamic>? ?? const <String, dynamic>{},
+      readAt: json['read_at'] == null
+          ? null
+          : DateTime.parse(json['read_at'] as String),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+    );
+
+Map<String, dynamic> _$NotificationDtoToJson(_NotificationDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'type': instance.type,
+      'title': instance.title,
+      'body': instance.body,
+      'payload': instance.payload,
+      'read_at': instance.readAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
+    };
+
+_NotificationListDto _$NotificationListDtoFromJson(Map<String, dynamic> json) =>
+    _NotificationListDto(
+      items:
+          (json['items'] as List<dynamic>?)
+              ?.map((e) => NotificationDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const <NotificationDto>[],
+      total: (json['total'] as num?)?.toInt() ?? 0,
+    );
+
+Map<String, dynamic> _$NotificationListDtoToJson(
+  _NotificationListDto instance,
+) => <String, dynamic>{'items': instance.items, 'total': instance.total};

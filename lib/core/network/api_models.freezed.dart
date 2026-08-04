@@ -4399,4 +4399,563 @@ as DateTime?,
 
 }
 
+
+/// @nodoc
+mixin _$NotificationDto {
+
+ String get id; String get type; String get title; String get body; Map<String, dynamic> get payload;@JsonKey(name: 'read_at') DateTime? get readAt;@JsonKey(name: 'created_at') DateTime? get createdAt;
+/// Create a copy of NotificationDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationDtoCopyWith<NotificationDto> get copyWith => _$NotificationDtoCopyWithImpl<NotificationDto>(this as NotificationDto, _$identity);
+
+  /// Serializes this NotificationDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationDto&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other.payload, payload)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,title,body,const DeepCollectionEquality().hash(payload),readAt,createdAt);
+
+@override
+String toString() {
+  return 'NotificationDto(id: $id, type: $type, title: $title, body: $body, payload: $payload, readAt: $readAt, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NotificationDtoCopyWith<$Res>  {
+  factory $NotificationDtoCopyWith(NotificationDto value, $Res Function(NotificationDto) _then) = _$NotificationDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id, String type, String title, String body, Map<String, dynamic> payload,@JsonKey(name: 'read_at') DateTime? readAt,@JsonKey(name: 'created_at') DateTime? createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$NotificationDtoCopyWithImpl<$Res>
+    implements $NotificationDtoCopyWith<$Res> {
+  _$NotificationDtoCopyWithImpl(this._self, this._then);
+
+  final NotificationDto _self;
+  final $Res Function(NotificationDto) _then;
+
+/// Create a copy of NotificationDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? type = null,Object? title = null,Object? body = null,Object? payload = null,Object? readAt = freezed,Object? createdAt = freezed,}) {
+  return _then(NotificationDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
+as String,payload: null == payload ? _self.payload : payload // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,readAt: freezed == readAt ? _self.readAt : readAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NotificationDto].
+extension NotificationDtoPatterns on NotificationDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String type,  String title,  String body,  Map<String, dynamic> payload, @JsonKey(name: 'read_at')  DateTime? readAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationDto() when $default != null:
+return $default(_that.id,_that.type,_that.title,_that.body,_that.payload,_that.readAt,_that.createdAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String type,  String title,  String body,  Map<String, dynamic> payload, @JsonKey(name: 'read_at')  DateTime? readAt, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationDto():
+return $default(_that.id,_that.type,_that.title,_that.body,_that.payload,_that.readAt,_that.createdAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String type,  String title,  String body,  Map<String, dynamic> payload, @JsonKey(name: 'read_at')  DateTime? readAt, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationDto() when $default != null:
+return $default(_that.id,_that.type,_that.title,_that.body,_that.payload,_that.readAt,_that.createdAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NotificationDto implements NotificationDto {
+  const _NotificationDto({required this.id, required this.type, required this.title, required this.body,  Map<String, dynamic> payload = const <String, dynamic>{}, @JsonKey(name: 'read_at') this.readAt, @JsonKey(name: 'created_at') this.createdAt}): _payload = payload;
+  factory _NotificationDto.fromJson(Map<String, dynamic> json) => _$NotificationDtoFromJson(json);
+
+@override final  String id;
+@override final  String type;
+@override final  String title;
+@override final  String body;
+ final  Map<String, dynamic> _payload;
+@override@JsonKey() Map<String, dynamic> get payload {
+  if (_payload is EqualUnmodifiableMapView) return _payload;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_payload);
+}
+
+@override@JsonKey(name: 'read_at') final  DateTime? readAt;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+
+/// Create a copy of NotificationDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationDtoCopyWith<_NotificationDto> get copyWith => __$NotificationDtoCopyWithImpl<_NotificationDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationDto&&(identical(other.id, id) || other.id == id)&&(identical(other.type, type) || other.type == type)&&(identical(other.title, title) || other.title == title)&&(identical(other.body, body) || other.body == body)&&const DeepCollectionEquality().equals(other._payload, _payload)&&(identical(other.readAt, readAt) || other.readAt == readAt)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,type,title,body,const DeepCollectionEquality().hash(_payload),readAt,createdAt);
+
+@override
+String toString() {
+  return 'NotificationDto(id: $id, type: $type, title: $title, body: $body, payload: $payload, readAt: $readAt, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationDtoCopyWith<$Res> implements $NotificationDtoCopyWith<$Res> {
+  factory _$NotificationDtoCopyWith(_NotificationDto value, $Res Function(_NotificationDto) _then) = __$NotificationDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id, String type, String title, String body, Map<String, dynamic> payload,@JsonKey(name: 'read_at') DateTime? readAt,@JsonKey(name: 'created_at') DateTime? createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$NotificationDtoCopyWithImpl<$Res>
+    implements _$NotificationDtoCopyWith<$Res> {
+  __$NotificationDtoCopyWithImpl(this._self, this._then);
+
+  final _NotificationDto _self;
+  final $Res Function(_NotificationDto) _then;
+
+/// Create a copy of NotificationDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? type = null,Object? title = null,Object? body = null,Object? payload = null,Object? readAt = freezed,Object? createdAt = freezed,}) {
+  return _then(_NotificationDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
+as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String,body: null == body ? _self.body : body // ignore: cast_nullable_to_non_nullable
+as String,payload: null == payload ? _self._payload : payload // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,readAt: freezed == readAt ? _self.readAt : readAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$NotificationListDto {
+
+ List<NotificationDto> get items; int get total;
+/// Create a copy of NotificationListDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$NotificationListDtoCopyWith<NotificationListDto> get copyWith => _$NotificationListDtoCopyWithImpl<NotificationListDto>(this as NotificationListDto, _$identity);
+
+  /// Serializes this NotificationListDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotificationListDto&&const DeepCollectionEquality().equals(other.items, items)&&(identical(other.total, total) || other.total == total));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(items),total);
+
+@override
+String toString() {
+  return 'NotificationListDto(items: $items, total: $total)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $NotificationListDtoCopyWith<$Res>  {
+  factory $NotificationListDtoCopyWith(NotificationListDto value, $Res Function(NotificationListDto) _then) = _$NotificationListDtoCopyWithImpl;
+@useResult
+$Res call({
+ List<NotificationDto> items, int total
+});
+
+
+
+
+}
+/// @nodoc
+class _$NotificationListDtoCopyWithImpl<$Res>
+    implements $NotificationListDtoCopyWith<$Res> {
+  _$NotificationListDtoCopyWithImpl(this._self, this._then);
+
+  final NotificationListDto _self;
+  final $Res Function(NotificationListDto) _then;
+
+/// Create a copy of NotificationListDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? items = null,Object? total = null,}) {
+  return _then(NotificationListDto(
+items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<NotificationDto>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [NotificationListDto].
+extension NotificationListDtoPatterns on NotificationListDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _NotificationListDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _NotificationListDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _NotificationListDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationListDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _NotificationListDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _NotificationListDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<NotificationDto> items,  int total)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _NotificationListDto() when $default != null:
+return $default(_that.items,_that.total);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<NotificationDto> items,  int total)  $default,) {final _that = this;
+switch (_that) {
+case _NotificationListDto():
+return $default(_that.items,_that.total);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<NotificationDto> items,  int total)?  $default,) {final _that = this;
+switch (_that) {
+case _NotificationListDto() when $default != null:
+return $default(_that.items,_that.total);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _NotificationListDto implements NotificationListDto {
+  const _NotificationListDto({ List<NotificationDto> items = const <NotificationDto>[], this.total = 0}): _items = items;
+  factory _NotificationListDto.fromJson(Map<String, dynamic> json) => _$NotificationListDtoFromJson(json);
+
+ final  List<NotificationDto> _items;
+@override@JsonKey() List<NotificationDto> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+@override@JsonKey() final  int total;
+
+/// Create a copy of NotificationListDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$NotificationListDtoCopyWith<_NotificationListDto> get copyWith => __$NotificationListDtoCopyWithImpl<_NotificationListDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$NotificationListDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NotificationListDto&&const DeepCollectionEquality().equals(other._items, _items)&&(identical(other.total, total) || other.total == total));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items),total);
+
+@override
+String toString() {
+  return 'NotificationListDto(items: $items, total: $total)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$NotificationListDtoCopyWith<$Res> implements $NotificationListDtoCopyWith<$Res> {
+  factory _$NotificationListDtoCopyWith(_NotificationListDto value, $Res Function(_NotificationListDto) _then) = __$NotificationListDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ List<NotificationDto> items, int total
+});
+
+
+
+
+}
+/// @nodoc
+class __$NotificationListDtoCopyWithImpl<$Res>
+    implements _$NotificationListDtoCopyWith<$Res> {
+  __$NotificationListDtoCopyWithImpl(this._self, this._then);
+
+  final _NotificationListDto _self;
+  final $Res Function(_NotificationListDto) _then;
+
+/// Create a copy of NotificationListDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? items = null,Object? total = null,}) {
+  return _then(_NotificationListDto(
+items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<NotificationDto>,total: null == total ? _self.total : total // ignore: cast_nullable_to_non_nullable
+as int,
+  ));
+}
+
+
+}
+
 // dart format on

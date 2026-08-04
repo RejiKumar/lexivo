@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "id": "notif-1",
+      "type": "processing_complete",
+      "title": "OCR complete",
+      "body": "Your document text is ready.",
+      "payload": {
+        "event_type": "processing_complete",
+        "job_type": "ocr",
+        "document_id": "doc-1",
+        "job_id": "job-ocr-1",
+        "title": "OCR complete",
+        "body": "Your document text is ready."
+      },
+      "read_at": null,
+      "created_at": "2026-08-04T10:00:00Z"
+    },
+    {
+      "id": "notif-2",
+      "type": "processing_complete",
+      "title": "Translation ready",
+      "body": "Your translation is ready.",
+      "payload": {
+        "event_type": "processing_complete",
+        "job_type": "translation",
+        "document_id": "doc-1",
+        "job_id": "job-tr-1"
+      },
+      "read_at": "2026-08-04T11:00:00Z",
+      "created_at": "2026-08-04T09:00:00Z"
+    },
+    {
+      "id": "notif-3",
+      "type": "processing_complete",
+      "title": "PDF export ready",
+      "body": "Your PDF export is ready to download.",
+      "payload": {
+        "event_type": "processing_complete",
+        "job_type": "export",
+        "document_id": "doc-2",
+        "job_id": "job-ex-1"
+      },
+      "read_at": null,
+      "created_at": "2026-08-04T12:00:00Z"
+    }
+  ],
+  "total": 3
+}

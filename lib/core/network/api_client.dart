@@ -135,6 +135,23 @@ class ApiClient {
         (json) => ExportStatusDto.fromJson(json),
       );
 
+  /// In-app notification inbox (newest-first). Optional unread filter.
+  Future<Result<NotificationListDto>> listNotifications({
+    bool unreadOnly = false,
+  }) =>
+      _get(
+        unreadOnly
+            ? '$_prefix/notifications?unread_only=true'
+            : '$_prefix/notifications',
+        (json) => NotificationListDto.fromJson(json),
+      );
+
+  /// Mark a notification as read (idempotent). 404 → mapped failure.
+  Future<Result<NotificationDto>> markNotificationRead(String id) => _post(
+        '$_prefix/notifications/$id/read',
+        (json) => NotificationDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
