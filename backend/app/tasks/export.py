@@ -10,6 +10,8 @@ import asyncio
 import concurrent.futures
 from typing import Any
 
+from app.adapters.notifications import SqlNotificationStore
+from app.adapters.push import StubPushProvider
 from app.agents.base_agent import AgentContext
 from app.agents.master_agent import run_master
 from app.core.db import SessionLocal, get_engine
@@ -19,6 +21,7 @@ from app.repositories.document_repo import DocumentRepository
 from app.repositories.export_repo import ExportRepository
 from app.repositories.job_repo import JobRepository
 from app.services.export_service import assemble_summary_text, format_chat_annotations
+from app.services.notification_service import emit_job_complete_notification
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_storage_provider
 
@@ -164,6 +167,15 @@ async def _run_export_async(
             storage_key=storage_key,
             signed_url=signed_url,
             error_message="",
+        )
+
+        await emit_job_complete_notification(
+            user_id=export.user_id,
+            job_type=EXPORT_JOB_TYPE,
+            document_id=document_id,
+            job_id=job_id,
+            notification_store=SqlNotificationStore(session),
+            push=StubPushProvider(),
         )
 
         return {

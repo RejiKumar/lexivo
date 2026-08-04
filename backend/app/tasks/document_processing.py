@@ -13,13 +13,16 @@ from typing import Any
 
 import httpx
 
+from app.adapters.notifications import SqlNotificationStore
 from app.adapters.protocols import StorageProvider
+from app.adapters.push import StubPushProvider
 from app.agents.base_agent import AgentContext
 from app.agents.master_agent import run_master
 from app.core.db import SessionLocal, get_engine
 from app.models import DocumentStatus, JobStatus
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
+from app.services.notification_service import emit_job_complete_notification
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_ocr_provider, get_task_storage_provider
 
@@ -150,6 +153,15 @@ async def _run_ocr_async(
             document_id,
             status=DocumentStatus.ready,
             extracted_text=text,
+        )
+
+        await emit_job_complete_notification(
+            user_id=document.user_id,
+            job_type=OCR_JOB_TYPE,
+            document_id=document_id,
+            job_id=job_id,
+            notification_store=SqlNotificationStore(session),
+            push=StubPushProvider(),
         )
 
         return {

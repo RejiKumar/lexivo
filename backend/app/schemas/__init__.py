@@ -17,6 +17,7 @@ from app.schemas.documents import (
     TranslationStatusResponse,
 )
 from app.schemas.exports import ExportRequest, ExportResponse
+from app.schemas.notifications import NotificationListResponse, NotificationResponse
 from app.schemas.users import UserProfileResponse, UserProfileUpdateRequest
 
 __all__ = [
@@ -31,6 +32,8 @@ __all__ = [
     "DocumentStatusResponse",
     "ExportRequest",
     "ExportResponse",
+    "NotificationListResponse",
+    "NotificationResponse",
     "SummaryStatusResponse",
     "TranslationRequest",
     "TranslationStatusResponse",

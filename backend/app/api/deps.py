@@ -5,6 +5,7 @@ from typing import Annotated
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
+from app.adapters.notifications import SqlNotificationStore
 from app.adapters.protocols import StorageProvider
 from app.core.db import get_db
 from app.core.dependencies import get_storage_provider
@@ -21,6 +22,7 @@ from app.repositories.user_repo import UserRepository
 from app.services.chat_service import ChatService
 from app.services.document_service import DocumentService
 from app.services.export_service import ExportService
+from app.services.notification_service import NotificationService
 from app.services.summary_service import SummaryService
 from app.services.translation_service import TranslationService
 from app.services.user_service import UserService
@@ -77,6 +79,12 @@ def get_export_service(
         ChatMessageRepository(db),
         enqueue_export=enqueue_export,
     )
+
+
+def get_notification_service(
+    db: Annotated[Session, Depends(get_db)],
+) -> NotificationService:
+    return NotificationService(SqlNotificationStore(db))
 
 
 def get_chat_service(

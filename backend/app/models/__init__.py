@@ -127,6 +127,9 @@ class User(Base):
     documents: Mapped[list["Document"]] = relationship(back_populates="owner")
     chats: Mapped[list["Chat"]] = relationship(back_populates="owner")
     exports: Mapped[list["Export"]] = relationship(back_populates="owner")
+    notifications: Mapped[list["Notification"]] = relationship(
+        back_populates="owner"
+    )
 
 
 class Document(Base):
@@ -320,3 +323,28 @@ class Export(Base):
 
     owner: Mapped[User] = relationship(back_populates="exports")
     document: Mapped[Document] = relationship(back_populates="exports")
+
+
+class Notification(Base):
+    """In-app notification row — no email delivery in v1."""
+
+    __tablename__ = "notifications"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    type: Mapped[str] = mapped_column(String(64), nullable=False)
+    title: Mapped[str] = mapped_column(String(512), nullable=False, default="")
+    body: Mapped[str] = mapped_column(Text, nullable=False, default="")
+    payload: Mapped[dict[str, Any] | None] = mapped_column(JSON, nullable=True)
+    read_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    owner: Mapped[User] = relationship(back_populates="notifications")

@@ -51,6 +51,19 @@ class NotificationStore(Protocol):
         payload: dict[str, Any],
     ) -> dict[str, Any]: ...
 
+    async def list_for_user(
+        self,
+        user_id: str,
+        *,
+        unread_only: bool = False,
+    ) -> list[dict[str, Any]]: ...
+
+    async def mark_read(
+        self,
+        user_id: str,
+        notification_id: str,
+    ) -> dict[str, Any] | None: ...
+
 
 @runtime_checkable
 class AnalyticsProvider(Protocol):

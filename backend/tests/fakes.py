@@ -151,14 +151,50 @@ class FakeNotificationStore:
         type: str,
         payload: dict,
     ) -> dict:
+        from datetime import UTC, datetime
+
+        payload_copy = dict(payload)
         record = {
             "id": f"notif-{len(self.records) + 1}",
             "user_id": user_id,
             "type": type,
-            "payload": dict(payload),
+            "title": str(payload_copy.get("title") or "Lexivo"),
+            "body": str(payload_copy.get("body") or ""),
+            "payload": payload_copy,
+            "read_at": None,
+            "created_at": datetime.now(UTC),
         }
         self.records.append(record)
         return record
+
+    async def list_for_user(
+        self,
+        user_id: str,
+        *,
+        unread_only: bool = False,
+    ) -> list[dict]:
+        rows = [r for r in self.records if r["user_id"] == user_id]
+        if unread_only:
+            rows = [r for r in rows if r.get("read_at") is None]
+        return sorted(
+            rows,
+            key=lambda r: (r.get("created_at") is not None, r.get("created_at"), r["id"]),
+            reverse=True,
+        )
+
+    async def mark_read(
+        self,
+        user_id: str,
+        notification_id: str,
+    ) -> dict | None:
+        from datetime import UTC, datetime
+
+        for record in self.records:
+            if record["id"] == notification_id and record["user_id"] == user_id:
+                if record.get("read_at") is None:
+                    record["read_at"] = datetime.now(UTC)
+                return dict(record)
+        return None
 
 
 class FakeAnalyticsProvider:
