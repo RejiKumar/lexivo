@@ -143,10 +143,10 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 10. LexivoDialog (§3.5)
 
-- [ ] 10.1 Write failing widget tests for variants `confirmation` (title, body, 2 actions), `alert` (single action), `custom` (content slot)
-- [ ] 10.2 Implement `LexivoDialog` in `components/dialog.dart` (actions via `LexivoButton`)
-- [ ] 10.3 Golden tests for confirmation, alert, custom
-- [ ] 10.4 Review vs §3.5; fix; commit
+- [x] 10.1 Write failing widget tests for variants `confirmation` (title, body, 2 actions), `alert` (single action), `custom` (content slot)
+- [x] 10.2 Implement `LexivoDialog` in `components/dialog.dart` (actions via `LexivoButton`)
+- [x] 10.3 Golden tests for confirmation, alert, custom
+- [x] 10.4 Review vs §3.5; fix; commit
 
 ---
 
