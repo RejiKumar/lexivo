@@ -1,0 +1,11 @@
+{
+  "id": "exp-1",
+  "document_id": "doc-1",
+  "include_summary": true,
+  "include_translation": true,
+  "include_chat": true,
+  "export_status": "ready",
+  "storage_key": "exports/doc-1/exp-1.pdf",
+  "signed_url": "https://signed.test/exports/doc-1/exp-1.pdf",
+  "error_message": null
+}

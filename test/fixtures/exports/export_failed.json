@@ -1,0 +1,11 @@
+{
+  "id": "exp-1",
+  "document_id": "doc-1",
+  "include_summary": true,
+  "include_translation": false,
+  "include_chat": false,
+  "export_status": "failed",
+  "storage_key": null,
+  "signed_url": null,
+  "error_message": "PDF generation failed"
+}

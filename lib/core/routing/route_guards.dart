@@ -33,6 +33,10 @@ abstract final class RouteGuards {
   static String documentChat(String documentId) =>
       '/documents/$documentId/chat';
 
+  /// PDF export for [documentId].
+  static String documentExport(String documentId) =>
+      '/documents/$documentId/export';
+
   static const authRoutes = {signIn, signUp};
 
   /// Unauthenticated users hitting protected routes → sign-in.

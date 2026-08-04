@@ -51,6 +51,11 @@ typedef RagChatScreenBuilders = ({
   Widget Function(BuildContext context, String documentId) result,
 });
 
+/// PDF export feature screen builders — injected from `features/pdf_export` barrel.
+typedef PdfExportScreenBuilders = ({
+  Widget Function(BuildContext context, String documentId) result,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -92,6 +97,12 @@ final ragChatScreenBuildersProvider = Provider<RagChatScreenBuilders>((ref) {
   );
 });
 
+final pdfExportScreenBuildersProvider = Provider<PdfExportScreenBuilders>((ref) {
+  return (
+    result: (_, documentId) => _StubPage(title: 'Export $documentId'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
@@ -99,6 +110,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final summaryBuilders = ref.watch(summaryScreenBuildersProvider);
   final translationBuilders = ref.watch(translationScreenBuildersProvider);
   final ragChatBuilders = ref.watch(ragChatScreenBuildersProvider);
+  final pdfExportBuilders = ref.watch(pdfExportScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -180,6 +192,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) {
               final documentId = state.pathParameters['documentId']!;
               return ragChatBuilders.result(context, documentId);
+            },
+          ),
+          GoRoute(
+            path: ':documentId/export',
+            name: 'document-export',
+            builder: (context, state) {
+              final documentId = state.pathParameters['documentId']!;
+              return pdfExportBuilders.result(context, documentId);
             },
           ),
         ],

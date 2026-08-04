@@ -185,3 +185,39 @@ abstract class ChatMessageCreateDto with _$ChatMessageCreateDto {
   factory ChatMessageCreateDto.fromJson(Map<String, dynamic> json) =>
       _$ChatMessageCreateDtoFromJson(json);
 }
+
+@freezed
+abstract class ExportRequestDto with _$ExportRequestDto {
+  const factory ExportRequestDto({
+    @JsonKey(name: 'include_summary') @Default(false) bool includeSummary,
+    @JsonKey(name: 'include_translation')
+    @Default(false)
+    bool includeTranslation,
+    @JsonKey(name: 'include_chat') @Default(false) bool includeChat,
+  }) = _ExportRequestDto;
+
+  factory ExportRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$ExportRequestDtoFromJson(json);
+}
+
+@freezed
+abstract class ExportStatusDto with _$ExportStatusDto {
+  const factory ExportStatusDto({
+    required String id,
+    @JsonKey(name: 'document_id') required String documentId,
+    @JsonKey(name: 'include_summary') @Default(false) bool includeSummary,
+    @JsonKey(name: 'include_translation')
+    @Default(false)
+    bool includeTranslation,
+    @JsonKey(name: 'include_chat') @Default(false) bool includeChat,
+    @JsonKey(name: 'export_status') required String exportStatus,
+    @JsonKey(name: 'storage_key') String? storageKey,
+    @JsonKey(name: 'signed_url') String? signedUrl,
+    @JsonKey(name: 'error_message') String? errorMessage,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+  }) = _ExportStatusDto;
+
+  factory ExportStatusDto.fromJson(Map<String, dynamic> json) =>
+      _$ExportStatusDtoFromJson(json);
+}

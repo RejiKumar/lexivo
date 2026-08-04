@@ -3837,4 +3837,566 @@ as String,
 
 }
 
+
+/// @nodoc
+mixin _$ExportRequestDto {
+
+@JsonKey(name: 'include_summary') bool get includeSummary;@JsonKey(name: 'include_translation') bool get includeTranslation;@JsonKey(name: 'include_chat') bool get includeChat;
+/// Create a copy of ExportRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExportRequestDtoCopyWith<ExportRequestDto> get copyWith => _$ExportRequestDtoCopyWithImpl<ExportRequestDto>(this as ExportRequestDto, _$identity);
+
+  /// Serializes this ExportRequestDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportRequestDto&&(identical(other.includeSummary, includeSummary) || other.includeSummary == includeSummary)&&(identical(other.includeTranslation, includeTranslation) || other.includeTranslation == includeTranslation)&&(identical(other.includeChat, includeChat) || other.includeChat == includeChat));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,includeSummary,includeTranslation,includeChat);
+
+@override
+String toString() {
+  return 'ExportRequestDto(includeSummary: $includeSummary, includeTranslation: $includeTranslation, includeChat: $includeChat)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExportRequestDtoCopyWith<$Res>  {
+  factory $ExportRequestDtoCopyWith(ExportRequestDto value, $Res Function(ExportRequestDto) _then) = _$ExportRequestDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'include_summary') bool includeSummary,@JsonKey(name: 'include_translation') bool includeTranslation,@JsonKey(name: 'include_chat') bool includeChat
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExportRequestDtoCopyWithImpl<$Res>
+    implements $ExportRequestDtoCopyWith<$Res> {
+  _$ExportRequestDtoCopyWithImpl(this._self, this._then);
+
+  final ExportRequestDto _self;
+  final $Res Function(ExportRequestDto) _then;
+
+/// Create a copy of ExportRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? includeSummary = null,Object? includeTranslation = null,Object? includeChat = null,}) {
+  return _then(ExportRequestDto(
+includeSummary: null == includeSummary ? _self.includeSummary : includeSummary // ignore: cast_nullable_to_non_nullable
+as bool,includeTranslation: null == includeTranslation ? _self.includeTranslation : includeTranslation // ignore: cast_nullable_to_non_nullable
+as bool,includeChat: null == includeChat ? _self.includeChat : includeChat // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ExportRequestDto].
+extension ExportRequestDtoPatterns on ExportRequestDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExportRequestDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExportRequestDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExportRequestDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExportRequestDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExportRequestDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExportRequestDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExportRequestDto() when $default != null:
+return $default(_that.includeSummary,_that.includeTranslation,_that.includeChat);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat)  $default,) {final _that = this;
+switch (_that) {
+case _ExportRequestDto():
+return $default(_that.includeSummary,_that.includeTranslation,_that.includeChat);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat)?  $default,) {final _that = this;
+switch (_that) {
+case _ExportRequestDto() when $default != null:
+return $default(_that.includeSummary,_that.includeTranslation,_that.includeChat);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExportRequestDto implements ExportRequestDto {
+  const _ExportRequestDto({@JsonKey(name: 'include_summary') this.includeSummary = false, @JsonKey(name: 'include_translation') this.includeTranslation = false, @JsonKey(name: 'include_chat') this.includeChat = false});
+  factory _ExportRequestDto.fromJson(Map<String, dynamic> json) => _$ExportRequestDtoFromJson(json);
+
+@override@JsonKey(name: 'include_summary') final  bool includeSummary;
+@override@JsonKey(name: 'include_translation') final  bool includeTranslation;
+@override@JsonKey(name: 'include_chat') final  bool includeChat;
+
+/// Create a copy of ExportRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExportRequestDtoCopyWith<_ExportRequestDto> get copyWith => __$ExportRequestDtoCopyWithImpl<_ExportRequestDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExportRequestDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportRequestDto&&(identical(other.includeSummary, includeSummary) || other.includeSummary == includeSummary)&&(identical(other.includeTranslation, includeTranslation) || other.includeTranslation == includeTranslation)&&(identical(other.includeChat, includeChat) || other.includeChat == includeChat));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,includeSummary,includeTranslation,includeChat);
+
+@override
+String toString() {
+  return 'ExportRequestDto(includeSummary: $includeSummary, includeTranslation: $includeTranslation, includeChat: $includeChat)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExportRequestDtoCopyWith<$Res> implements $ExportRequestDtoCopyWith<$Res> {
+  factory _$ExportRequestDtoCopyWith(_ExportRequestDto value, $Res Function(_ExportRequestDto) _then) = __$ExportRequestDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'include_summary') bool includeSummary,@JsonKey(name: 'include_translation') bool includeTranslation,@JsonKey(name: 'include_chat') bool includeChat
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExportRequestDtoCopyWithImpl<$Res>
+    implements _$ExportRequestDtoCopyWith<$Res> {
+  __$ExportRequestDtoCopyWithImpl(this._self, this._then);
+
+  final _ExportRequestDto _self;
+  final $Res Function(_ExportRequestDto) _then;
+
+/// Create a copy of ExportRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? includeSummary = null,Object? includeTranslation = null,Object? includeChat = null,}) {
+  return _then(_ExportRequestDto(
+includeSummary: null == includeSummary ? _self.includeSummary : includeSummary // ignore: cast_nullable_to_non_nullable
+as bool,includeTranslation: null == includeTranslation ? _self.includeTranslation : includeTranslation // ignore: cast_nullable_to_non_nullable
+as bool,includeChat: null == includeChat ? _self.includeChat : includeChat // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ExportStatusDto {
+
+ String get id;@JsonKey(name: 'document_id') String get documentId;@JsonKey(name: 'include_summary') bool get includeSummary;@JsonKey(name: 'include_translation') bool get includeTranslation;@JsonKey(name: 'include_chat') bool get includeChat;@JsonKey(name: 'export_status') String get exportStatus;@JsonKey(name: 'storage_key') String? get storageKey;@JsonKey(name: 'signed_url') String? get signedUrl;@JsonKey(name: 'error_message') String? get errorMessage;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+/// Create a copy of ExportStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ExportStatusDtoCopyWith<ExportStatusDto> get copyWith => _$ExportStatusDtoCopyWithImpl<ExportStatusDto>(this as ExportStatusDto, _$identity);
+
+  /// Serializes this ExportStatusDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ExportStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.documentId, documentId) || other.documentId == documentId)&&(identical(other.includeSummary, includeSummary) || other.includeSummary == includeSummary)&&(identical(other.includeTranslation, includeTranslation) || other.includeTranslation == includeTranslation)&&(identical(other.includeChat, includeChat) || other.includeChat == includeChat)&&(identical(other.exportStatus, exportStatus) || other.exportStatus == exportStatus)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.signedUrl, signedUrl) || other.signedUrl == signedUrl)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,documentId,includeSummary,includeTranslation,includeChat,exportStatus,storageKey,signedUrl,errorMessage,createdAt,updatedAt);
+
+@override
+String toString() {
+  return 'ExportStatusDto(id: $id, documentId: $documentId, includeSummary: $includeSummary, includeTranslation: $includeTranslation, includeChat: $includeChat, exportStatus: $exportStatus, storageKey: $storageKey, signedUrl: $signedUrl, errorMessage: $errorMessage, createdAt: $createdAt, updatedAt: $updatedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ExportStatusDtoCopyWith<$Res>  {
+  factory $ExportStatusDtoCopyWith(ExportStatusDto value, $Res Function(ExportStatusDto) _then) = _$ExportStatusDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id,@JsonKey(name: 'document_id') String documentId,@JsonKey(name: 'include_summary') bool includeSummary,@JsonKey(name: 'include_translation') bool includeTranslation,@JsonKey(name: 'include_chat') bool includeChat,@JsonKey(name: 'export_status') String exportStatus,@JsonKey(name: 'storage_key') String? storageKey,@JsonKey(name: 'signed_url') String? signedUrl,@JsonKey(name: 'error_message') String? errorMessage,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$ExportStatusDtoCopyWithImpl<$Res>
+    implements $ExportStatusDtoCopyWith<$Res> {
+  _$ExportStatusDtoCopyWithImpl(this._self, this._then);
+
+  final ExportStatusDto _self;
+  final $Res Function(ExportStatusDto) _then;
+
+/// Create a copy of ExportStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? documentId = null,Object? includeSummary = null,Object? includeTranslation = null,Object? includeChat = null,Object? exportStatus = null,Object? storageKey = freezed,Object? signedUrl = freezed,Object? errorMessage = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+  return _then(ExportStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,documentId: null == documentId ? _self.documentId : documentId // ignore: cast_nullable_to_non_nullable
+as String,includeSummary: null == includeSummary ? _self.includeSummary : includeSummary // ignore: cast_nullable_to_non_nullable
+as bool,includeTranslation: null == includeTranslation ? _self.includeTranslation : includeTranslation // ignore: cast_nullable_to_non_nullable
+as bool,includeChat: null == includeChat ? _self.includeChat : includeChat // ignore: cast_nullable_to_non_nullable
+as bool,exportStatus: null == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
+as String,storageKey: freezed == storageKey ? _self.storageKey : storageKey // ignore: cast_nullable_to_non_nullable
+as String?,signedUrl: freezed == signedUrl ? _self.signedUrl : signedUrl // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ExportStatusDto].
+extension ExportStatusDtoPatterns on ExportStatusDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ExportStatusDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ExportStatusDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ExportStatusDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ExportStatusDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ExportStatusDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ExportStatusDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat, @JsonKey(name: 'export_status')  String exportStatus, @JsonKey(name: 'storage_key')  String? storageKey, @JsonKey(name: 'signed_url')  String? signedUrl, @JsonKey(name: 'error_message')  String? errorMessage, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ExportStatusDto() when $default != null:
+return $default(_that.id,_that.documentId,_that.includeSummary,_that.includeTranslation,_that.includeChat,_that.exportStatus,_that.storageKey,_that.signedUrl,_that.errorMessage,_that.createdAt,_that.updatedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat, @JsonKey(name: 'export_status')  String exportStatus, @JsonKey(name: 'storage_key')  String? storageKey, @JsonKey(name: 'signed_url')  String? signedUrl, @JsonKey(name: 'error_message')  String? errorMessage, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+switch (_that) {
+case _ExportStatusDto():
+return $default(_that.id,_that.documentId,_that.includeSummary,_that.includeTranslation,_that.includeChat,_that.exportStatus,_that.storageKey,_that.signedUrl,_that.errorMessage,_that.createdAt,_that.updatedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'include_summary')  bool includeSummary, @JsonKey(name: 'include_translation')  bool includeTranslation, @JsonKey(name: 'include_chat')  bool includeChat, @JsonKey(name: 'export_status')  String exportStatus, @JsonKey(name: 'storage_key')  String? storageKey, @JsonKey(name: 'signed_url')  String? signedUrl, @JsonKey(name: 'error_message')  String? errorMessage, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _ExportStatusDto() when $default != null:
+return $default(_that.id,_that.documentId,_that.includeSummary,_that.includeTranslation,_that.includeChat,_that.exportStatus,_that.storageKey,_that.signedUrl,_that.errorMessage,_that.createdAt,_that.updatedAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ExportStatusDto implements ExportStatusDto {
+  const _ExportStatusDto({required this.id, @JsonKey(name: 'document_id') required this.documentId, @JsonKey(name: 'include_summary') this.includeSummary = false, @JsonKey(name: 'include_translation') this.includeTranslation = false, @JsonKey(name: 'include_chat') this.includeChat = false, @JsonKey(name: 'export_status') required this.exportStatus, @JsonKey(name: 'storage_key') this.storageKey, @JsonKey(name: 'signed_url') this.signedUrl, @JsonKey(name: 'error_message') this.errorMessage, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
+  factory _ExportStatusDto.fromJson(Map<String, dynamic> json) => _$ExportStatusDtoFromJson(json);
+
+@override final  String id;
+@override@JsonKey(name: 'document_id') final  String documentId;
+@override@JsonKey(name: 'include_summary') final  bool includeSummary;
+@override@JsonKey(name: 'include_translation') final  bool includeTranslation;
+@override@JsonKey(name: 'include_chat') final  bool includeChat;
+@override@JsonKey(name: 'export_status') final  String exportStatus;
+@override@JsonKey(name: 'storage_key') final  String? storageKey;
+@override@JsonKey(name: 'signed_url') final  String? signedUrl;
+@override@JsonKey(name: 'error_message') final  String? errorMessage;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+@override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
+
+/// Create a copy of ExportStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ExportStatusDtoCopyWith<_ExportStatusDto> get copyWith => __$ExportStatusDtoCopyWithImpl<_ExportStatusDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ExportStatusDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ExportStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.documentId, documentId) || other.documentId == documentId)&&(identical(other.includeSummary, includeSummary) || other.includeSummary == includeSummary)&&(identical(other.includeTranslation, includeTranslation) || other.includeTranslation == includeTranslation)&&(identical(other.includeChat, includeChat) || other.includeChat == includeChat)&&(identical(other.exportStatus, exportStatus) || other.exportStatus == exportStatus)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.signedUrl, signedUrl) || other.signedUrl == signedUrl)&&(identical(other.errorMessage, errorMessage) || other.errorMessage == errorMessage)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,documentId,includeSummary,includeTranslation,includeChat,exportStatus,storageKey,signedUrl,errorMessage,createdAt,updatedAt);
+
+@override
+String toString() {
+  return 'ExportStatusDto(id: $id, documentId: $documentId, includeSummary: $includeSummary, includeTranslation: $includeTranslation, includeChat: $includeChat, exportStatus: $exportStatus, storageKey: $storageKey, signedUrl: $signedUrl, errorMessage: $errorMessage, createdAt: $createdAt, updatedAt: $updatedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ExportStatusDtoCopyWith<$Res> implements $ExportStatusDtoCopyWith<$Res> {
+  factory _$ExportStatusDtoCopyWith(_ExportStatusDto value, $Res Function(_ExportStatusDto) _then) = __$ExportStatusDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id,@JsonKey(name: 'document_id') String documentId,@JsonKey(name: 'include_summary') bool includeSummary,@JsonKey(name: 'include_translation') bool includeTranslation,@JsonKey(name: 'include_chat') bool includeChat,@JsonKey(name: 'export_status') String exportStatus,@JsonKey(name: 'storage_key') String? storageKey,@JsonKey(name: 'signed_url') String? signedUrl,@JsonKey(name: 'error_message') String? errorMessage,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$ExportStatusDtoCopyWithImpl<$Res>
+    implements _$ExportStatusDtoCopyWith<$Res> {
+  __$ExportStatusDtoCopyWithImpl(this._self, this._then);
+
+  final _ExportStatusDto _self;
+  final $Res Function(_ExportStatusDto) _then;
+
+/// Create a copy of ExportStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? documentId = null,Object? includeSummary = null,Object? includeTranslation = null,Object? includeChat = null,Object? exportStatus = null,Object? storageKey = freezed,Object? signedUrl = freezed,Object? errorMessage = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+  return _then(_ExportStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,documentId: null == documentId ? _self.documentId : documentId // ignore: cast_nullable_to_non_nullable
+as String,includeSummary: null == includeSummary ? _self.includeSummary : includeSummary // ignore: cast_nullable_to_non_nullable
+as bool,includeTranslation: null == includeTranslation ? _self.includeTranslation : includeTranslation // ignore: cast_nullable_to_non_nullable
+as bool,includeChat: null == includeChat ? _self.includeChat : includeChat // ignore: cast_nullable_to_non_nullable
+as bool,exportStatus: null == exportStatus ? _self.exportStatus : exportStatus // ignore: cast_nullable_to_non_nullable
+as String,storageKey: freezed == storageKey ? _self.storageKey : storageKey // ignore: cast_nullable_to_non_nullable
+as String?,signedUrl: freezed == signedUrl ? _self.signedUrl : signedUrl // ignore: cast_nullable_to_non_nullable
+as String?,errorMessage: freezed == errorMessage ? _self.errorMessage : errorMessage // ignore: cast_nullable_to_non_nullable
+as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
 // dart format on

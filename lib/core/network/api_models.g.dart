@@ -244,3 +244,51 @@ _ChatMessageCreateDto _$ChatMessageCreateDtoFromJson(
 Map<String, dynamic> _$ChatMessageCreateDtoToJson(
   _ChatMessageCreateDto instance,
 ) => <String, dynamic>{'content': instance.content};
+
+_ExportRequestDto _$ExportRequestDtoFromJson(Map<String, dynamic> json) =>
+    _ExportRequestDto(
+      includeSummary: json['include_summary'] as bool? ?? false,
+      includeTranslation: json['include_translation'] as bool? ?? false,
+      includeChat: json['include_chat'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$ExportRequestDtoToJson(_ExportRequestDto instance) =>
+    <String, dynamic>{
+      'include_summary': instance.includeSummary,
+      'include_translation': instance.includeTranslation,
+      'include_chat': instance.includeChat,
+    };
+
+_ExportStatusDto _$ExportStatusDtoFromJson(Map<String, dynamic> json) =>
+    _ExportStatusDto(
+      id: json['id'] as String,
+      documentId: json['document_id'] as String,
+      includeSummary: json['include_summary'] as bool? ?? false,
+      includeTranslation: json['include_translation'] as bool? ?? false,
+      includeChat: json['include_chat'] as bool? ?? false,
+      exportStatus: json['export_status'] as String,
+      storageKey: json['storage_key'] as String?,
+      signedUrl: json['signed_url'] as String?,
+      errorMessage: json['error_message'] as String?,
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+    );
+
+Map<String, dynamic> _$ExportStatusDtoToJson(_ExportStatusDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'document_id': instance.documentId,
+      'include_summary': instance.includeSummary,
+      'include_translation': instance.includeTranslation,
+      'include_chat': instance.includeChat,
+      'export_status': instance.exportStatus,
+      'storage_key': instance.storageKey,
+      'signed_url': instance.signedUrl,
+      'error_message': instance.errorMessage,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
+    };

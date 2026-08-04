@@ -106,6 +106,35 @@ class ApiClient {
         data: ChatMessageCreateDto(content: content).toJson(),
       );
 
+  /// Enqueue PDF export (Master → Export Agent). 202 when accepted.
+  ///
+  /// **422** when no section toggles; **409** when a selected section is not ready.
+  Future<Result<ExportStatusDto>> requestExport(
+    String id, {
+    bool includeSummary = false,
+    bool includeTranslation = false,
+    bool includeChat = false,
+  }) =>
+      _post(
+        '$_prefix/documents/$id/export',
+        (json) => ExportStatusDto.fromJson(json),
+        data: ExportRequestDto(
+          includeSummary: includeSummary,
+          includeTranslation: includeTranslation,
+          includeChat: includeChat,
+        ).toJson(),
+      );
+
+  Future<Result<ExportStatusDto>> getExportStatus(String id) => _get(
+        '$_prefix/documents/$id/export/status',
+        (json) => ExportStatusDto.fromJson(json),
+      );
+
+  Future<Result<ExportStatusDto>> getExport(String exportId) => _get(
+        '$_prefix/exports/$exportId',
+        (json) => ExportStatusDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.

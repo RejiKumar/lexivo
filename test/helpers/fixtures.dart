@@ -14,9 +14,11 @@ File _fixtureFile(String name) {
     File('test/fixtures/$name'),
     File('test/fixtures/documents/$name'),
     File('test/fixtures/chats/$name'),
+    File('test/fixtures/exports/$name'),
     File('fixtures/$name'),
     File('fixtures/documents/$name'),
     File('fixtures/chats/$name'),
+    File('fixtures/exports/$name'),
   ];
   for (final f in candidates) {
     if (f.existsSync()) return f;

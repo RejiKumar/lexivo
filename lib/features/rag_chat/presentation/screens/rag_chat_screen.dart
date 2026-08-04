@@ -71,6 +71,13 @@ class _RagChatScreenState extends ConsumerState<RagChatScreen> {
                   Expanded(
                     child: Text('Ask the document', style: LexivoTypography.headline),
                   ),
+                  LexivoButton(
+                    label: 'Export',
+                    variant: LexivoButtonVariant.secondary,
+                    onPressed: () => context.go(
+                      RouteGuards.documentExport(widget.documentId),
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: LexivoSpacing.md),
