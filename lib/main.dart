@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lexivo/core/theming/app_theme.dart';
 
 void main() {
   runApp(const LexivoApp());
@@ -13,20 +14,9 @@ class LexivoApp extends StatelessWidget {
     return MaterialApp(
       title: 'Lexivo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0F766E),
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
-      darkTheme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF0F766E),
-          brightness: Brightness.dark,
-        ),
-        useMaterial3: true,
-      ),
+      theme: AppTheme.light,
+      darkTheme: AppTheme.dark,
+      themeMode: ThemeMode.system,
       home: const LexivoHomePlaceholder(),
     );
   }

@@ -1,2 +1,4 @@
-/// ThemeData assembly from tokens (light/dark). Implemented in theme tasks.
+/// ThemeData assembly from Lexivo tokens (light/dark).
 library;
+
+export 'lexivo_theme.dart';
