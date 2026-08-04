@@ -152,10 +152,10 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 11. LexivoBottomSheet (§3.4)
 
-- [ ] 11.1 Write failing widget tests for variants `generic`, `actionList`, `scrollable`
-- [ ] 11.2 Implement `LexivoBottomSheet` in `components/bottom_sheet.dart` (glass/blur only if used as overlay per §1)
-- [ ] 11.3 Golden tests for all three variants
-- [ ] 11.4 Review vs §3.4; fix; commit
+- [x] 11.1 Write failing widget tests for variants `generic`, `actionList`, `scrollable`
+- [x] 11.2 Implement `LexivoBottomSheet` in `components/bottom_sheet.dart` (glass/blur only if used as overlay per §1)
+- [x] 11.3 Golden tests for all three variants
+- [x] 11.4 Review vs §3.4; fix; commit
 
 ---
 
