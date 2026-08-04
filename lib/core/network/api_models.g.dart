@@ -333,3 +333,66 @@ _NotificationListDto _$NotificationListDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$NotificationListDtoToJson(
   _NotificationListDto instance,
 ) => <String, dynamic>{'items': instance.items, 'total': instance.total};
+
+_UsageBucketDto _$UsageBucketDtoFromJson(Map<String, dynamic> json) =>
+    _UsageBucketDto(
+      used: (json['used'] as num).toInt(),
+      limit: (json['limit'] as num).toInt(),
+      period: json['period'] as String,
+    );
+
+Map<String, dynamic> _$UsageBucketDtoToJson(_UsageBucketDto instance) =>
+    <String, dynamic>{
+      'used': instance.used,
+      'limit': instance.limit,
+      'period': instance.period,
+    };
+
+_UsageBreakdownDto _$UsageBreakdownDtoFromJson(
+  Map<String, dynamic> json,
+) => _UsageBreakdownDto(
+  documents: UsageBucketDto.fromJson(json['documents'] as Map<String, dynamic>),
+  chatMessages: UsageBucketDto.fromJson(
+    json['chat_messages'] as Map<String, dynamic>,
+  ),
+  ocrPages: UsageBucketDto.fromJson(json['ocr_pages'] as Map<String, dynamic>),
+);
+
+Map<String, dynamic> _$UsageBreakdownDtoToJson(_UsageBreakdownDto instance) =>
+    <String, dynamic>{
+      'documents': instance.documents,
+      'chat_messages': instance.chatMessages,
+      'ocr_pages': instance.ocrPages,
+    };
+
+_SubscriptionMeDto _$SubscriptionMeDtoFromJson(Map<String, dynamic> json) =>
+    _SubscriptionMeDto(
+      tier: json['tier'] as String,
+      status: json['status'] as String? ?? 'active',
+      paywallEnabled: json['paywall_enabled'] as bool,
+      usage: UsageBreakdownDto.fromJson(json['usage'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$SubscriptionMeDtoToJson(_SubscriptionMeDto instance) =>
+    <String, dynamic>{
+      'tier': instance.tier,
+      'status': instance.status,
+      'paywall_enabled': instance.paywallEnabled,
+      'usage': instance.usage,
+    };
+
+_SubscriptionUpgradeDto _$SubscriptionUpgradeDtoFromJson(
+  Map<String, dynamic> json,
+) => _SubscriptionUpgradeDto(
+  tier: json['tier'] as String,
+  status: json['status'] as String? ?? 'active',
+  paywallEnabled: json['paywall_enabled'] as bool? ?? true,
+);
+
+Map<String, dynamic> _$SubscriptionUpgradeDtoToJson(
+  _SubscriptionUpgradeDto instance,
+) => <String, dynamic>{
+  'tier': instance.tier,
+  'status': instance.status,
+  'paywall_enabled': instance.paywallEnabled,
+};

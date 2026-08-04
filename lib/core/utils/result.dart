@@ -44,6 +44,33 @@ final class UnexpectedFailure extends Failure {
   });
 }
 
+/// Free-tier quota exceeded (HTTP 429 + ``quota_exceeded``).
+final class QuotaFailure extends Failure {
+  const QuotaFailure({
+    required super.message,
+    required this.resource,
+    required this.limit,
+    this.period,
+    super.cause,
+  });
+
+  final String resource;
+  final int limit;
+  final String? period;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is QuotaFailure &&
+          message == other.message &&
+          resource == other.resource &&
+          limit == other.limit &&
+          period == other.period;
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message, resource, limit, period);
+}
+
 /// Result of a usecase or repository call.
 sealed class Result<T> {
   const Result();

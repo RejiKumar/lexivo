@@ -16,11 +16,13 @@ File _fixtureFile(String name) {
     File('test/fixtures/chats/$name'),
     File('test/fixtures/exports/$name'),
     File('test/fixtures/notifications/$name'),
+    File('test/fixtures/subscription/$name'),
     File('fixtures/$name'),
     File('fixtures/documents/$name'),
     File('fixtures/chats/$name'),
     File('fixtures/exports/$name'),
     File('fixtures/notifications/$name'),
+    File('fixtures/subscription/$name'),
   ];
   for (final f in candidates) {
     if (f.existsSync()) return f;

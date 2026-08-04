@@ -248,3 +248,52 @@ abstract class NotificationListDto with _$NotificationListDto {
   factory NotificationListDto.fromJson(Map<String, dynamic> json) =>
       _$NotificationListDtoFromJson(json);
 }
+
+@freezed
+abstract class UsageBucketDto with _$UsageBucketDto {
+  const factory UsageBucketDto({
+    required int used,
+    required int limit,
+    required String period,
+  }) = _UsageBucketDto;
+
+  factory UsageBucketDto.fromJson(Map<String, dynamic> json) =>
+      _$UsageBucketDtoFromJson(json);
+}
+
+@freezed
+abstract class UsageBreakdownDto with _$UsageBreakdownDto {
+  const factory UsageBreakdownDto({
+    required UsageBucketDto documents,
+    @JsonKey(name: 'chat_messages') required UsageBucketDto chatMessages,
+    @JsonKey(name: 'ocr_pages') required UsageBucketDto ocrPages,
+  }) = _UsageBreakdownDto;
+
+  factory UsageBreakdownDto.fromJson(Map<String, dynamic> json) =>
+      _$UsageBreakdownDtoFromJson(json);
+}
+
+@freezed
+abstract class SubscriptionMeDto with _$SubscriptionMeDto {
+  const factory SubscriptionMeDto({
+    required String tier,
+    @Default('active') String status,
+    @JsonKey(name: 'paywall_enabled') required bool paywallEnabled,
+    required UsageBreakdownDto usage,
+  }) = _SubscriptionMeDto;
+
+  factory SubscriptionMeDto.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionMeDtoFromJson(json);
+}
+
+@freezed
+abstract class SubscriptionUpgradeDto with _$SubscriptionUpgradeDto {
+  const factory SubscriptionUpgradeDto({
+    required String tier,
+    @Default('active') String status,
+    @JsonKey(name: 'paywall_enabled') @Default(true) bool paywallEnabled,
+  }) = _SubscriptionUpgradeDto;
+
+  factory SubscriptionUpgradeDto.fromJson(Map<String, dynamic> json) =>
+      _$SubscriptionUpgradeDtoFromJson(json);
+}

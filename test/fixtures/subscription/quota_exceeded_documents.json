@@ -1,0 +1,9 @@
+{
+  "detail": {
+    "code": "quota_exceeded",
+    "resource": "documents",
+    "limit": 20,
+    "period": "month",
+    "message": "Document limit of 20 per month exceeded (20/20 used)"
+  }
+}

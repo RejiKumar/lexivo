@@ -50,6 +50,18 @@ abstract final class ErrorMapper {
         cause: error,
       );
     }
+    if (status == 429) {
+      final quota = _extractQuotaDetail(error.response?.data);
+      if (quota != null) {
+        return QuotaFailure(
+          message: quota.message,
+          resource: quota.resource,
+          limit: quota.limit,
+          period: quota.period,
+          cause: error,
+        );
+      }
+    }
     if (status == 422 || status == 409) {
       return ValidationFailure(
         message: bodyMessage ??
@@ -75,12 +87,36 @@ abstract final class ErrorMapper {
     );
   }
 
+  static ({String resource, int limit, String? period, String message})?
+      _extractQuotaDetail(Object? data) {
+    if (data is! Map) return null;
+    final detail = data['detail'];
+    if (detail is! Map) return null;
+    if (detail['code'] != 'quota_exceeded') return null;
+    final resource = detail['resource'];
+    final limit = detail['limit'];
+    final message = detail['message'];
+    if (resource is! String || limit is! num || message is! String) {
+      return null;
+    }
+    final period = detail['period'];
+    return (
+      resource: resource,
+      limit: limit.toInt(),
+      period: period is String ? period : null,
+      message: message,
+    );
+  }
+
   static String? _extractMessage(Object? data) {
     if (data == null) return null;
     if (data is String && data.isNotEmpty) return data;
     if (data is Map) {
       final detail = data['detail'];
       if (detail is String) return detail;
+      if (detail is Map && detail['message'] is String) {
+        return detail['message'] as String;
+      }
       if (detail is List && detail.isNotEmpty) {
         final first = detail.first;
         if (first is Map && first['msg'] is String) {

@@ -4958,4 +4958,1155 @@ as int,
 
 }
 
+
+/// @nodoc
+mixin _$UsageBucketDto {
+
+ int get used; int get limit; String get period;
+/// Create a copy of UsageBucketDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<UsageBucketDto> get copyWith => _$UsageBucketDtoCopyWithImpl<UsageBucketDto>(this as UsageBucketDto, _$identity);
+
+  /// Serializes this UsageBucketDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsageBucketDto&&(identical(other.used, used) || other.used == used)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.period, period) || other.period == period));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,used,limit,period);
+
+@override
+String toString() {
+  return 'UsageBucketDto(used: $used, limit: $limit, period: $period)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UsageBucketDtoCopyWith<$Res>  {
+  factory $UsageBucketDtoCopyWith(UsageBucketDto value, $Res Function(UsageBucketDto) _then) = _$UsageBucketDtoCopyWithImpl;
+@useResult
+$Res call({
+ int used, int limit, String period
+});
+
+
+
+
+}
+/// @nodoc
+class _$UsageBucketDtoCopyWithImpl<$Res>
+    implements $UsageBucketDtoCopyWith<$Res> {
+  _$UsageBucketDtoCopyWithImpl(this._self, this._then);
+
+  final UsageBucketDto _self;
+  final $Res Function(UsageBucketDto) _then;
+
+/// Create a copy of UsageBucketDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? used = null,Object? limit = null,Object? period = null,}) {
+  return _then(UsageBucketDto(
+used: null == used ? _self.used : used // ignore: cast_nullable_to_non_nullable
+as int,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [UsageBucketDto].
+extension UsageBucketDtoPatterns on UsageBucketDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UsageBucketDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UsageBucketDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UsageBucketDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _UsageBucketDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UsageBucketDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UsageBucketDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int used,  int limit,  String period)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UsageBucketDto() when $default != null:
+return $default(_that.used,_that.limit,_that.period);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int used,  int limit,  String period)  $default,) {final _that = this;
+switch (_that) {
+case _UsageBucketDto():
+return $default(_that.used,_that.limit,_that.period);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int used,  int limit,  String period)?  $default,) {final _that = this;
+switch (_that) {
+case _UsageBucketDto() when $default != null:
+return $default(_that.used,_that.limit,_that.period);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _UsageBucketDto implements UsageBucketDto {
+  const _UsageBucketDto({required this.used, required this.limit, required this.period});
+  factory _UsageBucketDto.fromJson(Map<String, dynamic> json) => _$UsageBucketDtoFromJson(json);
+
+@override final  int used;
+@override final  int limit;
+@override final  String period;
+
+/// Create a copy of UsageBucketDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UsageBucketDtoCopyWith<_UsageBucketDto> get copyWith => __$UsageBucketDtoCopyWithImpl<_UsageBucketDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$UsageBucketDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsageBucketDto&&(identical(other.used, used) || other.used == used)&&(identical(other.limit, limit) || other.limit == limit)&&(identical(other.period, period) || other.period == period));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,used,limit,period);
+
+@override
+String toString() {
+  return 'UsageBucketDto(used: $used, limit: $limit, period: $period)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UsageBucketDtoCopyWith<$Res> implements $UsageBucketDtoCopyWith<$Res> {
+  factory _$UsageBucketDtoCopyWith(_UsageBucketDto value, $Res Function(_UsageBucketDto) _then) = __$UsageBucketDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ int used, int limit, String period
+});
+
+
+
+
+}
+/// @nodoc
+class __$UsageBucketDtoCopyWithImpl<$Res>
+    implements _$UsageBucketDtoCopyWith<$Res> {
+  __$UsageBucketDtoCopyWithImpl(this._self, this._then);
+
+  final _UsageBucketDto _self;
+  final $Res Function(_UsageBucketDto) _then;
+
+/// Create a copy of UsageBucketDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? used = null,Object? limit = null,Object? period = null,}) {
+  return _then(_UsageBucketDto(
+used: null == used ? _self.used : used // ignore: cast_nullable_to_non_nullable
+as int,limit: null == limit ? _self.limit : limit // ignore: cast_nullable_to_non_nullable
+as int,period: null == period ? _self.period : period // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$UsageBreakdownDto {
+
+ UsageBucketDto get documents;@JsonKey(name: 'chat_messages') UsageBucketDto get chatMessages;@JsonKey(name: 'ocr_pages') UsageBucketDto get ocrPages;
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UsageBreakdownDtoCopyWith<UsageBreakdownDto> get copyWith => _$UsageBreakdownDtoCopyWithImpl<UsageBreakdownDto>(this as UsageBreakdownDto, _$identity);
+
+  /// Serializes this UsageBreakdownDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsageBreakdownDto&&(identical(other.documents, documents) || other.documents == documents)&&(identical(other.chatMessages, chatMessages) || other.chatMessages == chatMessages)&&(identical(other.ocrPages, ocrPages) || other.ocrPages == ocrPages));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,documents,chatMessages,ocrPages);
+
+@override
+String toString() {
+  return 'UsageBreakdownDto(documents: $documents, chatMessages: $chatMessages, ocrPages: $ocrPages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $UsageBreakdownDtoCopyWith<$Res>  {
+  factory $UsageBreakdownDtoCopyWith(UsageBreakdownDto value, $Res Function(UsageBreakdownDto) _then) = _$UsageBreakdownDtoCopyWithImpl;
+@useResult
+$Res call({
+ UsageBucketDto documents,@JsonKey(name: 'chat_messages') UsageBucketDto chatMessages,@JsonKey(name: 'ocr_pages') UsageBucketDto ocrPages
+});
+
+
+$UsageBucketDtoCopyWith<$Res> get documents;$UsageBucketDtoCopyWith<$Res> get chatMessages;$UsageBucketDtoCopyWith<$Res> get ocrPages;
+
+}
+/// @nodoc
+class _$UsageBreakdownDtoCopyWithImpl<$Res>
+    implements $UsageBreakdownDtoCopyWith<$Res> {
+  _$UsageBreakdownDtoCopyWithImpl(this._self, this._then);
+
+  final UsageBreakdownDto _self;
+  final $Res Function(UsageBreakdownDto) _then;
+
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? documents = null,Object? chatMessages = null,Object? ocrPages = null,}) {
+  return _then(UsageBreakdownDto(
+documents: null == documents ? _self.documents : documents // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,chatMessages: null == chatMessages ? _self.chatMessages : chatMessages // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,ocrPages: null == ocrPages ? _self.ocrPages : ocrPages // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,
+  ));
+}
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get documents {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.documents, (value) {
+    return _then(_self.copyWith(documents: value));
+  });
+}/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get chatMessages {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.chatMessages, (value) {
+    return _then(_self.copyWith(chatMessages: value));
+  });
+}/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get ocrPages {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.ocrPages, (value) {
+    return _then(_self.copyWith(ocrPages: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [UsageBreakdownDto].
+extension UsageBreakdownDtoPatterns on UsageBreakdownDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UsageBreakdownDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _UsageBreakdownDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UsageBreakdownDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _UsageBreakdownDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UsageBreakdownDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _UsageBreakdownDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( UsageBucketDto documents, @JsonKey(name: 'chat_messages')  UsageBucketDto chatMessages, @JsonKey(name: 'ocr_pages')  UsageBucketDto ocrPages)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _UsageBreakdownDto() when $default != null:
+return $default(_that.documents,_that.chatMessages,_that.ocrPages);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( UsageBucketDto documents, @JsonKey(name: 'chat_messages')  UsageBucketDto chatMessages, @JsonKey(name: 'ocr_pages')  UsageBucketDto ocrPages)  $default,) {final _that = this;
+switch (_that) {
+case _UsageBreakdownDto():
+return $default(_that.documents,_that.chatMessages,_that.ocrPages);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( UsageBucketDto documents, @JsonKey(name: 'chat_messages')  UsageBucketDto chatMessages, @JsonKey(name: 'ocr_pages')  UsageBucketDto ocrPages)?  $default,) {final _that = this;
+switch (_that) {
+case _UsageBreakdownDto() when $default != null:
+return $default(_that.documents,_that.chatMessages,_that.ocrPages);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _UsageBreakdownDto implements UsageBreakdownDto {
+  const _UsageBreakdownDto({required this.documents, @JsonKey(name: 'chat_messages') required this.chatMessages, @JsonKey(name: 'ocr_pages') required this.ocrPages});
+  factory _UsageBreakdownDto.fromJson(Map<String, dynamic> json) => _$UsageBreakdownDtoFromJson(json);
+
+@override final  UsageBucketDto documents;
+@override@JsonKey(name: 'chat_messages') final  UsageBucketDto chatMessages;
+@override@JsonKey(name: 'ocr_pages') final  UsageBucketDto ocrPages;
+
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UsageBreakdownDtoCopyWith<_UsageBreakdownDto> get copyWith => __$UsageBreakdownDtoCopyWithImpl<_UsageBreakdownDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$UsageBreakdownDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UsageBreakdownDto&&(identical(other.documents, documents) || other.documents == documents)&&(identical(other.chatMessages, chatMessages) || other.chatMessages == chatMessages)&&(identical(other.ocrPages, ocrPages) || other.ocrPages == ocrPages));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,documents,chatMessages,ocrPages);
+
+@override
+String toString() {
+  return 'UsageBreakdownDto(documents: $documents, chatMessages: $chatMessages, ocrPages: $ocrPages)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UsageBreakdownDtoCopyWith<$Res> implements $UsageBreakdownDtoCopyWith<$Res> {
+  factory _$UsageBreakdownDtoCopyWith(_UsageBreakdownDto value, $Res Function(_UsageBreakdownDto) _then) = __$UsageBreakdownDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ UsageBucketDto documents,@JsonKey(name: 'chat_messages') UsageBucketDto chatMessages,@JsonKey(name: 'ocr_pages') UsageBucketDto ocrPages
+});
+
+
+@override $UsageBucketDtoCopyWith<$Res> get documents;@override $UsageBucketDtoCopyWith<$Res> get chatMessages;@override $UsageBucketDtoCopyWith<$Res> get ocrPages;
+
+}
+/// @nodoc
+class __$UsageBreakdownDtoCopyWithImpl<$Res>
+    implements _$UsageBreakdownDtoCopyWith<$Res> {
+  __$UsageBreakdownDtoCopyWithImpl(this._self, this._then);
+
+  final _UsageBreakdownDto _self;
+  final $Res Function(_UsageBreakdownDto) _then;
+
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? documents = null,Object? chatMessages = null,Object? ocrPages = null,}) {
+  return _then(_UsageBreakdownDto(
+documents: null == documents ? _self.documents : documents // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,chatMessages: null == chatMessages ? _self.chatMessages : chatMessages // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,ocrPages: null == ocrPages ? _self.ocrPages : ocrPages // ignore: cast_nullable_to_non_nullable
+as UsageBucketDto,
+  ));
+}
+
+/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get documents {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.documents, (value) {
+    return _then(_self.copyWith(documents: value));
+  });
+}/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get chatMessages {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.chatMessages, (value) {
+    return _then(_self.copyWith(chatMessages: value));
+  });
+}/// Create a copy of UsageBreakdownDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBucketDtoCopyWith<$Res> get ocrPages {
+  
+  return $UsageBucketDtoCopyWith<$Res>(_self.ocrPages, (value) {
+    return _then(_self.copyWith(ocrPages: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$SubscriptionMeDto {
+
+ String get tier; String get status;@JsonKey(name: 'paywall_enabled') bool get paywallEnabled; UsageBreakdownDto get usage;
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SubscriptionMeDtoCopyWith<SubscriptionMeDto> get copyWith => _$SubscriptionMeDtoCopyWithImpl<SubscriptionMeDto>(this as SubscriptionMeDto, _$identity);
+
+  /// Serializes this SubscriptionMeDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionMeDto&&(identical(other.tier, tier) || other.tier == tier)&&(identical(other.status, status) || other.status == status)&&(identical(other.paywallEnabled, paywallEnabled) || other.paywallEnabled == paywallEnabled)&&(identical(other.usage, usage) || other.usage == usage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,tier,status,paywallEnabled,usage);
+
+@override
+String toString() {
+  return 'SubscriptionMeDto(tier: $tier, status: $status, paywallEnabled: $paywallEnabled, usage: $usage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SubscriptionMeDtoCopyWith<$Res>  {
+  factory $SubscriptionMeDtoCopyWith(SubscriptionMeDto value, $Res Function(SubscriptionMeDto) _then) = _$SubscriptionMeDtoCopyWithImpl;
+@useResult
+$Res call({
+ String tier, String status,@JsonKey(name: 'paywall_enabled') bool paywallEnabled, UsageBreakdownDto usage
+});
+
+
+$UsageBreakdownDtoCopyWith<$Res> get usage;
+
+}
+/// @nodoc
+class _$SubscriptionMeDtoCopyWithImpl<$Res>
+    implements $SubscriptionMeDtoCopyWith<$Res> {
+  _$SubscriptionMeDtoCopyWithImpl(this._self, this._then);
+
+  final SubscriptionMeDto _self;
+  final $Res Function(SubscriptionMeDto) _then;
+
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? tier = null,Object? status = null,Object? paywallEnabled = null,Object? usage = null,}) {
+  return _then(SubscriptionMeDto(
+tier: null == tier ? _self.tier : tier // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,paywallEnabled: null == paywallEnabled ? _self.paywallEnabled : paywallEnabled // ignore: cast_nullable_to_non_nullable
+as bool,usage: null == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable
+as UsageBreakdownDto,
+  ));
+}
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBreakdownDtoCopyWith<$Res> get usage {
+  
+  return $UsageBreakdownDtoCopyWith<$Res>(_self.usage, (value) {
+    return _then(_self.copyWith(usage: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [SubscriptionMeDto].
+extension SubscriptionMeDtoPatterns on SubscriptionMeDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SubscriptionMeDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SubscriptionMeDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SubscriptionMeDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _SubscriptionMeDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SubscriptionMeDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SubscriptionMeDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled,  UsageBreakdownDto usage)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SubscriptionMeDto() when $default != null:
+return $default(_that.tier,_that.status,_that.paywallEnabled,_that.usage);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled,  UsageBreakdownDto usage)  $default,) {final _that = this;
+switch (_that) {
+case _SubscriptionMeDto():
+return $default(_that.tier,_that.status,_that.paywallEnabled,_that.usage);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled,  UsageBreakdownDto usage)?  $default,) {final _that = this;
+switch (_that) {
+case _SubscriptionMeDto() when $default != null:
+return $default(_that.tier,_that.status,_that.paywallEnabled,_that.usage);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SubscriptionMeDto implements SubscriptionMeDto {
+  const _SubscriptionMeDto({required this.tier, this.status = 'active', @JsonKey(name: 'paywall_enabled') required this.paywallEnabled, required this.usage});
+  factory _SubscriptionMeDto.fromJson(Map<String, dynamic> json) => _$SubscriptionMeDtoFromJson(json);
+
+@override final  String tier;
+@override@JsonKey() final  String status;
+@override@JsonKey(name: 'paywall_enabled') final  bool paywallEnabled;
+@override final  UsageBreakdownDto usage;
+
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SubscriptionMeDtoCopyWith<_SubscriptionMeDto> get copyWith => __$SubscriptionMeDtoCopyWithImpl<_SubscriptionMeDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SubscriptionMeDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionMeDto&&(identical(other.tier, tier) || other.tier == tier)&&(identical(other.status, status) || other.status == status)&&(identical(other.paywallEnabled, paywallEnabled) || other.paywallEnabled == paywallEnabled)&&(identical(other.usage, usage) || other.usage == usage));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,tier,status,paywallEnabled,usage);
+
+@override
+String toString() {
+  return 'SubscriptionMeDto(tier: $tier, status: $status, paywallEnabled: $paywallEnabled, usage: $usage)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SubscriptionMeDtoCopyWith<$Res> implements $SubscriptionMeDtoCopyWith<$Res> {
+  factory _$SubscriptionMeDtoCopyWith(_SubscriptionMeDto value, $Res Function(_SubscriptionMeDto) _then) = __$SubscriptionMeDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String tier, String status,@JsonKey(name: 'paywall_enabled') bool paywallEnabled, UsageBreakdownDto usage
+});
+
+
+@override $UsageBreakdownDtoCopyWith<$Res> get usage;
+
+}
+/// @nodoc
+class __$SubscriptionMeDtoCopyWithImpl<$Res>
+    implements _$SubscriptionMeDtoCopyWith<$Res> {
+  __$SubscriptionMeDtoCopyWithImpl(this._self, this._then);
+
+  final _SubscriptionMeDto _self;
+  final $Res Function(_SubscriptionMeDto) _then;
+
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? tier = null,Object? status = null,Object? paywallEnabled = null,Object? usage = null,}) {
+  return _then(_SubscriptionMeDto(
+tier: null == tier ? _self.tier : tier // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,paywallEnabled: null == paywallEnabled ? _self.paywallEnabled : paywallEnabled // ignore: cast_nullable_to_non_nullable
+as bool,usage: null == usage ? _self.usage : usage // ignore: cast_nullable_to_non_nullable
+as UsageBreakdownDto,
+  ));
+}
+
+/// Create a copy of SubscriptionMeDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UsageBreakdownDtoCopyWith<$Res> get usage {
+  
+  return $UsageBreakdownDtoCopyWith<$Res>(_self.usage, (value) {
+    return _then(_self.copyWith(usage: value));
+  });
+}
+}
+
+
+/// @nodoc
+mixin _$SubscriptionUpgradeDto {
+
+ String get tier; String get status;@JsonKey(name: 'paywall_enabled') bool get paywallEnabled;
+/// Create a copy of SubscriptionUpgradeDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SubscriptionUpgradeDtoCopyWith<SubscriptionUpgradeDto> get copyWith => _$SubscriptionUpgradeDtoCopyWithImpl<SubscriptionUpgradeDto>(this as SubscriptionUpgradeDto, _$identity);
+
+  /// Serializes this SubscriptionUpgradeDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SubscriptionUpgradeDto&&(identical(other.tier, tier) || other.tier == tier)&&(identical(other.status, status) || other.status == status)&&(identical(other.paywallEnabled, paywallEnabled) || other.paywallEnabled == paywallEnabled));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,tier,status,paywallEnabled);
+
+@override
+String toString() {
+  return 'SubscriptionUpgradeDto(tier: $tier, status: $status, paywallEnabled: $paywallEnabled)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SubscriptionUpgradeDtoCopyWith<$Res>  {
+  factory $SubscriptionUpgradeDtoCopyWith(SubscriptionUpgradeDto value, $Res Function(SubscriptionUpgradeDto) _then) = _$SubscriptionUpgradeDtoCopyWithImpl;
+@useResult
+$Res call({
+ String tier, String status,@JsonKey(name: 'paywall_enabled') bool paywallEnabled
+});
+
+
+
+
+}
+/// @nodoc
+class _$SubscriptionUpgradeDtoCopyWithImpl<$Res>
+    implements $SubscriptionUpgradeDtoCopyWith<$Res> {
+  _$SubscriptionUpgradeDtoCopyWithImpl(this._self, this._then);
+
+  final SubscriptionUpgradeDto _self;
+  final $Res Function(SubscriptionUpgradeDto) _then;
+
+/// Create a copy of SubscriptionUpgradeDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? tier = null,Object? status = null,Object? paywallEnabled = null,}) {
+  return _then(SubscriptionUpgradeDto(
+tier: null == tier ? _self.tier : tier // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,paywallEnabled: null == paywallEnabled ? _self.paywallEnabled : paywallEnabled // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SubscriptionUpgradeDto].
+extension SubscriptionUpgradeDtoPatterns on SubscriptionUpgradeDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SubscriptionUpgradeDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SubscriptionUpgradeDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SubscriptionUpgradeDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto() when $default != null:
+return $default(_that.tier,_that.status,_that.paywallEnabled);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled)  $default,) {final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto():
+return $default(_that.tier,_that.status,_that.paywallEnabled);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String tier,  String status, @JsonKey(name: 'paywall_enabled')  bool paywallEnabled)?  $default,) {final _that = this;
+switch (_that) {
+case _SubscriptionUpgradeDto() when $default != null:
+return $default(_that.tier,_that.status,_that.paywallEnabled);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SubscriptionUpgradeDto implements SubscriptionUpgradeDto {
+  const _SubscriptionUpgradeDto({required this.tier, this.status = 'active', @JsonKey(name: 'paywall_enabled') this.paywallEnabled = true});
+  factory _SubscriptionUpgradeDto.fromJson(Map<String, dynamic> json) => _$SubscriptionUpgradeDtoFromJson(json);
+
+@override final  String tier;
+@override@JsonKey() final  String status;
+@override@JsonKey(name: 'paywall_enabled') final  bool paywallEnabled;
+
+/// Create a copy of SubscriptionUpgradeDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SubscriptionUpgradeDtoCopyWith<_SubscriptionUpgradeDto> get copyWith => __$SubscriptionUpgradeDtoCopyWithImpl<_SubscriptionUpgradeDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SubscriptionUpgradeDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SubscriptionUpgradeDto&&(identical(other.tier, tier) || other.tier == tier)&&(identical(other.status, status) || other.status == status)&&(identical(other.paywallEnabled, paywallEnabled) || other.paywallEnabled == paywallEnabled));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,tier,status,paywallEnabled);
+
+@override
+String toString() {
+  return 'SubscriptionUpgradeDto(tier: $tier, status: $status, paywallEnabled: $paywallEnabled)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SubscriptionUpgradeDtoCopyWith<$Res> implements $SubscriptionUpgradeDtoCopyWith<$Res> {
+  factory _$SubscriptionUpgradeDtoCopyWith(_SubscriptionUpgradeDto value, $Res Function(_SubscriptionUpgradeDto) _then) = __$SubscriptionUpgradeDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String tier, String status,@JsonKey(name: 'paywall_enabled') bool paywallEnabled
+});
+
+
+
+
+}
+/// @nodoc
+class __$SubscriptionUpgradeDtoCopyWithImpl<$Res>
+    implements _$SubscriptionUpgradeDtoCopyWith<$Res> {
+  __$SubscriptionUpgradeDtoCopyWithImpl(this._self, this._then);
+
+  final _SubscriptionUpgradeDto _self;
+  final $Res Function(_SubscriptionUpgradeDto) _then;
+
+/// Create a copy of SubscriptionUpgradeDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? tier = null,Object? status = null,Object? paywallEnabled = null,}) {
+  return _then(_SubscriptionUpgradeDto(
+tier: null == tier ? _self.tier : tier // ignore: cast_nullable_to_non_nullable
+as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,paywallEnabled: null == paywallEnabled ? _self.paywallEnabled : paywallEnabled // ignore: cast_nullable_to_non_nullable
+as bool,
+  ));
+}
+
+
+}
+
 // dart format on

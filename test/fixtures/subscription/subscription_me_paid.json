@@ -1,0 +1,10 @@
+{
+  "tier": "paid",
+  "status": "active",
+  "paywall_enabled": true,
+  "usage": {
+    "documents": { "used": 100, "limit": 20, "period": "month" },
+    "chat_messages": { "used": 200, "limit": 100, "period": "day" },
+    "ocr_pages": { "used": 1000, "limit": 500, "period": "month" }
+  }
+}

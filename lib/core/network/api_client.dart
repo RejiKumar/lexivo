@@ -152,6 +152,18 @@ class ApiClient {
         (json) => NotificationDto.fromJson(json),
       );
 
+  /// Current subscription tier + usage buckets (always available).
+  Future<Result<SubscriptionMeDto>> getSubscriptionMe() => _get(
+        '$_prefix/subscriptions/me',
+        (json) => SubscriptionMeDto.fromJson(json),
+      );
+
+  /// Stub upgrade → paid when paywall flag is on; 403 when flag off.
+  Future<Result<SubscriptionUpgradeDto>> upgradeSubscription() => _post(
+        '$_prefix/subscriptions/upgrade',
+        (json) => SubscriptionUpgradeDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
