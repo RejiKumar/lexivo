@@ -85,7 +85,9 @@ async def test_run_ocr_uses_master_not_direct_provider(
 
     db_session.expire_all()
     assert jobs.get(job.id).status == JobStatus.succeeded
-    assert docs.get(doc.id).status == DocumentStatus.ready
+    ready = docs.get(doc.id)
+    assert ready.status == DocumentStatus.ready
+    assert ready.extracted_text == "from-master"
     assert payload["pages"] == 2
     assert payload["text_length"] == len("from-master")
 

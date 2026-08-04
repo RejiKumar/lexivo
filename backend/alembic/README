@@ -2,6 +2,6 @@
 
 Bootstrap notes:
 - Enable pgvector on Postgres: CREATE EXTENSION IF NOT EXISTS vector;
-  (done automatically in 0001_initial_core when dialect is postgresql)
-- Core domains for STEP 3.3: users, documents, jobs
-- document_chunks deferred to RAG step (table stub OK for FK hygiene later; no ingest logic)
+  (done automatically in 0001_initial_core / 0002_rag_chunks when dialect is postgresql)
+- Core domains: users, documents, jobs (0001); document_chunks + documents.extracted_text (0002)
+- document_chunks.embedding is pgvector ``vector`` on Postgres; JSON text on SQLite for unit tests

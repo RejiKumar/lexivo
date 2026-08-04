@@ -16,6 +16,7 @@ class DocumentRepository(BaseRepository[Document]):
         title: str | None = None,
         storage_key: str | None = None,
         status: DocumentStatus = DocumentStatus.processing,
+        extracted_text: str | None = None,
         **fields: Any,
     ) -> Document:
         return super().create(
@@ -23,5 +24,6 @@ class DocumentRepository(BaseRepository[Document]):
             title=title,
             storage_key=storage_key,
             status=status,
+            extracted_text=extracted_text,
             **fields,
         )

@@ -145,7 +145,12 @@ async def _run_ocr_async(
         text = str(data.get("text", ""))
 
         jobs.update(job_id, status=JobStatus.succeeded, error_message="")
-        docs.update(document_id, status=DocumentStatus.ready)
+        # Persist OCR body for later RagPipeline.ingest (no RAG call here).
+        docs.update(
+            document_id,
+            status=DocumentStatus.ready,
+            extracted_text=text,
+        )
 
         return {
             "document_id": document_id,
