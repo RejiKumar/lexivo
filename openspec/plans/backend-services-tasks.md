@@ -151,28 +151,28 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 8.A Schemas
 
-- [ ] 8.1 Write failing schema tests (or contract snapshots) for auth identity/session responses, user profile request/response, document create/list/status responses
-- [ ] 8.2 Implement Pydantic schemas in `app/schemas/`; ensure FastAPI generates `/openapi.json` fields from them
-- [ ] 8.3 Review vs architecture.md §4 (schemas as API source of truth); note Flutter regen is later CI step — do not implement Flutter client here; fix; commit
+- [x] 8.1 Write failing schema tests (or contract snapshots) for auth identity/session responses, user profile request/response, document create/list/status responses
+- [x] 8.2 Implement Pydantic schemas in `app/schemas/`; ensure FastAPI generates `/openapi.json` fields from them
+- [x] 8.3 Review vs architecture.md §4 (schemas as API source of truth); note Flutter regen is later CI step — do not implement Flutter client here; fix; commit
 
 ### 8.B Auth router
 
-- [ ] 8.4 Write failing API tests: bearer-protected routes use AuthProvider; unauthorized without token; me/session endpoint returns identity-backed payload
-- [ ] 8.5 Implement thin `api/v1/routers/auth.py` (verify/session/me only — no custom password crypto)
-- [ ] 8.6 Review vs OpenSpec auth token verification scenarios; fix; commit
+- [x] 8.4 Write failing API tests: bearer-protected routes use AuthProvider; unauthorized without token; me/session endpoint returns identity-backed payload
+- [x] 8.5 Implement thin `api/v1/routers/auth.py` (verify/session/me only — no custom password crypto)
+- [x] 8.6 Review vs OpenSpec auth token verification scenarios; fix; commit
 
 ### 8.C Users router
 
-- [ ] 8.7 Write failing API tests for get/update current user profile via UserService
-- [ ] 8.8 Implement thin `api/v1/routers/users.py`
-- [ ] 8.9 Review thin-router rule (no repo/SDK in handler); fix; commit
+- [x] 8.7 Write failing API tests for get/update current user profile via UserService
+- [x] 8.8 Implement thin `api/v1/routers/users.py`
+- [x] 8.9 Review thin-router rule (no repo/SDK in handler); fix; commit
 
 ### 8.D Documents router
 
-- [ ] 8.10 Write failing API tests: create/upload document, get by id, list, get status — all via DocumentService
-- [ ] 8.11 Implement thin `api/v1/routers/documents.py`
-- [ ] 8.12 Mount v1 routers in `main.py`; confirm OpenAPI lists auth/users/documents paths
-- [ ] 8.13 Review vs OpenSpec “Thin router” + OpenAPI source of truth; fix; commit
+- [x] 8.10 Write failing API tests: create/upload document, get by id, list, get status — all via DocumentService
+- [x] 8.11 Implement thin `api/v1/routers/documents.py`
+- [x] 8.12 Mount v1 routers in `main.py`; confirm OpenAPI lists auth/users/documents paths
+- [x] 8.13 Review vs OpenSpec “Thin router” + OpenAPI source of truth; fix; commit
 
 ---
 
@@ -218,8 +218,8 @@ Run after §§2–9 land; blockers must be fixed before declaring STEP 3.3 done.
   <!-- Compose files shipped; host smoke (1.9) still needed — Docker unavailable in agent session -->
 - [x] All four Protocols + DI defaults (Supabase / R2 / Gemini / Mistral) and stubs (Clerk / OpenAI / Document AI)
   <!-- Concrete adapters §§3–6 done; BaseService/repos/routers/Celery remain §§7–9 -->
-- [ ] BaseService + UserService + DocumentService + repositories
-- [ ] Thin routers: auth, users, documents; OpenAPI from Pydantic
+- [x] BaseService + UserService + DocumentService + repositories
+- [x] Thin routers: auth, users, documents; OpenAPI from Pydantic
 - [ ] Minimal Celery upload/OCR enqueue path
 - [ ] Shared fixtures; pytest green
 - [ ] Reviewer gates 11.1–11.7 passed
