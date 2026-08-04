@@ -78,4 +78,4 @@ async def test_run_master_is_public_orchestrator_api() -> None:
 async def test_master_rejects_unknown_intent() -> None:
     master = build_master_agent(ocr_provider=FakeOCRProvider())
     with pytest.raises(ValueError, match="Unsupported Master intent"):
-        await master.invoke("summary", {}, AgentContext())
+        await master.invoke("not_a_real_intent", {}, AgentContext())
