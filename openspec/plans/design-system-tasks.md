@@ -188,9 +188,9 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 15. design_system_showcase (§7)
 
-- [ ] 15.1 Write failing smoke/widget test that showcase route renders when dev flag is on and is unavailable (or no-op) when flag is off
-- [ ] 15.2 Implement `design_system_showcase` catalog screen covering every §3 component and major variants; register behind a compile-time / env / `--dart-define` (or equivalent) **dev flag**
-- [ ] 15.3 Manual QA pass via showcase + fix visual gaps; commit showcase
+- [x] 15.1 Write failing smoke/widget test that showcase route renders when dev flag is on and is unavailable (or no-op) when flag is off
+- [x] 15.2 Implement `design_system_showcase` catalog screen covering every §3 component and major variants; register behind a compile-time / env / `--dart-define` (or equivalent) **dev flag**
+- [x] 15.3 Manual QA pass via showcase + fix visual gaps; commit showcase
 
 ---
 
