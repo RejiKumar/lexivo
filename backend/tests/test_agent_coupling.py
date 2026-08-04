@@ -9,9 +9,32 @@ import pytest
 
 AGENTS_DIR = Path(__file__).resolve().parents[1] / "app" / "agents"
 
-# Leaf specialized agents (STEP 3.4: OCR only). Future agents added here.
-SPECIALIZED_AGENT_MODULES = frozenset({"ocr_agent"})
+SPECIALIZED_AGENT_MODULES = frozenset(
+    {
+        "ocr_agent",
+        "summary_agent",
+        "translation_agent",
+        "search_agent",
+        "citation_agent",
+        "export_agent",
+        "security_agent",
+        "notification_agent",
+        "analytics_agent",
+    }
+)
 ALLOWED_SHARED = frozenset({"base_agent"})
+
+SPECIALIST_CLASS_NAMES = (
+    "OCRAgent",
+    "SummaryAgent",
+    "TranslationAgent",
+    "SearchAgent",
+    "CitationAgent",
+    "ExportAgent",
+    "SecurityAgent",
+    "NotificationAgent",
+    "AnalyticsAgent",
+)
 
 
 def _agent_module_imports(path: Path) -> set[str]:
@@ -59,7 +82,10 @@ def test_specialized_agents_do_not_import_other_specialized_agents() -> None:
 
 def test_only_master_may_import_specialized_agents() -> None:
     master_imports = _agent_module_imports(AGENTS_DIR / "master_agent.py")
-    assert "ocr_agent" in master_imports
+    for module_stem in SPECIALIZED_AGENT_MODULES:
+        assert module_stem in master_imports, (
+            f"master_agent.py should import {module_stem} for registry wiring"
+        )
     assert "base_agent" in master_imports
 
     for path in AGENTS_DIR.glob("*_agent.py"):
@@ -74,21 +100,29 @@ def test_only_master_may_import_specialized_agents() -> None:
         assert not (imported & other_specialists)
 
 
-def test_ocr_agent_source_has_no_other_specialist_class_refs() -> None:
-    source = (AGENTS_DIR / "ocr_agent.py").read_text(encoding="utf-8")
-    forbidden_names = (
-        "SummaryAgent",
-        "TranslationAgent",
-        "SearchAgent",
-        "CitationAgent",
-        "ExportAgent",
-        "SecurityAgent",
-        "NotificationAgent",
-        "AnalyticsAgent",
-        "MasterAgent",
-    )
-    for name in forbidden_names:
-        assert name not in source
+@pytest.mark.parametrize("module_stem", sorted(SPECIALIZED_AGENT_MODULES))
+def test_specialist_source_has_no_other_specialist_class_or_master_refs(
+    module_stem: str,
+) -> None:
+    source = (AGENTS_DIR / f"{module_stem}.py").read_text(encoding="utf-8")
+    class_map = {
+        "ocr_agent": "OCRAgent",
+        "summary_agent": "SummaryAgent",
+        "translation_agent": "TranslationAgent",
+        "search_agent": "SearchAgent",
+        "citation_agent": "CitationAgent",
+        "export_agent": "ExportAgent",
+        "security_agent": "SecurityAgent",
+        "notification_agent": "NotificationAgent",
+        "analytics_agent": "AnalyticsAgent",
+    }
+    own = class_map[module_stem]
+    for name in SPECIALIST_CLASS_NAMES:
+        if name == own:
+            continue
+        assert name not in source, f"{module_stem} references {name}"
+    for forbidden in ("MasterAgent", "run_master", "master_agent"):
+        assert forbidden not in source, f"{module_stem} references {forbidden}"
 
 
 @pytest.mark.asyncio
@@ -109,3 +143,15 @@ async def test_master_invokes_ocr_without_ocr_importing_master() -> None:
         ocr_provider=FakeOCRProvider(text="ok"),
     )
     assert result.success is True
+
+
+def test_document_processing_task_enters_via_master_only() -> None:
+    """Thin Celery hook may call run_master; must not import specialist agents."""
+    tasks_dir = Path(__file__).resolve().parents[1] / "app" / "tasks"
+    source = (tasks_dir / "document_processing.py").read_text(encoding="utf-8")
+    assert "run_master" in source
+    assert "from app.agents.master_agent import run_master" in source
+    for module_stem in SPECIALIZED_AGENT_MODULES:
+        assert f"app.agents.{module_stem}" not in source
+    for name in SPECIALIST_CLASS_NAMES:
+        assert name not in source
