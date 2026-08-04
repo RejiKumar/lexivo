@@ -56,6 +56,11 @@ typedef PdfExportScreenBuilders = ({
   Widget Function(BuildContext context, String documentId) result,
 });
 
+/// Notifications feature screen builders — injected from `features/notifications` barrel.
+typedef NotificationsScreenBuilders = ({
+  Widget Function(BuildContext context) inbox,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -103,6 +108,13 @@ final pdfExportScreenBuildersProvider = Provider<PdfExportScreenBuilders>((ref) 
   );
 });
 
+final notificationsScreenBuildersProvider =
+    Provider<NotificationsScreenBuilders>((ref) {
+  return (
+    inbox: (_) => const _StubPage(title: 'Notifications'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
@@ -111,6 +123,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final translationBuilders = ref.watch(translationScreenBuildersProvider);
   final ragChatBuilders = ref.watch(ragChatScreenBuildersProvider);
   final pdfExportBuilders = ref.watch(pdfExportScreenBuildersProvider);
+  final notificationsBuilders = ref.watch(notificationsScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -151,6 +164,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: RouteGuards.account,
         name: 'account',
         builder: (context, state) => builders.account(context),
+      ),
+      GoRoute(
+        path: RouteGuards.notifications,
+        name: 'notifications',
+        builder: (context, state) => notificationsBuilders.inbox(context),
       ),
       GoRoute(
         path: RouteGuards.documents,

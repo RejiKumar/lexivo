@@ -16,6 +16,7 @@ abstract final class RouteGuards {
   static const home = '/';
   static const documents = '/documents';
   static const documentScan = '/documents/scan';
+  static const notifications = '/notifications';
 
   /// OCR result for [documentId].
   static String documentOcr(String documentId) =>

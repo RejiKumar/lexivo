@@ -9,6 +9,7 @@ import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/auth/auth.dart';
 import 'package:lexivo/features/document_scan/document_scan.dart';
+import 'package:lexivo/features/notifications/notifications.dart';
 import 'package:lexivo/features/ocr/ocr.dart';
 import 'package:lexivo/features/pdf_export/pdf_export.dart';
 import 'package:lexivo/features/rag_chat/rag_chat.dart';
@@ -44,6 +45,7 @@ Future<void> main() async {
         ...translationCoreOverrides(),
         ...ragChatCoreOverrides(),
         ...pdfExportCoreOverrides(),
+        ...notificationsCoreOverrides(),
         showcaseEnabledProvider.overrideWith(
           (ref) => AppRouter.showcaseEnabled,
         ),

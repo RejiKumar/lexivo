@@ -39,6 +39,13 @@ class AuthHomeShell extends ConsumerWidget {
               ),
               const SizedBox(height: LexivoSpacing.md),
               LexivoButton(
+                label: 'Notifications',
+                variant: LexivoButtonVariant.secondary,
+                onPressed: () => context.go(RouteGuards.notifications),
+                fullWidth: true,
+              ),
+              const SizedBox(height: LexivoSpacing.md),
+              LexivoButton(
                 label: 'Account settings',
                 variant: LexivoButtonVariant.secondary,
                 onPressed: () => context.go(RouteGuards.account),
