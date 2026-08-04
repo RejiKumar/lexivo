@@ -27,6 +27,7 @@ from app.tasks.provider_overrides import (
 )
 from tests.fakes import (
     FakeAuthProvider,
+    FakeEmbedder,
     FakeLLMProvider,
     FakeOCRProvider,
     FakeStorageProvider,
@@ -93,6 +94,63 @@ def fake_llm() -> FakeLLMProvider:
 @pytest.fixture
 def fake_ocr() -> FakeOCRProvider:
     return FakeOCRProvider()
+
+
+@pytest.fixture
+def fake_embedder() -> FakeEmbedder:
+    return FakeEmbedder()
+
+
+@pytest.fixture
+def contract_rag_config():
+    from app.rag.presets import CONTRACT_CONFIG
+
+    return CONTRACT_CONFIG
+
+
+@pytest.fixture
+def receipt_rag_config():
+    from app.rag.presets import RECEIPT_CONFIG
+
+    return RECEIPT_CONFIG
+
+
+@pytest.fixture
+def rag_pipeline(db_session, fake_embedder: FakeEmbedder):
+    """RagPipeline wired with FakeEmbedder for unit/integration tests."""
+    from app.rag.chunker import Chunker
+    from app.rag.context_builder import ContextBuilder
+    from app.rag.embedder import Embedder
+    from app.rag.pipeline import RagPipeline
+    from app.rag.retriever import HybridRetriever
+    from app.repositories.chunk_repo import DocumentChunkRepository
+
+    return RagPipeline(
+        chunker=Chunker(),
+        embedder=Embedder(fake_embedder),
+        retriever=HybridRetriever(db_session),
+        context_builder=ContextBuilder(),
+        chunk_store=DocumentChunkRepository(db_session),
+    )
+
+
+@pytest.fixture
+def sample_document_with_text(db_session):
+    """Ready document carrying extracted_text for ingest tests."""
+    from app.models import DocumentStatus
+    from app.repositories.document_repo import DocumentRepository
+    from app.repositories.user_repo import UserRepository
+
+    owner = UserRepository(db_session).create(
+        external_id="sample-rag-user",
+        email="sample-rag@example.com",
+    )
+    return DocumentRepository(db_session).create(
+        user_id=owner.id,
+        title="Sample",
+        status=DocumentStatus.ready,
+        extracted_text="Sample document body with the phrase aurora_borealis for retrieval.",
+    )
 
 
 @pytest.fixture
