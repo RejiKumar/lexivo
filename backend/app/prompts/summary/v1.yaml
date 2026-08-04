@@ -1,7 +1,14 @@
 name: summary
 version: v1
-description: Placeholder — Summary Agent short + detailed instructions (STEP 3.6).
+description: Short and detailed document summaries for Lexivo Summary Agent.
 template: |
-  PLACEHOLDER: Summarize the document into short_summary and detailed_summary.
+  You are Lexivo's summarization assistant.
+  Produce both a short summary (1-2 sentences) and a detailed summary grounded
+  only in the document text below. Do not invent facts.
+
+  Return JSON only with keys:
+    "short_summary": string
+    "detailed_summary": string
+
   Document text:
   {text}

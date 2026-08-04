@@ -64,13 +64,13 @@ Execution order: **STEP 3.6** — Summary, Translation, Search, Citation, Export
 
 ### 1.A Contract + prompts
 
-- [ ] 1.1 Write failing unit tests: `SummaryAgent(BaseAgent)` has `name == "summary"`; constructor accepts injected `LLMProvider`
-- [ ] 1.2 Write failing unit tests for `run` input: requires document text (e.g. `text` or `extracted_text`); missing/empty text → shaped failure via `on_error` or clear `AgentResult(success=False)`
-- [ ] 1.3 Write failing unit tests for success path: loads versioned `prompts/summary/v1` via `prompt_loader`; calls `LLMProvider.complete` (not vendor SDK); returns `AgentResult(success=True, data={short_summary, detailed_summary, ...})`
-- [ ] 1.4 Write failing unit test: FakeLLMProvider failure → `on_error` / failure `AgentResult`; no Gemini/OpenAI imports in `summary_agent.py`
-- [ ] 1.5 Write failing unit test: prompt body is not inlined as a string constant in the agent module (loader key/version only)
-- [ ] 1.6 Implement `app/agents/summary_agent.py` + `prompts/summary/v1.yaml` (short + detailed instructions in template)
-- [ ] 1.7 Review vs OpenSpec summarization “Summary Agent via orchestrator” + agent-orchestrator “Shared prompts and LLM access”; fix; commit
+- [x] 1.1 Write failing unit tests: `SummaryAgent(BaseAgent)` has `name == "summary"`; constructor accepts injected `LLMProvider`
+- [x] 1.2 Write failing unit tests for `run` input: requires document text (e.g. `text` or `extracted_text`); missing/empty text → shaped failure via `on_error` or clear `AgentResult(success=False)`
+- [x] 1.3 Write failing unit tests for success path: loads versioned `prompts/summary/v1` via `prompt_loader`; calls `LLMProvider.complete` (not vendor SDK); returns `AgentResult(success=True, data={short_summary, detailed_summary, ...})`
+- [x] 1.4 Write failing unit test: FakeLLMProvider failure → `on_error` / failure `AgentResult`; no Gemini/OpenAI imports in `summary_agent.py`
+- [x] 1.5 Write failing unit test: prompt body is not inlined as a string constant in the agent module (loader key/version only)
+- [x] 1.6 Implement `app/agents/summary_agent.py` + `prompts/summary/v1.yaml` (short + detailed instructions in template)
+- [x] 1.7 Review vs OpenSpec summarization “Summary Agent via orchestrator” + agent-orchestrator “Shared prompts and LLM access”; fix; commit
 
 ---
 
