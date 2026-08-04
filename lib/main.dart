@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'package:lexivo/core/config/app_config.dart';
 import 'package:lexivo/core/design_system/showcase/design_system_flags.dart';
 import 'package:lexivo/core/design_system/showcase/design_system_showcase.dart';
+import 'package:lexivo/core/observability/posthog_bootstrap.dart';
+import 'package:lexivo/core/observability/sentry_bootstrap.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/auth/auth.dart';
@@ -21,8 +24,11 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppRouter.showcaseEnabled = LexivoDesignSystemFlags.showcaseEnabled;
 
-  const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
-  const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
+  await initSentryIfConfigured();
+  await initPosthogIfConfigured();
+
+  final supabaseUrl = AppConfig.supabaseUrl;
+  final supabaseAnonKey = AppConfig.supabaseAnonKey;
 
   if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
     await Supabase.initialize(

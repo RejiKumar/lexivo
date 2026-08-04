@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexivo/core/config/app_config.dart';
 
 import 'error_mapper.dart';
 
@@ -23,13 +24,9 @@ class ApiConfig {
   final Duration sendTimeout;
 }
 
-/// Default config from dart-defines / env.
+/// Default config from dart-defines / env ([AppConfig]).
 final apiConfigProvider = Provider<ApiConfig>((ref) {
-  const baseUrl = String.fromEnvironment(
-    'API_BASE_URL',
-    defaultValue: 'http://localhost:8000',
-  );
-  return ApiConfig(baseUrl: baseUrl);
+  return ApiConfig(baseUrl: AppConfig.apiBaseUrl);
 });
 
 /// Override in auth wiring to return the persisted session token.

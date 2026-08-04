@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from app.adapters.analytics.posthog import PostHogAnalyticsProvider
+from app.adapters.analytics.stub import StubAnalyticsProvider
 from app.adapters.auth.clerk_adapter import ClerkAuthAdapter
 from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter
 from app.adapters.llm.gemini_adapter import GeminiLLMAdapter
@@ -9,6 +11,7 @@ from app.adapters.llm.openai_adapter import OpenAILLMAdapter
 from app.adapters.ocr.doc_ai_adapter import DocAIAdapter
 from app.adapters.ocr.mistral_ocr_adapter import MistralOCRAdapter
 from app.adapters.protocols import (
+    AnalyticsProvider,
     AuthProvider,
     LLMProvider,
     OCRProvider,
@@ -53,3 +56,12 @@ def build_ocr_provider(settings: Settings | None = None) -> OCRProvider:
             location=cfg.document_ai_location,
         )
     return MistralOCRAdapter(api_key=cfg.mistral_api_key)
+
+
+def build_analytics_provider(settings: Settings | None = None) -> AnalyticsProvider:
+    """Stub when PostHog key empty; real adapter when set (SDK only in adapter)."""
+    cfg = settings or get_settings()
+    key = (cfg.posthog_api_key or "").strip()
+    if not key:
+        return StubAnalyticsProvider()
+    return PostHogAnalyticsProvider(api_key=key, host=cfg.posthog_host)

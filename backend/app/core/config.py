@@ -9,6 +9,7 @@ AuthProviderName = Literal["supabase", "clerk"]
 OcrProviderName = Literal["mistral", "document_ai"]
 LlmProviderName = Literal["gemini", "openai"]
 StorageProviderName = Literal["r2"]
+AppEnvName = Literal["local", "staging", "production"]
 
 
 class Settings(BaseSettings):
@@ -20,12 +21,20 @@ class Settings(BaseSettings):
         extra="ignore",
     )
 
+    # Deployment stage — telemetry / log level only; never business-logic forks
+    app_env: AppEnvName = "local"
+
     # Core infrastructure
     database_url: str = "postgresql+psycopg://lexivo:lexivo@localhost:5432/lexivo"
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
     # Eager mode runs tasks in-process (CI / unit tests without Redis)
     celery_task_always_eager: bool = False
+
+    # Observability (empty = no-op / stub for local + CI)
+    sentry_dsn: str = ""
+    posthog_api_key: str = ""
+    posthog_host: str = ""
 
     # Adapter provider selectors (launch defaults)
     auth_provider: AuthProviderName = "supabase"

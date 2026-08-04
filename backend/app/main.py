@@ -1,5 +1,7 @@
 """FastAPI application factory."""
 
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 from app.api.v1.routers import (
@@ -12,11 +14,19 @@ from app.api.v1.routers import (
     subscriptions,
     users,
 )
+from app.core.config import get_settings
 from app.core.exception_handlers import register_exception_handlers
+from app.core.observability import init_sentry
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    init_sentry(get_settings())
+    yield
 
 
 def create_app() -> FastAPI:
-    app = FastAPI(title="Lexivo API", version="0.1.0")
+    app = FastAPI(title="Lexivo API", version="0.1.0", lifespan=lifespan)
     register_exception_handlers(app)
     app.include_router(health.router, prefix="/api/v1")
     app.include_router(auth.router, prefix="/api/v1")
