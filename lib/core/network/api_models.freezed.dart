@@ -2469,4 +2469,1372 @@ as String?,
 
 }
 
+
+/// @nodoc
+mixin _$CitationDto {
+
+@JsonKey(name: 'chunk_id') String? get chunkId; int? get index; String? get snippet; int? get page; String? get label;
+/// Create a copy of CitationDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$CitationDtoCopyWith<CitationDto> get copyWith => _$CitationDtoCopyWithImpl<CitationDto>(this as CitationDto, _$identity);
+
+  /// Serializes this CitationDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CitationDto&&(identical(other.chunkId, chunkId) || other.chunkId == chunkId)&&(identical(other.index, index) || other.index == index)&&(identical(other.snippet, snippet) || other.snippet == snippet)&&(identical(other.page, page) || other.page == page)&&(identical(other.label, label) || other.label == label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,chunkId,index,snippet,page,label);
+
+@override
+String toString() {
+  return 'CitationDto(chunkId: $chunkId, index: $index, snippet: $snippet, page: $page, label: $label)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $CitationDtoCopyWith<$Res>  {
+  factory $CitationDtoCopyWith(CitationDto value, $Res Function(CitationDto) _then) = _$CitationDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'chunk_id') String? chunkId, int? index, String? snippet, int? page, String? label
+});
+
+
+
+
+}
+/// @nodoc
+class _$CitationDtoCopyWithImpl<$Res>
+    implements $CitationDtoCopyWith<$Res> {
+  _$CitationDtoCopyWithImpl(this._self, this._then);
+
+  final CitationDto _self;
+  final $Res Function(CitationDto) _then;
+
+/// Create a copy of CitationDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? chunkId = freezed,Object? index = freezed,Object? snippet = freezed,Object? page = freezed,Object? label = freezed,}) {
+  return _then(CitationDto(
+chunkId: freezed == chunkId ? _self.chunkId : chunkId // ignore: cast_nullable_to_non_nullable
+as String?,index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,snippet: freezed == snippet ? _self.snippet : snippet // ignore: cast_nullable_to_non_nullable
+as String?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [CitationDto].
+extension CitationDtoPatterns on CitationDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _CitationDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _CitationDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _CitationDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _CitationDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _CitationDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _CitationDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'chunk_id')  String? chunkId,  int? index,  String? snippet,  int? page,  String? label)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _CitationDto() when $default != null:
+return $default(_that.chunkId,_that.index,_that.snippet,_that.page,_that.label);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'chunk_id')  String? chunkId,  int? index,  String? snippet,  int? page,  String? label)  $default,) {final _that = this;
+switch (_that) {
+case _CitationDto():
+return $default(_that.chunkId,_that.index,_that.snippet,_that.page,_that.label);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'chunk_id')  String? chunkId,  int? index,  String? snippet,  int? page,  String? label)?  $default,) {final _that = this;
+switch (_that) {
+case _CitationDto() when $default != null:
+return $default(_that.chunkId,_that.index,_that.snippet,_that.page,_that.label);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _CitationDto implements CitationDto {
+  const _CitationDto({@JsonKey(name: 'chunk_id') this.chunkId, this.index, this.snippet, this.page, this.label});
+  factory _CitationDto.fromJson(Map<String, dynamic> json) => _$CitationDtoFromJson(json);
+
+@override@JsonKey(name: 'chunk_id') final  String? chunkId;
+@override final  int? index;
+@override final  String? snippet;
+@override final  int? page;
+@override final  String? label;
+
+/// Create a copy of CitationDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$CitationDtoCopyWith<_CitationDto> get copyWith => __$CitationDtoCopyWithImpl<_CitationDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$CitationDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CitationDto&&(identical(other.chunkId, chunkId) || other.chunkId == chunkId)&&(identical(other.index, index) || other.index == index)&&(identical(other.snippet, snippet) || other.snippet == snippet)&&(identical(other.page, page) || other.page == page)&&(identical(other.label, label) || other.label == label));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,chunkId,index,snippet,page,label);
+
+@override
+String toString() {
+  return 'CitationDto(chunkId: $chunkId, index: $index, snippet: $snippet, page: $page, label: $label)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$CitationDtoCopyWith<$Res> implements $CitationDtoCopyWith<$Res> {
+  factory _$CitationDtoCopyWith(_CitationDto value, $Res Function(_CitationDto) _then) = __$CitationDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'chunk_id') String? chunkId, int? index, String? snippet, int? page, String? label
+});
+
+
+
+
+}
+/// @nodoc
+class __$CitationDtoCopyWithImpl<$Res>
+    implements _$CitationDtoCopyWith<$Res> {
+  __$CitationDtoCopyWithImpl(this._self, this._then);
+
+  final _CitationDto _self;
+  final $Res Function(_CitationDto) _then;
+
+/// Create a copy of CitationDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? chunkId = freezed,Object? index = freezed,Object? snippet = freezed,Object? page = freezed,Object? label = freezed,}) {
+  return _then(_CitationDto(
+chunkId: freezed == chunkId ? _self.chunkId : chunkId // ignore: cast_nullable_to_non_nullable
+as String?,index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,snippet: freezed == snippet ? _self.snippet : snippet // ignore: cast_nullable_to_non_nullable
+as String?,page: freezed == page ? _self.page : page // ignore: cast_nullable_to_non_nullable
+as int?,label: freezed == label ? _self.label : label // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ChatDto {
+
+ String get id;@JsonKey(name: 'user_id') String get userId;@JsonKey(name: 'document_id') String get documentId;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+/// Create a copy of ChatDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChatDtoCopyWith<ChatDto> get copyWith => _$ChatDtoCopyWithImpl<ChatDto>(this as ChatDto, _$identity);
+
+  /// Serializes this ChatDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.documentId, documentId) || other.documentId == documentId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,userId,documentId,createdAt,updatedAt);
+
+@override
+String toString() {
+  return 'ChatDto(id: $id, userId: $userId, documentId: $documentId, createdAt: $createdAt, updatedAt: $updatedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChatDtoCopyWith<$Res>  {
+  factory $ChatDtoCopyWith(ChatDto value, $Res Function(ChatDto) _then) = _$ChatDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id,@JsonKey(name: 'user_id') String userId,@JsonKey(name: 'document_id') String documentId,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$ChatDtoCopyWithImpl<$Res>
+    implements $ChatDtoCopyWith<$Res> {
+  _$ChatDtoCopyWithImpl(this._self, this._then);
+
+  final ChatDto _self;
+  final $Res Function(ChatDto) _then;
+
+/// Create a copy of ChatDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? documentId = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+  return _then(ChatDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,documentId: null == documentId ? _self.documentId : documentId // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ChatDto].
+extension ChatDtoPatterns on ChatDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ChatDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ChatDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ChatDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ChatDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ChatDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ChatDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ChatDto() when $default != null:
+return $default(_that.id,_that.userId,_that.documentId,_that.createdAt,_that.updatedAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+switch (_that) {
+case _ChatDto():
+return $default(_that.id,_that.userId,_that.documentId,_that.createdAt,_that.updatedAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'user_id')  String userId, @JsonKey(name: 'document_id')  String documentId, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+switch (_that) {
+case _ChatDto() when $default != null:
+return $default(_that.id,_that.userId,_that.documentId,_that.createdAt,_that.updatedAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ChatDto implements ChatDto {
+  const _ChatDto({required this.id, @JsonKey(name: 'user_id') required this.userId, @JsonKey(name: 'document_id') required this.documentId, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
+  factory _ChatDto.fromJson(Map<String, dynamic> json) => _$ChatDtoFromJson(json);
+
+@override final  String id;
+@override@JsonKey(name: 'user_id') final  String userId;
+@override@JsonKey(name: 'document_id') final  String documentId;
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+@override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
+
+/// Create a copy of ChatDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ChatDtoCopyWith<_ChatDto> get copyWith => __$ChatDtoCopyWithImpl<_ChatDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ChatDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.documentId, documentId) || other.documentId == documentId)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,userId,documentId,createdAt,updatedAt);
+
+@override
+String toString() {
+  return 'ChatDto(id: $id, userId: $userId, documentId: $documentId, createdAt: $createdAt, updatedAt: $updatedAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ChatDtoCopyWith<$Res> implements $ChatDtoCopyWith<$Res> {
+  factory _$ChatDtoCopyWith(_ChatDto value, $Res Function(_ChatDto) _then) = __$ChatDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id,@JsonKey(name: 'user_id') String userId,@JsonKey(name: 'document_id') String documentId,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$ChatDtoCopyWithImpl<$Res>
+    implements _$ChatDtoCopyWith<$Res> {
+  __$ChatDtoCopyWithImpl(this._self, this._then);
+
+  final _ChatDto _self;
+  final $Res Function(_ChatDto) _then;
+
+/// Create a copy of ChatDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? documentId = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+  return _then(_ChatDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
+as String,documentId: null == documentId ? _self.documentId : documentId // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ChatMessageDto {
+
+ String get id;@JsonKey(name: 'chat_id') String get chatId; String get role; String get content; List<CitationDto>? get citations;@JsonKey(name: 'created_at') DateTime? get createdAt;
+/// Create a copy of ChatMessageDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChatMessageDtoCopyWith<ChatMessageDto> get copyWith => _$ChatMessageDtoCopyWithImpl<ChatMessageDto>(this as ChatMessageDto, _$identity);
+
+  /// Serializes this ChatMessageDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatMessageDto&&(identical(other.id, id) || other.id == id)&&(identical(other.chatId, chatId) || other.chatId == chatId)&&(identical(other.role, role) || other.role == role)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other.citations, citations)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,chatId,role,content,const DeepCollectionEquality().hash(citations),createdAt);
+
+@override
+String toString() {
+  return 'ChatMessageDto(id: $id, chatId: $chatId, role: $role, content: $content, citations: $citations, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChatMessageDtoCopyWith<$Res>  {
+  factory $ChatMessageDtoCopyWith(ChatMessageDto value, $Res Function(ChatMessageDto) _then) = _$ChatMessageDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id,@JsonKey(name: 'chat_id') String chatId, String role, String content, List<CitationDto>? citations,@JsonKey(name: 'created_at') DateTime? createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class _$ChatMessageDtoCopyWithImpl<$Res>
+    implements $ChatMessageDtoCopyWith<$Res> {
+  _$ChatMessageDtoCopyWithImpl(this._self, this._then);
+
+  final ChatMessageDto _self;
+  final $Res Function(ChatMessageDto) _then;
+
+/// Create a copy of ChatMessageDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? chatId = null,Object? role = null,Object? content = null,Object? citations = freezed,Object? createdAt = freezed,}) {
+  return _then(ChatMessageDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,chatId: null == chatId ? _self.chatId : chatId // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,citations: freezed == citations ? _self.citations : citations // ignore: cast_nullable_to_non_nullable
+as List<CitationDto>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ChatMessageDto].
+extension ChatMessageDtoPatterns on ChatMessageDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ChatMessageDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ChatMessageDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ChatMessageDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ChatMessageDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'chat_id')  String chatId,  String role,  String content,  List<CitationDto>? citations, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ChatMessageDto() when $default != null:
+return $default(_that.id,_that.chatId,_that.role,_that.content,_that.citations,_that.createdAt);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'chat_id')  String chatId,  String role,  String content,  List<CitationDto>? citations, @JsonKey(name: 'created_at')  DateTime? createdAt)  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageDto():
+return $default(_that.id,_that.chatId,_that.role,_that.content,_that.citations,_that.createdAt);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'chat_id')  String chatId,  String role,  String content,  List<CitationDto>? citations, @JsonKey(name: 'created_at')  DateTime? createdAt)?  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageDto() when $default != null:
+return $default(_that.id,_that.chatId,_that.role,_that.content,_that.citations,_that.createdAt);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ChatMessageDto implements ChatMessageDto {
+  const _ChatMessageDto({required this.id, @JsonKey(name: 'chat_id') required this.chatId, required this.role, required this.content,  List<CitationDto>? citations, @JsonKey(name: 'created_at') this.createdAt}): _citations = citations;
+  factory _ChatMessageDto.fromJson(Map<String, dynamic> json) => _$ChatMessageDtoFromJson(json);
+
+@override final  String id;
+@override@JsonKey(name: 'chat_id') final  String chatId;
+@override final  String role;
+@override final  String content;
+ final  List<CitationDto>? _citations;
+@override List<CitationDto>? get citations {
+  final value = _citations;
+  if (value == null) return null;
+  if (_citations is EqualUnmodifiableListView) return _citations;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(value);
+}
+
+@override@JsonKey(name: 'created_at') final  DateTime? createdAt;
+
+/// Create a copy of ChatMessageDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ChatMessageDtoCopyWith<_ChatMessageDto> get copyWith => __$ChatMessageDtoCopyWithImpl<_ChatMessageDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ChatMessageDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatMessageDto&&(identical(other.id, id) || other.id == id)&&(identical(other.chatId, chatId) || other.chatId == chatId)&&(identical(other.role, role) || other.role == role)&&(identical(other.content, content) || other.content == content)&&const DeepCollectionEquality().equals(other._citations, _citations)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,chatId,role,content,const DeepCollectionEquality().hash(_citations),createdAt);
+
+@override
+String toString() {
+  return 'ChatMessageDto(id: $id, chatId: $chatId, role: $role, content: $content, citations: $citations, createdAt: $createdAt)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ChatMessageDtoCopyWith<$Res> implements $ChatMessageDtoCopyWith<$Res> {
+  factory _$ChatMessageDtoCopyWith(_ChatMessageDto value, $Res Function(_ChatMessageDto) _then) = __$ChatMessageDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id,@JsonKey(name: 'chat_id') String chatId, String role, String content, List<CitationDto>? citations,@JsonKey(name: 'created_at') DateTime? createdAt
+});
+
+
+
+
+}
+/// @nodoc
+class __$ChatMessageDtoCopyWithImpl<$Res>
+    implements _$ChatMessageDtoCopyWith<$Res> {
+  __$ChatMessageDtoCopyWithImpl(this._self, this._then);
+
+  final _ChatMessageDto _self;
+  final $Res Function(_ChatMessageDto) _then;
+
+/// Create a copy of ChatMessageDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? chatId = null,Object? role = null,Object? content = null,Object? citations = freezed,Object? createdAt = freezed,}) {
+  return _then(_ChatMessageDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,chatId: null == chatId ? _self.chatId : chatId // ignore: cast_nullable_to_non_nullable
+as String,role: null == role ? _self.role : role // ignore: cast_nullable_to_non_nullable
+as String,content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,citations: freezed == citations ? _self._citations : citations // ignore: cast_nullable_to_non_nullable
+as List<CitationDto>?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as DateTime?,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ChatMessageListDto {
+
+ List<ChatMessageDto> get items;
+/// Create a copy of ChatMessageListDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChatMessageListDtoCopyWith<ChatMessageListDto> get copyWith => _$ChatMessageListDtoCopyWithImpl<ChatMessageListDto>(this as ChatMessageListDto, _$identity);
+
+  /// Serializes this ChatMessageListDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatMessageListDto&&const DeepCollectionEquality().equals(other.items, items));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(items));
+
+@override
+String toString() {
+  return 'ChatMessageListDto(items: $items)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChatMessageListDtoCopyWith<$Res>  {
+  factory $ChatMessageListDtoCopyWith(ChatMessageListDto value, $Res Function(ChatMessageListDto) _then) = _$ChatMessageListDtoCopyWithImpl;
+@useResult
+$Res call({
+ List<ChatMessageDto> items
+});
+
+
+
+
+}
+/// @nodoc
+class _$ChatMessageListDtoCopyWithImpl<$Res>
+    implements $ChatMessageListDtoCopyWith<$Res> {
+  _$ChatMessageListDtoCopyWithImpl(this._self, this._then);
+
+  final ChatMessageListDto _self;
+  final $Res Function(ChatMessageListDto) _then;
+
+/// Create a copy of ChatMessageListDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? items = null,}) {
+  return _then(ChatMessageListDto(
+items: null == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as List<ChatMessageDto>,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ChatMessageListDto].
+extension ChatMessageListDtoPatterns on ChatMessageListDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ChatMessageListDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ChatMessageListDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ChatMessageListDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageListDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ChatMessageListDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageListDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( List<ChatMessageDto> items)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ChatMessageListDto() when $default != null:
+return $default(_that.items);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( List<ChatMessageDto> items)  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageListDto():
+return $default(_that.items);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( List<ChatMessageDto> items)?  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageListDto() when $default != null:
+return $default(_that.items);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ChatMessageListDto implements ChatMessageListDto {
+  const _ChatMessageListDto({ List<ChatMessageDto> items = const []}): _items = items;
+  factory _ChatMessageListDto.fromJson(Map<String, dynamic> json) => _$ChatMessageListDtoFromJson(json);
+
+ final  List<ChatMessageDto> _items;
+@override@JsonKey() List<ChatMessageDto> get items {
+  if (_items is EqualUnmodifiableListView) return _items;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_items);
+}
+
+
+/// Create a copy of ChatMessageListDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ChatMessageListDtoCopyWith<_ChatMessageListDto> get copyWith => __$ChatMessageListDtoCopyWithImpl<_ChatMessageListDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ChatMessageListDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatMessageListDto&&const DeepCollectionEquality().equals(other._items, _items));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_items));
+
+@override
+String toString() {
+  return 'ChatMessageListDto(items: $items)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ChatMessageListDtoCopyWith<$Res> implements $ChatMessageListDtoCopyWith<$Res> {
+  factory _$ChatMessageListDtoCopyWith(_ChatMessageListDto value, $Res Function(_ChatMessageListDto) _then) = __$ChatMessageListDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ List<ChatMessageDto> items
+});
+
+
+
+
+}
+/// @nodoc
+class __$ChatMessageListDtoCopyWithImpl<$Res>
+    implements _$ChatMessageListDtoCopyWith<$Res> {
+  __$ChatMessageListDtoCopyWithImpl(this._self, this._then);
+
+  final _ChatMessageListDto _self;
+  final $Res Function(_ChatMessageListDto) _then;
+
+/// Create a copy of ChatMessageListDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? items = null,}) {
+  return _then(_ChatMessageListDto(
+items: null == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as List<ChatMessageDto>,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$ChatMessageCreateDto {
+
+ String get content;
+/// Create a copy of ChatMessageCreateDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ChatMessageCreateDtoCopyWith<ChatMessageCreateDto> get copyWith => _$ChatMessageCreateDtoCopyWithImpl<ChatMessageCreateDto>(this as ChatMessageCreateDto, _$identity);
+
+  /// Serializes this ChatMessageCreateDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ChatMessageCreateDto&&(identical(other.content, content) || other.content == content));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,content);
+
+@override
+String toString() {
+  return 'ChatMessageCreateDto(content: $content)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $ChatMessageCreateDtoCopyWith<$Res>  {
+  factory $ChatMessageCreateDtoCopyWith(ChatMessageCreateDto value, $Res Function(ChatMessageCreateDto) _then) = _$ChatMessageCreateDtoCopyWithImpl;
+@useResult
+$Res call({
+ String content
+});
+
+
+
+
+}
+/// @nodoc
+class _$ChatMessageCreateDtoCopyWithImpl<$Res>
+    implements $ChatMessageCreateDtoCopyWith<$Res> {
+  _$ChatMessageCreateDtoCopyWithImpl(this._self, this._then);
+
+  final ChatMessageCreateDto _self;
+  final $Res Function(ChatMessageCreateDto) _then;
+
+/// Create a copy of ChatMessageCreateDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? content = null,}) {
+  return _then(ChatMessageCreateDto(
+content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [ChatMessageCreateDto].
+extension ChatMessageCreateDtoPatterns on ChatMessageCreateDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ChatMessageCreateDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ChatMessageCreateDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ChatMessageCreateDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String content)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto() when $default != null:
+return $default(_that.content);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String content)  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto():
+return $default(_that.content);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String content)?  $default,) {final _that = this;
+switch (_that) {
+case _ChatMessageCreateDto() when $default != null:
+return $default(_that.content);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _ChatMessageCreateDto implements ChatMessageCreateDto {
+  const _ChatMessageCreateDto({required this.content});
+  factory _ChatMessageCreateDto.fromJson(Map<String, dynamic> json) => _$ChatMessageCreateDtoFromJson(json);
+
+@override final  String content;
+
+/// Create a copy of ChatMessageCreateDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$ChatMessageCreateDtoCopyWith<_ChatMessageCreateDto> get copyWith => __$ChatMessageCreateDtoCopyWithImpl<_ChatMessageCreateDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$ChatMessageCreateDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ChatMessageCreateDto&&(identical(other.content, content) || other.content == content));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,content);
+
+@override
+String toString() {
+  return 'ChatMessageCreateDto(content: $content)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$ChatMessageCreateDtoCopyWith<$Res> implements $ChatMessageCreateDtoCopyWith<$Res> {
+  factory _$ChatMessageCreateDtoCopyWith(_ChatMessageCreateDto value, $Res Function(_ChatMessageCreateDto) _then) = __$ChatMessageCreateDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String content
+});
+
+
+
+
+}
+/// @nodoc
+class __$ChatMessageCreateDtoCopyWithImpl<$Res>
+    implements _$ChatMessageCreateDtoCopyWith<$Res> {
+  __$ChatMessageCreateDtoCopyWithImpl(this._self, this._then);
+
+  final _ChatMessageCreateDto _self;
+  final $Res Function(_ChatMessageCreateDto) _then;
+
+/// Create a copy of ChatMessageCreateDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? content = null,}) {
+  return _then(_ChatMessageCreateDto(
+content: null == content ? _self.content : content // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 // dart format on

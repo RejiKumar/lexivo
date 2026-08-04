@@ -287,4 +287,72 @@ void main() {
       expect(result.failureOrNull?.message, contains('Unsupported'));
     });
   });
+
+  group('ApiClient chat', () {
+    test('createChat / listChatMessages / postChatMessage', () async {
+      adapter.onPost(
+        '/api/v1/chats/doc-1',
+        (server) =>
+            server.reply(200, readFixtureSync('chats/chat_created.json')),
+      );
+      adapter.onGet(
+        '/api/v1/chats/doc-1/messages',
+        (server) => server.reply(
+          200,
+          readFixtureSync('chats/messages_with_citations.json'),
+        ),
+      );
+      adapter.onPost(
+        '/api/v1/chats/doc-1/messages',
+        (server) => server.reply(
+          200,
+          readFixtureSync('chats/message_assistant_cited.json'),
+        ),
+        data: Matchers.any,
+      );
+
+      final chat = await client.createChat('doc-1');
+      expect(chat.isSuccess, isTrue);
+      expect(chat.valueOrNull?.id, 'chat-1');
+
+      final list = await client.listChatMessages('doc-1');
+      expect(list.valueOrNull?.items.length, 2);
+      expect(list.valueOrNull?.items.last.role, 'assistant');
+      expect(list.valueOrNull?.items.last.citations?.first.snippet,
+          contains('rent'));
+
+      final posted = await client.postChatMessage(
+        'doc-1',
+        content: 'When is rent due?',
+      );
+      expect(posted.isSuccess, isTrue);
+      expect(posted.valueOrNull?.citations?.first.label, '§1');
+    });
+
+    test('postChatMessage 409 → ValidationFailure', () async {
+      adapter.onPost(
+        '/api/v1/chats/doc-1/messages',
+        (server) =>
+            server.reply(409, readFixtureSync('chats/chat_not_ready_409.json')),
+        data: Matchers.any,
+      );
+      final result = await client.postChatMessage('doc-1', content: 'Q?');
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull?.message, contains('not ready'));
+    });
+
+    test('postChatMessage 422 → ValidationFailure', () async {
+      adapter.onPost(
+        '/api/v1/chats/doc-1/messages',
+        (server) => server.reply(
+          422,
+          readFixtureSync('chats/chat_empty_content_422.json'),
+        ),
+        data: Matchers.any,
+      );
+      final result = await client.postChatMessage('doc-1', content: ' ');
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull?.message, contains('empty'));
+    });
+  });
 }

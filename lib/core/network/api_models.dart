@@ -122,3 +122,66 @@ abstract class TranslationStatusDto with _$TranslationStatusDto {
   factory TranslationStatusDto.fromJson(Map<String, dynamic> json) =>
       _$TranslationStatusDtoFromJson(json);
 }
+
+@freezed
+abstract class CitationDto with _$CitationDto {
+  const factory CitationDto({
+    @JsonKey(name: 'chunk_id') String? chunkId,
+    int? index,
+    String? snippet,
+    int? page,
+    String? label,
+  }) = _CitationDto;
+
+  factory CitationDto.fromJson(Map<String, dynamic> json) =>
+      _$CitationDtoFromJson(json);
+}
+
+@freezed
+abstract class ChatDto with _$ChatDto {
+  const factory ChatDto({
+    required String id,
+    @JsonKey(name: 'user_id') required String userId,
+    @JsonKey(name: 'document_id') required String documentId,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+    @JsonKey(name: 'updated_at') DateTime? updatedAt,
+  }) = _ChatDto;
+
+  factory ChatDto.fromJson(Map<String, dynamic> json) =>
+      _$ChatDtoFromJson(json);
+}
+
+@freezed
+abstract class ChatMessageDto with _$ChatMessageDto {
+  const factory ChatMessageDto({
+    required String id,
+    @JsonKey(name: 'chat_id') required String chatId,
+    required String role,
+    required String content,
+    List<CitationDto>? citations,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
+  }) = _ChatMessageDto;
+
+  factory ChatMessageDto.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageDtoFromJson(json);
+}
+
+@freezed
+abstract class ChatMessageListDto with _$ChatMessageListDto {
+  const factory ChatMessageListDto({
+    @Default([]) List<ChatMessageDto> items,
+  }) = _ChatMessageListDto;
+
+  factory ChatMessageListDto.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageListDtoFromJson(json);
+}
+
+@freezed
+abstract class ChatMessageCreateDto with _$ChatMessageCreateDto {
+  const factory ChatMessageCreateDto({
+    required String content,
+  }) = _ChatMessageCreateDto;
+
+  factory ChatMessageCreateDto.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageCreateDtoFromJson(json);
+}

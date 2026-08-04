@@ -163,3 +163,84 @@ Map<String, dynamic> _$TranslationStatusDtoToJson(
   'source_lang': instance.sourceLang,
   'target_lang': instance.targetLang,
 };
+
+_CitationDto _$CitationDtoFromJson(Map<String, dynamic> json) => _CitationDto(
+  chunkId: json['chunk_id'] as String?,
+  index: (json['index'] as num?)?.toInt(),
+  snippet: json['snippet'] as String?,
+  page: (json['page'] as num?)?.toInt(),
+  label: json['label'] as String?,
+);
+
+Map<String, dynamic> _$CitationDtoToJson(_CitationDto instance) =>
+    <String, dynamic>{
+      'chunk_id': instance.chunkId,
+      'index': instance.index,
+      'snippet': instance.snippet,
+      'page': instance.page,
+      'label': instance.label,
+    };
+
+_ChatDto _$ChatDtoFromJson(Map<String, dynamic> json) => _ChatDto(
+  id: json['id'] as String,
+  userId: json['user_id'] as String,
+  documentId: json['document_id'] as String,
+  createdAt: json['created_at'] == null
+      ? null
+      : DateTime.parse(json['created_at'] as String),
+  updatedAt: json['updated_at'] == null
+      ? null
+      : DateTime.parse(json['updated_at'] as String),
+);
+
+Map<String, dynamic> _$ChatDtoToJson(_ChatDto instance) => <String, dynamic>{
+  'id': instance.id,
+  'user_id': instance.userId,
+  'document_id': instance.documentId,
+  'created_at': instance.createdAt?.toIso8601String(),
+  'updated_at': instance.updatedAt?.toIso8601String(),
+};
+
+_ChatMessageDto _$ChatMessageDtoFromJson(Map<String, dynamic> json) =>
+    _ChatMessageDto(
+      id: json['id'] as String,
+      chatId: json['chat_id'] as String,
+      role: json['role'] as String,
+      content: json['content'] as String,
+      citations: (json['citations'] as List<dynamic>?)
+          ?.map((e) => CitationDto.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+    );
+
+Map<String, dynamic> _$ChatMessageDtoToJson(_ChatMessageDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'chat_id': instance.chatId,
+      'role': instance.role,
+      'content': instance.content,
+      'citations': instance.citations,
+      'created_at': instance.createdAt?.toIso8601String(),
+    };
+
+_ChatMessageListDto _$ChatMessageListDtoFromJson(Map<String, dynamic> json) =>
+    _ChatMessageListDto(
+      items:
+          (json['items'] as List<dynamic>?)
+              ?.map((e) => ChatMessageDto.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+    );
+
+Map<String, dynamic> _$ChatMessageListDtoToJson(_ChatMessageListDto instance) =>
+    <String, dynamic>{'items': instance.items};
+
+_ChatMessageCreateDto _$ChatMessageCreateDtoFromJson(
+  Map<String, dynamic> json,
+) => _ChatMessageCreateDto(content: json['content'] as String);
+
+Map<String, dynamic> _$ChatMessageCreateDtoToJson(
+  _ChatMessageCreateDto instance,
+) => <String, dynamic>{'content': instance.content};

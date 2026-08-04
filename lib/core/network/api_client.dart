@@ -80,6 +80,32 @@ class ApiClient {
         (json) => TranslationStatusDto.fromJson(json),
       );
 
+  /// Get-or-create chat thread for a document (idempotent).
+  Future<Result<ChatDto>> createChat(String docId) => _post(
+        '$_prefix/chats/$docId',
+        (json) => ChatDto.fromJson(json),
+      );
+
+  /// Ordered messages for resume / sync.
+  Future<Result<ChatMessageListDto>> listChatMessages(String docId) => _get(
+        '$_prefix/chats/$docId/messages',
+        (json) => ChatMessageListDto.fromJson(json),
+      );
+
+  /// Synchronous ask — Master `ask` / `rag_chat` (Search→Citation).
+  ///
+  /// 200 with assistant message + citations; **409** not-ready / not-ingested;
+  /// **422** empty content.
+  Future<Result<ChatMessageDto>> postChatMessage(
+    String docId, {
+    required String content,
+  }) =>
+      _post(
+        '$_prefix/chats/$docId/messages',
+        (json) => ChatMessageDto.fromJson(json),
+        data: ChatMessageCreateDto(content: content).toJson(),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
