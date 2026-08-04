@@ -52,10 +52,10 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 1.B Database session
 
-- [ ] 1.4 Write failing tests for engine/session factory and FastAPI `get_db` dependency yielding a session
-- [ ] 1.5 Implement `app/core/db.py` (SQLAlchemy engine, SessionLocal, `get_db`); enable pgvector extension in migration bootstrap notes
-- [ ] 1.6 Add Alembic init + first migration placeholder for `users`, `documents`, `jobs` tables (document_chunks deferred to RAG step — table stub OK if needed for FK hygiene, no ingest logic)
-- [ ] 1.7 Review vs backend-services “Core data domains” (users, documents, jobs for this step); fix; commit
+- [x] 1.4 Write failing tests for engine/session factory and FastAPI `get_db` dependency yielding a session
+- [x] 1.5 Implement `app/core/db.py` (SQLAlchemy engine, SessionLocal, `get_db`); enable pgvector extension in migration bootstrap notes
+- [x] 1.6 Add Alembic init + first migration placeholder for `users`, `documents`, `jobs` tables (document_chunks deferred to RAG step — table stub OK if needed for FK hygiene, no ingest logic)
+- [x] 1.7 Review vs backend-services “Core data domains” (users, documents, jobs for this step); fix; commit
 
 ### 1.C Docker Compose local stack
 

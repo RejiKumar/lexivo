@@ -1,4 +1,7 @@
-# Alembic migrations live here. Bootstrap notes:
-# - Enable pgvector: CREATE EXTENSION IF NOT EXISTS vector;
-# - Core domains for STEP 3.3: users, documents, jobs
-# - document_chunks deferred to RAG step (stub table OK for FK hygiene only)
+# Alembic migrations live here.
+
+Bootstrap notes:
+- Enable pgvector on Postgres: CREATE EXTENSION IF NOT EXISTS vector;
+  (done automatically in 0001_initial_core when dialect is postgresql)
+- Core domains for STEP 3.3: users, documents, jobs
+- document_chunks deferred to RAG step (table stub OK for FK hygiene later; no ingest logic)
