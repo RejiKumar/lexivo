@@ -13,6 +13,7 @@ celery_app = Celery(
         "app.tasks.document_processing",
         "app.tasks.embeddings",
         "app.tasks.summary",
+        "app.tasks.translation",
     ],
 )
 
@@ -27,3 +28,4 @@ celery_app.conf.update(
 import app.tasks.document_processing  # noqa: E402, F401
 import app.tasks.embeddings  # noqa: E402, F401
 import app.tasks.summary  # noqa: E402, F401
+import app.tasks.translation  # noqa: E402, F401

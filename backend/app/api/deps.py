@@ -12,9 +12,11 @@ from app.repositories.document_repo import DocumentRepository
 from app.repositories.user_repo import UserRepository
 from app.services.document_service import DocumentService
 from app.services.summary_service import SummaryService
+from app.services.translation_service import TranslationService
 from app.services.user_service import UserService
 from app.tasks.document_processing import enqueue_document_processing
 from app.tasks.summary import enqueue_summary
+from app.tasks.translation import enqueue_translation
 
 
 def get_user_service(db: Annotated[Session, Depends(get_db)]) -> UserService:
@@ -38,4 +40,13 @@ def get_summary_service(
     return SummaryService(
         DocumentRepository(db),
         enqueue_summary=enqueue_summary,
+    )
+
+
+def get_translation_service(
+    db: Annotated[Session, Depends(get_db)],
+) -> TranslationService:
+    return TranslationService(
+        DocumentRepository(db),
+        enqueue_translation=enqueue_translation,
     )

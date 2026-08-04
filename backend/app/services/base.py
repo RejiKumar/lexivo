@@ -23,6 +23,14 @@ class ConflictError(Exception):
         super().__init__(message)
 
 
+class ValidationError(Exception):
+    """Raised when request payload fails domain validation (e.g. unsupported lang)."""
+
+    def __init__(self, message: str = "Validation failed") -> None:
+        self.message = message
+        super().__init__(message)
+
+
 class RepositoryProtocol(Protocol[T]):
     def create(self, **fields: Any) -> T: ...
 

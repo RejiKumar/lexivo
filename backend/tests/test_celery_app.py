@@ -5,6 +5,7 @@ from app.tasks.celery_app import celery_app
 from app.tasks.document_processing import enqueue_document_processing, run_ocr
 from app.tasks.embeddings import enqueue_generate_embeddings, generate_embeddings
 from app.tasks.summary import enqueue_summary, run_summary
+from app.tasks.translation import enqueue_translation, run_translation
 import app.tasks.celery_app as celery_mod
 
 
@@ -41,3 +42,10 @@ def test_summary_task_units_are_registered() -> None:
     assert "app.tasks.summary.run_summary" in registered
     assert callable(run_summary)
     assert callable(enqueue_summary)
+
+
+def test_translation_task_units_are_registered() -> None:
+    registered = set(celery_app.tasks.keys())
+    assert "app.tasks.translation.run_translation" in registered
+    assert callable(run_translation)
+    assert callable(enqueue_translation)

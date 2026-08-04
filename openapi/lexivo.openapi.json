@@ -411,6 +411,110 @@
           }
         }
       }
+    },
+    "/api/v1/documents/{document_id}/translation": {
+      "post": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Request Document Translation",
+        "operationId": "request_document_translation_api_v1_documents__document_id__translation_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "202": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/documents/{document_id}/translation/status": {
+      "get": {
+        "tags": [
+          "documents"
+        ],
+        "summary": "Get Document Translation Status",
+        "operationId": "get_document_translation_status_api_v1_documents__document_id__translation_status_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "document_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Document Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationStatusResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -574,6 +678,50 @@
             "title": "Summary Status",
             "default": "idle"
           },
+          "translated_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translated Text"
+          },
+          "source_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Lang"
+          },
+          "target_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Lang"
+          },
+          "translation_status": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Translation Status",
+            "default": "idle"
+          },
           "created_at": {
             "anyOf": [
               {
@@ -675,6 +823,86 @@
           "summary_status"
         ],
         "title": "SummaryStatusResponse"
+      },
+      "TranslationRequest": {
+        "properties": {
+          "source_lang": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es",
+              "fr",
+              "de",
+              "hi",
+              "pt"
+            ],
+            "title": "Source Lang"
+          },
+          "target_lang": {
+            "type": "string",
+            "enum": [
+              "en",
+              "es",
+              "fr",
+              "de",
+              "hi",
+              "pt"
+            ],
+            "title": "Target Lang"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_lang",
+          "target_lang"
+        ],
+        "title": "TranslationRequest"
+      },
+      "TranslationStatusResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "translation_status": {
+            "type": "string",
+            "enum": [
+              "idle",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Translation Status"
+          },
+          "source_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Lang"
+          },
+          "target_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Lang"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "translation_status"
+        ],
+        "title": "TranslationStatusResponse"
       },
       "UserProfileResponse": {
         "properties": {

@@ -1,9 +1,14 @@
-"""Thin documents router — create/list/get/status/summary via services only."""
+"""Thin documents router — create/list/get/status/summary/translation via services only."""
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 
 from app.adapters.types import UserIdentity
-from app.api.deps import get_document_service, get_summary_service, get_user_service
+from app.api.deps import (
+    get_document_service,
+    get_summary_service,
+    get_translation_service,
+    get_user_service,
+)
 from app.core.security import get_current_user
 from app.models import DocumentStatus
 from app.schemas.documents import (
@@ -11,10 +16,13 @@ from app.schemas.documents import (
     DocumentResponse,
     DocumentStatusResponse,
     SummaryStatusResponse,
+    TranslationRequest,
+    TranslationStatusResponse,
 )
-from app.services.base import ConflictError, NotFoundError
+from app.services.base import ConflictError, NotFoundError, ValidationError
 from app.services.document_service import DocumentService
 from app.services.summary_service import SummaryService
+from app.services.translation_service import TranslationService
 from app.services.user_service import UserService
 
 router = APIRouter(prefix="/documents", tags=["documents"])
@@ -143,4 +151,66 @@ async def get_document_summary_status(
     return SummaryStatusResponse(
         id=doc.id,
         summary_status=doc.summary_status.value,
+    )
+
+
+@router.post(
+    "/{document_id}/translation",
+    response_model=DocumentResponse,
+    status_code=status.HTTP_202_ACCEPTED,
+)
+async def request_document_translation(
+    document_id: str,
+    body: TranslationRequest,
+    user=Depends(_current_db_user),
+    translations: TranslationService = Depends(get_translation_service),
+) -> DocumentResponse:
+    try:
+        doc = translations.request_translation(
+            document_id=document_id,
+            user_id=user.id,
+            source_lang=body.source_lang,
+            target_lang=body.target_lang,
+        )
+    except NotFoundError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=exc.message,
+        ) from exc
+    except ConflictError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=exc.message,
+        ) from exc
+    except ValidationError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail=exc.message,
+        ) from exc
+    return DocumentResponse.model_validate(doc)
+
+
+@router.get(
+    "/{document_id}/translation/status",
+    response_model=TranslationStatusResponse,
+)
+async def get_document_translation_status(
+    document_id: str,
+    user=Depends(_current_db_user),
+    translations: TranslationService = Depends(get_translation_service),
+) -> TranslationStatusResponse:
+    try:
+        doc = translations.get_translation_status(
+            document_id=document_id, user_id=user.id
+        )
+    except NotFoundError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=exc.message,
+        ) from exc
+    return TranslationStatusResponse(
+        id=doc.id,
+        translation_status=doc.translation_status.value,
+        source_lang=doc.source_lang,
+        target_lang=doc.target_lang,
     )

@@ -26,6 +26,13 @@ class SummaryStatus(str, enum.Enum):
     failed = "failed"
 
 
+class TranslationStatus(str, enum.Enum):
+    idle = "idle"
+    processing = "processing"
+    ready = "ready"
+    failed = "failed"
+
+
 class JobStatus(str, enum.Enum):
     queued = "queued"
     running = "running"
@@ -113,6 +120,13 @@ class Document(Base):
     summary_status: Mapped[SummaryStatus] = mapped_column(
         Enum(SummaryStatus, name="summary_status"),
         default=SummaryStatus.idle,
+    )
+    translated_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    source_lang: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    target_lang: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    translation_status: Mapped[TranslationStatus] = mapped_column(
+        Enum(TranslationStatus, name="translation_status"),
+        default=TranslationStatus.idle,
     )
     status: Mapped[DocumentStatus] = mapped_column(
         Enum(DocumentStatus, name="document_status"),
