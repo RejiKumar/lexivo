@@ -53,7 +53,14 @@ def test_upsert_from_identity_updates_existing(user_service: UserService) -> Non
     )
     assert second.id == first.id
     assert second.email == "new@example.com"
-    assert second.display_name == "New"
+    # Custom/existing display_name is preserved on re-upsert
+    assert second.display_name == "Old"
+
+    user_service.update_profile(first.id, display_name="Custom")
+    third = user_service.upsert_from_identity(
+        UserIdentity(subject="ext-1", email="new@example.com", display_name="Ignored")
+    )
+    assert third.display_name == "Custom"
 
 
 def test_get_and_update_profile_fields(user_service: UserService) -> None:

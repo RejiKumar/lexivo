@@ -27,13 +27,15 @@ class UserService(BaseService[User]):
                     "display_name": identity.display_name,
                 }
             )
-        return self.update(
-            existing.id,
-            {
-                "email": identity.email,
-                "display_name": identity.display_name,
-            },
-        )
+        # Sync identity email; do not clobber a user-edited display_name.
+        payload: dict[str, Any] = {}
+        if identity.email is not None and identity.email != existing.email:
+            payload["email"] = identity.email
+        if existing.display_name is None and identity.display_name is not None:
+            payload["display_name"] = identity.display_name
+        if payload:
+            return self.update(existing.id, payload)
+        return existing
 
     def get_profile(self, user_id: str) -> User:
         return self.get(user_id)
