@@ -213,9 +213,11 @@ Run after §§2–9 land; blockers must be fixed before declaring STEP 3.3 done.
 
 ## Definition of Done (STEP 3.3)
 
-- [ ] Scaffold matches architecture.md §3.1 (minus agents/rag deferred)
+- [x] Scaffold matches architecture.md §3.1 (minus agents/rag deferred)
 - [ ] Compose stack: Postgres+pgvector, Redis, backend, Celery
+  <!-- Compose files shipped; host smoke (1.9) still needed — Docker unavailable in agent session -->
 - [ ] All four Protocols + DI defaults (Supabase / R2 / Gemini / Mistral) and stubs (Clerk / OpenAI / Document AI)
+  <!-- Protocols + DI + temporary stubs done (§2); concrete SDK adapters remain §§3–6 -->
 - [ ] BaseService + UserService + DocumentService + repositories
 - [ ] Thin routers: auth, users, documents; OpenAPI from Pydantic
 - [ ] Minimal Celery upload/OCR enqueue path
