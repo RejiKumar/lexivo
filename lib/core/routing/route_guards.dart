@@ -21,6 +21,10 @@ abstract final class RouteGuards {
   static String documentOcr(String documentId) =>
       '/documents/$documentId/ocr';
 
+  /// Summarization for [documentId].
+  static String documentSummary(String documentId) =>
+      '/documents/$documentId/summary';
+
   static const authRoutes = {signIn, signUp};
 
   /// Unauthenticated users hitting protected routes → sign-in.

@@ -36,6 +36,11 @@ typedef OcrScreenBuilders = ({
   Widget Function(BuildContext context, String documentId) result,
 });
 
+/// Summarization feature screen builders — injected from `features/summarization` barrel.
+typedef SummaryScreenBuilders = ({
+  Widget Function(BuildContext context, String documentId) result,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -58,10 +63,17 @@ final ocrScreenBuildersProvider = Provider<OcrScreenBuilders>((ref) {
   );
 });
 
+final summaryScreenBuildersProvider = Provider<SummaryScreenBuilders>((ref) {
+  return (
+    result: (_, documentId) => _StubPage(title: 'Summary $documentId'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
   final ocrBuilders = ref.watch(ocrScreenBuildersProvider);
+  final summaryBuilders = ref.watch(summaryScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -119,6 +131,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) {
               final documentId = state.pathParameters['documentId']!;
               return ocrBuilders.result(context, documentId);
+            },
+          ),
+          GoRoute(
+            path: ':documentId/summary',
+            name: 'document-summary',
+            builder: (context, state) {
+              final documentId = state.pathParameters['documentId']!;
+              return summaryBuilders.result(context, documentId);
             },
           ),
         ],

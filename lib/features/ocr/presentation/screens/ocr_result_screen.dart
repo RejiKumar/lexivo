@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/design_system/components/button.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/components/skeleton_loader.dart';
 import 'package:lexivo/core/design_system/tokens/color.dart';
@@ -88,13 +89,27 @@ class OcrResultScreen extends ConsumerWidget {
                         icon: Icons.description_outlined,
                       );
                     }
-                    return SingleChildScrollView(
-                      child: SelectableText(
-                        view.extractedText!,
-                        style: LexivoTypography.body.copyWith(
-                          color: colors.contentPrimary,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: SelectableText(
+                              view.extractedText!,
+                              style: LexivoTypography.body.copyWith(
+                                color: colors.contentPrimary,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        const SizedBox(height: LexivoSpacing.md),
+                        LexivoButton(
+                          label: 'View summary',
+                          onPressed: () => context.go(
+                            RouteGuards.documentSummary(documentId),
+                          ),
+                        ),
+                      ],
                     );
                   },
                 ),
