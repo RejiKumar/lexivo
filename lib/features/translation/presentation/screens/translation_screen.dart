@@ -166,6 +166,14 @@ class _TranslationScreenState extends ConsumerState<TranslationScreen> {
                                   color: colors.contentPrimary,
                                 ),
                               ),
+                            const SizedBox(height: LexivoSpacing.md),
+                            LexivoButton(
+                              label: 'Ask the document',
+                              variant: LexivoButtonVariant.secondary,
+                              onPressed: () => context.go(
+                                RouteGuards.documentChat(widget.documentId),
+                              ),
+                            ),
                           ] else if (view.translationStatus ==
                               TranslationStatus.idle)
                             Text(

@@ -29,6 +29,10 @@ abstract final class RouteGuards {
   static String documentTranslation(String documentId) =>
       '/documents/$documentId/translation';
 
+  /// Ask-the-document chat for [documentId].
+  static String documentChat(String documentId) =>
+      '/documents/$documentId/chat';
+
   static const authRoutes = {signIn, signUp};
 
   /// Unauthenticated users hitting protected routes → sign-in.

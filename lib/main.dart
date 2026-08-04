@@ -10,6 +10,7 @@ import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/auth/auth.dart';
 import 'package:lexivo/features/document_scan/document_scan.dart';
 import 'package:lexivo/features/ocr/ocr.dart';
+import 'package:lexivo/features/rag_chat/rag_chat.dart';
 import 'package:lexivo/features/summarization/summarization.dart';
 import 'package:lexivo/features/translation/translation.dart';
 
@@ -40,6 +41,7 @@ Future<void> main() async {
         ...ocrCoreOverrides(),
         ...summarizationCoreOverrides(),
         ...translationCoreOverrides(),
+        ...ragChatCoreOverrides(),
         showcaseEnabledProvider.overrideWith(
           (ref) => AppRouter.showcaseEnabled,
         ),

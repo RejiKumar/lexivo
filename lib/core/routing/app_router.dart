@@ -46,6 +46,11 @@ typedef TranslationScreenBuilders = ({
   Widget Function(BuildContext context, String documentId) result,
 });
 
+/// RAG chat feature screen builders — injected from `features/rag_chat` barrel.
+typedef RagChatScreenBuilders = ({
+  Widget Function(BuildContext context, String documentId) result,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -81,12 +86,19 @@ final translationScreenBuildersProvider =
   );
 });
 
+final ragChatScreenBuildersProvider = Provider<RagChatScreenBuilders>((ref) {
+  return (
+    result: (_, documentId) => _StubPage(title: 'Chat $documentId'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
   final ocrBuilders = ref.watch(ocrScreenBuildersProvider);
   final summaryBuilders = ref.watch(summaryScreenBuildersProvider);
   final translationBuilders = ref.watch(translationScreenBuildersProvider);
+  final ragChatBuilders = ref.watch(ragChatScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -160,6 +172,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) {
               final documentId = state.pathParameters['documentId']!;
               return translationBuilders.result(context, documentId);
+            },
+          ),
+          GoRoute(
+            path: ':documentId/chat',
+            name: 'document-chat',
+            builder: (context, state) {
+              final documentId = state.pathParameters['documentId']!;
+              return ragChatBuilders.result(context, documentId);
             },
           ),
         ],
