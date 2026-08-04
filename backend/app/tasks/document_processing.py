@@ -1,4 +1,8 @@
-"""Composable Celery units for document upload/OCR (no agents / RAG)."""
+"""Composable Celery units for document upload/OCR.
+
+OCR runs via Master Agent → OCR Agent → OCRProvider Protocol (no direct provider call here).
+Status updates stay at the task layer.
+"""
 
 from __future__ import annotations
 
@@ -10,6 +14,8 @@ from typing import Any
 import httpx
 
 from app.adapters.protocols import StorageProvider
+from app.agents.base_agent import AgentContext
+from app.agents.master_agent import run_master
 from app.core.db import SessionLocal, get_engine
 from app.models import DocumentStatus, JobStatus
 from app.repositories.document_repo import DocumentRepository
@@ -49,7 +55,7 @@ async def _load_document_bytes(storage: StorageProvider, key: str) -> bytes:
 def enqueue_document_processing(document_id: str) -> str:
     """Create/update an OCR job row and queue the run_ocr task unit.
 
-    Returns the job id.
+    Returns the job id. Signature stable for DocumentService callers.
     """
     get_engine()
     session = SessionLocal()
@@ -78,7 +84,7 @@ def enqueue_document_processing(document_id: str) -> str:
 
 @celery_app.task(name="app.tasks.document_processing.run_ocr", bind=False)
 def run_ocr(document_id: str, job_id: str | None = None) -> dict[str, Any]:
-    """Single-purpose OCR task: OCRProvider.extract_text → document/job status."""
+    """OCR task unit: Master → OCR Agent; status updates remain here."""
     return _run_async(_run_ocr_async(document_id, job_id))
 
 
@@ -116,9 +122,27 @@ async def _run_ocr_async(
             raise ValueError(f"Document {document_id} has no storage_key")
 
         storage = get_task_storage_provider()
-        ocr = get_task_ocr_provider()
+        ocr_provider = get_task_ocr_provider()
         file_bytes = await _load_document_bytes(storage, document.storage_key)
-        result = await ocr.extract_text(file_bytes)
+
+        context = AgentContext(
+            document_id=document_id,
+            job_id=job_id,
+            user_id=document.user_id,
+        )
+        agent_result = await run_master(
+            "ocr",
+            {"file_bytes": file_bytes},
+            context,
+            ocr_provider=ocr_provider,
+        )
+
+        if not agent_result.success:
+            raise RuntimeError(agent_result.error or "OCR agent failed")
+
+        data = agent_result.data or {}
+        pages = int(data.get("pages", 0))
+        text = str(data.get("text", ""))
 
         jobs.update(job_id, status=JobStatus.succeeded, error_message="")
         docs.update(document_id, status=DocumentStatus.ready)
@@ -127,8 +151,8 @@ async def _run_ocr_async(
             "document_id": document_id,
             "job_id": job_id,
             "status": DocumentStatus.ready.value,
-            "pages": result.pages,
-            "text_length": len(result.text),
+            "pages": pages,
+            "text_length": len(text),
         }
     except Exception as exc:
         if job_id is not None:
