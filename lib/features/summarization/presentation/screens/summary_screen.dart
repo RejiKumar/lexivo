@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/design_system/components/button.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/components/skeleton_loader.dart';
 import 'package:lexivo/core/design_system/tokens/color.dart';
@@ -100,39 +101,53 @@ class SummaryScreen extends ConsumerWidget {
                         icon: Icons.notes_outlined,
                       );
                     }
-                    return SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Short summary',
-                            style: LexivoTypography.title.copyWith(
-                              color: colors.contentPrimary,
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Short summary',
+                                  style: LexivoTypography.title.copyWith(
+                                    color: colors.contentPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: LexivoSpacing.sm),
+                                SelectableText(
+                                  view.shortSummary!,
+                                  style: LexivoTypography.body.copyWith(
+                                    color: colors.contentPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: LexivoSpacing.xl),
+                                Text(
+                                  'Detailed summary',
+                                  style: LexivoTypography.title.copyWith(
+                                    color: colors.contentPrimary,
+                                  ),
+                                ),
+                                const SizedBox(height: LexivoSpacing.sm),
+                                SelectableText(
+                                  view.detailedSummary!,
+                                  style: LexivoTypography.body.copyWith(
+                                    color: colors.contentPrimary,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: LexivoSpacing.sm),
-                          SelectableText(
-                            view.shortSummary!,
-                            style: LexivoTypography.body.copyWith(
-                              color: colors.contentPrimary,
-                            ),
+                        ),
+                        const SizedBox(height: LexivoSpacing.md),
+                        LexivoButton(
+                          label: 'Translate',
+                          onPressed: () => context.go(
+                            RouteGuards.documentTranslation(documentId),
                           ),
-                          const SizedBox(height: LexivoSpacing.xl),
-                          Text(
-                            'Detailed summary',
-                            style: LexivoTypography.title.copyWith(
-                              color: colors.contentPrimary,
-                            ),
-                          ),
-                          const SizedBox(height: LexivoSpacing.sm),
-                          SelectableText(
-                            view.detailedSummary!,
-                            style: LexivoTypography.body.copyWith(
-                              color: colors.contentPrimary,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     );
                   },
                 ),

@@ -25,6 +25,10 @@ abstract final class RouteGuards {
   static String documentSummary(String documentId) =>
       '/documents/$documentId/summary';
 
+  /// Translation for [documentId].
+  static String documentTranslation(String documentId) =>
+      '/documents/$documentId/translation';
+
   static const authRoutes = {signIn, signUp};
 
   /// Unauthenticated users hitting protected routes → sign-in.

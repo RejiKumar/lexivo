@@ -41,6 +41,11 @@ typedef SummaryScreenBuilders = ({
   Widget Function(BuildContext context, String documentId) result,
 });
 
+/// Translation feature screen builders — injected from `features/translation` barrel.
+typedef TranslationScreenBuilders = ({
+  Widget Function(BuildContext context, String documentId) result,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -69,11 +74,19 @@ final summaryScreenBuildersProvider = Provider<SummaryScreenBuilders>((ref) {
   );
 });
 
+final translationScreenBuildersProvider =
+    Provider<TranslationScreenBuilders>((ref) {
+  return (
+    result: (_, documentId) => _StubPage(title: 'Translation $documentId'),
+  );
+});
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
   final ocrBuilders = ref.watch(ocrScreenBuildersProvider);
   final summaryBuilders = ref.watch(summaryScreenBuildersProvider);
+  final translationBuilders = ref.watch(translationScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
@@ -139,6 +152,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) {
               final documentId = state.pathParameters['documentId']!;
               return summaryBuilders.result(context, documentId);
+            },
+          ),
+          GoRoute(
+            path: ':documentId/translation',
+            name: 'document-translation',
+            builder: (context, state) {
+              final documentId = state.pathParameters['documentId']!;
+              return translationBuilders.result(context, documentId);
             },
           ),
         ],
