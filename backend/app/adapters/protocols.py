@@ -1,6 +1,6 @@
 """Adapter Protocol contracts (architecture.md §3.3). No vendor SDK imports."""
 
-from typing import Protocol, runtime_checkable
+from typing import Any, Protocol, runtime_checkable
 
 from app.adapters.types import OCRResult, UserIdentity
 
@@ -25,3 +25,41 @@ class LLMProvider(Protocol):
 @runtime_checkable
 class OCRProvider(Protocol):
     async def extract_text(self, file: bytes) -> OCRResult: ...
+
+
+@runtime_checkable
+class PushProvider(Protocol):
+    """Push delivery port — FCM/APNs adapters implement this; agents use Protocol only."""
+
+    async def send(
+        self,
+        user_id: str,
+        title: str,
+        body: str,
+        **kwargs: object,
+    ) -> None: ...
+
+
+@runtime_checkable
+class NotificationStore(Protocol):
+    """In-app notification persistence port (no Flutter)."""
+
+    async def create_notification(
+        self,
+        user_id: str,
+        type: str,
+        payload: dict[str, Any],
+    ) -> dict[str, Any]: ...
+
+
+@runtime_checkable
+class AnalyticsProvider(Protocol):
+    """Analytics emit port — PostHog-oriented; stub adapters OK for v1."""
+
+    async def track(
+        self,
+        event: str,
+        *,
+        user_id: str | None,
+        properties: dict[str, Any],
+    ) -> None: ...

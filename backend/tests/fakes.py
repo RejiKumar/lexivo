@@ -116,3 +116,67 @@ class FakeEmbedder:
             i += 1
         norm = math.sqrt(sum(x * x for x in raw)) or 1.0
         return [x / norm for x in raw]
+
+
+class FakePushProvider:
+    """PushProvider fake — records send calls; optional failure."""
+
+    def __init__(self, *, fail: bool = False) -> None:
+        self.fail = fail
+        self.sent: list[dict[str, object]] = []
+
+    async def send(
+        self,
+        user_id: str,
+        title: str,
+        body: str,
+        **kwargs: object,
+    ) -> None:
+        if self.fail:
+            raise RuntimeError("push failed")
+        self.sent.append(
+            {"user_id": user_id, "title": title, "body": body, **kwargs}
+        )
+
+
+class FakeNotificationStore:
+    """In-app NotificationStore fake — in-memory records."""
+
+    def __init__(self) -> None:
+        self.records: list[dict] = []
+
+    async def create_notification(
+        self,
+        user_id: str,
+        type: str,
+        payload: dict,
+    ) -> dict:
+        record = {
+            "id": f"notif-{len(self.records) + 1}",
+            "user_id": user_id,
+            "type": type,
+            "payload": dict(payload),
+        }
+        self.records.append(record)
+        return record
+
+
+class FakeAnalyticsProvider:
+    """AnalyticsProvider fake — records track calls; optional failure."""
+
+    def __init__(self, *, fail: bool = False) -> None:
+        self.fail = fail
+        self.events: list[dict] = []
+
+    async def track(
+        self,
+        event: str,
+        *,
+        user_id: str | None,
+        properties: dict,
+    ) -> None:
+        if self.fail:
+            raise RuntimeError("analytics failed")
+        self.events.append(
+            {"event": event, "user_id": user_id, "properties": dict(properties)}
+        )
