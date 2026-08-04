@@ -60,6 +60,26 @@ class ApiClient {
         (json) => SummaryStatusDto.fromJson(json),
       );
 
+  /// Enqueue translation (Master → Translation Agent). 202 when accepted.
+  Future<Result<DocumentDto>> requestTranslation(
+    String id, {
+    required String sourceLang,
+    required String targetLang,
+  }) =>
+      _post(
+        '$_prefix/documents/$id/translation',
+        (json) => DocumentDto.fromJson(json),
+        data: TranslationRequestDto(
+          sourceLang: sourceLang,
+          targetLang: targetLang,
+        ).toJson(),
+      );
+
+  Future<Result<TranslationStatusDto>> getTranslationStatus(String id) => _get(
+        '$_prefix/documents/$id/translation/status',
+        (json) => TranslationStatusDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.

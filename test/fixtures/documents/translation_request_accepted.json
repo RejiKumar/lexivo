@@ -1,0 +1,17 @@
+{
+  "id": "doc-1",
+  "user_id": "db-user-1",
+  "title": "Sample",
+  "storage_key": "uploads/doc-1.pdf",
+  "status": "ready",
+  "extracted_text": "Extracted OCR body from the lease agreement.",
+  "short_summary": null,
+  "detailed_summary": null,
+  "summary_status": "idle",
+  "translated_text": null,
+  "source_lang": "en",
+  "target_lang": "es",
+  "translation_status": "processing",
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

@@ -206,5 +206,85 @@ void main() {
       expect(result.isFailure, isTrue);
       expect(result.failureOrNull?.message, contains('not ready'));
     });
+
+    test('requestTranslation / getTranslationStatus', () async {
+      adapter.onPost(
+        '/api/v1/documents/doc-1/translation',
+        (server) => server.reply(
+          202,
+          readFixtureSync('documents/translation_request_accepted.json'),
+        ),
+        data: Matchers.any,
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-1/translation/status',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/translation_status_processing.json'),
+        ),
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-tr',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/get_with_translation.json'),
+        ),
+      );
+
+      final requested = await client.requestTranslation(
+        'doc-1',
+        sourceLang: 'en',
+        targetLang: 'es',
+      );
+      expect(requested.isSuccess, isTrue);
+      expect(requested.valueOrNull?.translationStatus, 'processing');
+
+      final status = await client.getTranslationStatus('doc-1');
+      expect(status.valueOrNull?.translationStatus, 'processing');
+
+      final doc = await client.getDocument('doc-tr');
+      expect(doc.valueOrNull?.translatedText, contains('Texto traducido'));
+      expect(doc.valueOrNull?.sourceLang, 'en');
+      expect(doc.valueOrNull?.targetLang, 'es');
+      expect(doc.valueOrNull?.translationStatus, 'ready');
+    });
+
+    test('requestTranslation 409 → ValidationFailure', () async {
+      adapter.onPost(
+        '/api/v1/documents/doc-1/translation',
+        (server) => server.reply(
+          409,
+          readFixtureSync('documents/translation_not_ready_409.json'),
+        ),
+        data: Matchers.any,
+      );
+
+      final result = await client.requestTranslation(
+        'doc-1',
+        sourceLang: 'en',
+        targetLang: 'es',
+      );
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull?.message, contains('not ready'));
+    });
+
+    test('requestTranslation 422 → ValidationFailure', () async {
+      adapter.onPost(
+        '/api/v1/documents/doc-1/translation',
+        (server) => server.reply(
+          422,
+          readFixtureSync('documents/translation_unsupported_lang_422.json'),
+        ),
+        data: Matchers.any,
+      );
+
+      final result = await client.requestTranslation(
+        'doc-1',
+        sourceLang: 'es',
+        targetLang: 'fr',
+      );
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull?.message, contains('Unsupported'));
+    });
   });
 }

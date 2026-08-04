@@ -53,12 +53,44 @@ void main() {
       expect(doc.summaryStatus, SummaryStatus.ready);
     });
 
+    test('mapper includes translation fields from DTO', () {
+      final dto = DocumentDto.fromJson({
+        'id': 'doc-1',
+        'user_id': 'u1',
+        'title': 'T',
+        'storage_key': 'k',
+        'status': 'ready',
+        'extracted_text': 'Hello',
+        'translated_text': 'Hola',
+        'source_lang': 'en',
+        'target_lang': 'es',
+        'translation_status': 'ready',
+      });
+      final doc = documentFromDto(dto);
+      expect(doc.translatedText, 'Hola');
+      expect(doc.sourceLang, 'en');
+      expect(doc.targetLang, 'es');
+      expect(doc.translationStatus, TranslationStatus.ready);
+      expect(doc.summaryStatus, SummaryStatus.idle);
+    });
+
     test('summary status API string mapping', () {
       expect(SummaryStatusApiX.fromApi('idle'), SummaryStatus.idle);
       expect(SummaryStatusApiX.fromApi('PROCESSING'), SummaryStatus.processing);
       expect(SummaryStatusApiX.fromApi('ready'), SummaryStatus.ready);
       expect(SummaryStatusApiX.fromApi('failed'), SummaryStatus.failed);
       expect(SummaryStatus.ready.apiValue, 'ready');
+    });
+
+    test('translation status API string mapping', () {
+      expect(TranslationStatusApiX.fromApi('idle'), TranslationStatus.idle);
+      expect(
+        TranslationStatusApiX.fromApi('PROCESSING'),
+        TranslationStatus.processing,
+      );
+      expect(TranslationStatusApiX.fromApi('ready'), TranslationStatus.ready);
+      expect(TranslationStatusApiX.fromApi('failed'), TranslationStatus.failed);
+      expect(TranslationStatus.ready.apiValue, 'ready');
     });
 
     test('API string mapping', () {

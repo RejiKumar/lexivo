@@ -53,6 +53,12 @@ abstract class DocumentDto with _$DocumentDto {
     @JsonKey(name: 'short_summary') String? shortSummary,
     @JsonKey(name: 'detailed_summary') String? detailedSummary,
     @JsonKey(name: 'summary_status') @Default('idle') String summaryStatus,
+    @JsonKey(name: 'translated_text') String? translatedText,
+    @JsonKey(name: 'source_lang') String? sourceLang,
+    @JsonKey(name: 'target_lang') String? targetLang,
+    @JsonKey(name: 'translation_status')
+    @Default('idle')
+    String translationStatus,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _DocumentDto;
@@ -91,4 +97,28 @@ abstract class SummaryStatusDto with _$SummaryStatusDto {
 
   factory SummaryStatusDto.fromJson(Map<String, dynamic> json) =>
       _$SummaryStatusDtoFromJson(json);
+}
+
+@freezed
+abstract class TranslationRequestDto with _$TranslationRequestDto {
+  const factory TranslationRequestDto({
+    @JsonKey(name: 'source_lang') required String sourceLang,
+    @JsonKey(name: 'target_lang') required String targetLang,
+  }) = _TranslationRequestDto;
+
+  factory TranslationRequestDto.fromJson(Map<String, dynamic> json) =>
+      _$TranslationRequestDtoFromJson(json);
+}
+
+@freezed
+abstract class TranslationStatusDto with _$TranslationStatusDto {
+  const factory TranslationStatusDto({
+    required String id,
+    @JsonKey(name: 'translation_status') required String translationStatus,
+    @JsonKey(name: 'source_lang') String? sourceLang,
+    @JsonKey(name: 'target_lang') String? targetLang,
+  }) = _TranslationStatusDto;
+
+  factory TranslationStatusDto.fromJson(Map<String, dynamic> json) =>
+      _$TranslationStatusDtoFromJson(json);
 }

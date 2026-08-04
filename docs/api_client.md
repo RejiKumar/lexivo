@@ -10,7 +10,9 @@ Supports `createDocument` multipart (`file` + optional `title`) matching backend
 
 **Summarization:** `GET /api/v1/documents/{id}` also returns nullable `short_summary` / `detailed_summary` and `summary_status` (`idle` | `processing` | `ready` | `failed`, separate from OCR `status`). Trigger with `POST /api/v1/documents/{id}/summary` (202 when enqueued; **409** when OCR incomplete / empty `extracted_text`). Poll `GET /api/v1/documents/{id}/summary/status` → `{ id, summary_status }`. The summarization feature uses only `requestSummary` / `getSummaryStatus` / `getDocument` on the typed client — never LLM vendor SDKs.
 
-OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse` summary fields and summary paths are present in the snapshot. Regen steps:
+**Translation:** `GET /api/v1/documents/{id}` also returns nullable `translated_text` / `source_lang` / `target_lang` and `translation_status` (`idle` | `processing` | `ready` | `failed`, separate from OCR `status` and `summary_status`). Trigger with `POST /api/v1/documents/{id}/translation` body `{ source_lang, target_lang }` (202 when enqueued; **409** when OCR incomplete; **422** for unsupported / invalid pair). Supported v1 pairs: EN↔ES,FR,DE,HI,PT. Poll `GET /api/v1/documents/{id}/translation/status` → `{ id, translation_status, source_lang?, target_lang? }`. The translation feature uses only `requestTranslation` / `getTranslationStatus` / `getDocument` on the typed client — never LLM vendor SDKs.
+
+OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. When regenerating, ensure `DocumentResponse` summary + translation fields and summary/translation paths are present in the snapshot. Regen steps:
 
 1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json`.
 2. Generate Dart Dio client into `lib/core/network/generated/` (never hand-edit generated files).

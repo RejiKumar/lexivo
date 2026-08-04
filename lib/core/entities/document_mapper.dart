@@ -13,6 +13,10 @@ Document documentFromDto(DocumentDto dto) {
     shortSummary: dto.shortSummary,
     detailedSummary: dto.detailedSummary,
     summaryStatus: SummaryStatusApiX.fromApi(dto.summaryStatus),
+    translatedText: dto.translatedText,
+    sourceLang: dto.sourceLang,
+    targetLang: dto.targetLang,
+    translationStatus: TranslationStatusApiX.fromApi(dto.translationStatus),
     createdAt: dto.createdAt,
     updatedAt: dto.updatedAt,
   );
@@ -24,4 +28,8 @@ DocumentStatus documentStatusFromDto(DocumentStatusDto dto) {
 
 SummaryStatus summaryStatusFromDto(SummaryStatusDto dto) {
   return SummaryStatusApiX.fromApi(dto.summaryStatus);
+}
+
+TranslationStatus translationStatusFromDto(TranslationStatusDto dto) {
+  return TranslationStatusApiX.fromApi(dto.translationStatus);
 }

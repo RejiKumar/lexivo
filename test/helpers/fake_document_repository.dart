@@ -10,6 +10,10 @@ Document sampleDocument({
   String? shortSummary,
   String? detailedSummary,
   SummaryStatus summaryStatus = SummaryStatus.idle,
+  String? translatedText,
+  String? sourceLang,
+  String? targetLang,
+  TranslationStatus translationStatus = TranslationStatus.idle,
 }) {
   return Document(
     id: id,
@@ -21,6 +25,10 @@ Document sampleDocument({
     shortSummary: shortSummary,
     detailedSummary: detailedSummary,
     summaryStatus: summaryStatus,
+    translatedText: translatedText,
+    sourceLang: sourceLang,
+    targetLang: targetLang,
+    translationStatus: translationStatus,
     createdAt: DateTime.utc(2026, 1, 1),
     updatedAt: DateTime.utc(2026, 1, 1),
   );

@@ -68,6 +68,10 @@ _DocumentDto _$DocumentDtoFromJson(Map<String, dynamic> json) => _DocumentDto(
   shortSummary: json['short_summary'] as String?,
   detailedSummary: json['detailed_summary'] as String?,
   summaryStatus: json['summary_status'] as String? ?? 'idle',
+  translatedText: json['translated_text'] as String?,
+  sourceLang: json['source_lang'] as String?,
+  targetLang: json['target_lang'] as String?,
+  translationStatus: json['translation_status'] as String? ?? 'idle',
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
@@ -87,6 +91,10 @@ Map<String, dynamic> _$DocumentDtoToJson(_DocumentDto instance) =>
       'short_summary': instance.shortSummary,
       'detailed_summary': instance.detailedSummary,
       'summary_status': instance.summaryStatus,
+      'translated_text': instance.translatedText,
+      'source_lang': instance.sourceLang,
+      'target_lang': instance.targetLang,
+      'translation_status': instance.translationStatus,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
@@ -123,3 +131,35 @@ Map<String, dynamic> _$SummaryStatusDtoToJson(_SummaryStatusDto instance) =>
       'id': instance.id,
       'summary_status': instance.summaryStatus,
     };
+
+_TranslationRequestDto _$TranslationRequestDtoFromJson(
+  Map<String, dynamic> json,
+) => _TranslationRequestDto(
+  sourceLang: json['source_lang'] as String,
+  targetLang: json['target_lang'] as String,
+);
+
+Map<String, dynamic> _$TranslationRequestDtoToJson(
+  _TranslationRequestDto instance,
+) => <String, dynamic>{
+  'source_lang': instance.sourceLang,
+  'target_lang': instance.targetLang,
+};
+
+_TranslationStatusDto _$TranslationStatusDtoFromJson(
+  Map<String, dynamic> json,
+) => _TranslationStatusDto(
+  id: json['id'] as String,
+  translationStatus: json['translation_status'] as String,
+  sourceLang: json['source_lang'] as String?,
+  targetLang: json['target_lang'] as String?,
+);
+
+Map<String, dynamic> _$TranslationStatusDtoToJson(
+  _TranslationStatusDto instance,
+) => <String, dynamic>{
+  'id': instance.id,
+  'translation_status': instance.translationStatus,
+  'source_lang': instance.sourceLang,
+  'target_lang': instance.targetLang,
+};

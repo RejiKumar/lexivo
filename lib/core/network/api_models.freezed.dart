@@ -829,7 +829,7 @@ as String?,
 /// @nodoc
 mixin _$DocumentDto {
 
- String get id;@JsonKey(name: 'user_id') String get userId; String? get title;@JsonKey(name: 'storage_key') String? get storageKey; String get status;@JsonKey(name: 'extracted_text') String? get extractedText;@JsonKey(name: 'short_summary') String? get shortSummary;@JsonKey(name: 'detailed_summary') String? get detailedSummary;@JsonKey(name: 'summary_status') String get summaryStatus;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+ String get id;@JsonKey(name: 'user_id') String get userId; String? get title;@JsonKey(name: 'storage_key') String? get storageKey; String get status;@JsonKey(name: 'extracted_text') String? get extractedText;@JsonKey(name: 'short_summary') String? get shortSummary;@JsonKey(name: 'detailed_summary') String? get detailedSummary;@JsonKey(name: 'summary_status') String get summaryStatus;@JsonKey(name: 'translated_text') String? get translatedText;@JsonKey(name: 'source_lang') String? get sourceLang;@JsonKey(name: 'target_lang') String? get targetLang;@JsonKey(name: 'translation_status') String get translationStatus;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -842,16 +842,16 @@ $DocumentDtoCopyWith<DocumentDto> get copyWith => _$DocumentDtoCopyWithImpl<Docu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.translatedText, translatedText) || other.translatedText == translatedText)&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang)&&(identical(other.translationStatus, translationStatus) || other.translationStatus == translationStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,translatedText,sourceLang,targetLang,translationStatus,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, translatedText: $translatedText, sourceLang: $sourceLang, targetLang: $targetLang, translationStatus: $translationStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -862,7 +862,7 @@ abstract mixin class $DocumentDtoCopyWith<$Res>  {
   factory $DocumentDtoCopyWith(DocumentDto value, $Res Function(DocumentDto) _then) = _$DocumentDtoCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'translated_text') String? translatedText,@JsonKey(name: 'source_lang') String? sourceLang,@JsonKey(name: 'target_lang') String? targetLang,@JsonKey(name: 'translation_status') String translationStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -879,7 +879,7 @@ class _$DocumentDtoCopyWithImpl<$Res>
 
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? translatedText = freezed,Object? sourceLang = freezed,Object? targetLang = freezed,Object? translationStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(DocumentDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -890,6 +890,10 @@ as String,extractedText: freezed == extractedText ? _self.extractedText : extrac
 as String?,shortSummary: freezed == shortSummary ? _self.shortSummary : shortSummary // ignore: cast_nullable_to_non_nullable
 as String?,detailedSummary: freezed == detailedSummary ? _self.detailedSummary : detailedSummary // ignore: cast_nullable_to_non_nullable
 as String?,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
+as String,translatedText: freezed == translatedText ? _self.translatedText : translatedText // ignore: cast_nullable_to_non_nullable
+as String?,sourceLang: freezed == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String?,targetLang: freezed == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String?,translationStatus: null == translationStatus ? _self.translationStatus : translationStatus // ignore: cast_nullable_to_non_nullable
 as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -977,10 +981,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'translated_text')  String? translatedText, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DocumentDto() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.translatedText,_that.sourceLang,_that.targetLang,_that.translationStatus,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -998,10 +1002,10 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'translated_text')  String? translatedText, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _DocumentDto():
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.translatedText,_that.sourceLang,_that.targetLang,_that.translationStatus,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1018,10 +1022,10 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'translated_text')  String? translatedText, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _DocumentDto() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.translatedText,_that.sourceLang,_that.targetLang,_that.translationStatus,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -1033,7 +1037,7 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 @JsonSerializable()
 
 class _DocumentDto implements DocumentDto {
-  const _DocumentDto({required this.id, @JsonKey(name: 'user_id') required this.userId, this.title, @JsonKey(name: 'storage_key') this.storageKey, required this.status, @JsonKey(name: 'extracted_text') this.extractedText, @JsonKey(name: 'short_summary') this.shortSummary, @JsonKey(name: 'detailed_summary') this.detailedSummary, @JsonKey(name: 'summary_status') this.summaryStatus = 'idle', @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
+  const _DocumentDto({required this.id, @JsonKey(name: 'user_id') required this.userId, this.title, @JsonKey(name: 'storage_key') this.storageKey, required this.status, @JsonKey(name: 'extracted_text') this.extractedText, @JsonKey(name: 'short_summary') this.shortSummary, @JsonKey(name: 'detailed_summary') this.detailedSummary, @JsonKey(name: 'summary_status') this.summaryStatus = 'idle', @JsonKey(name: 'translated_text') this.translatedText, @JsonKey(name: 'source_lang') this.sourceLang, @JsonKey(name: 'target_lang') this.targetLang, @JsonKey(name: 'translation_status') this.translationStatus = 'idle', @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
   factory _DocumentDto.fromJson(Map<String, dynamic> json) => _$DocumentDtoFromJson(json);
 
 @override final  String id;
@@ -1045,6 +1049,10 @@ class _DocumentDto implements DocumentDto {
 @override@JsonKey(name: 'short_summary') final  String? shortSummary;
 @override@JsonKey(name: 'detailed_summary') final  String? detailedSummary;
 @override@JsonKey(name: 'summary_status') final  String summaryStatus;
+@override@JsonKey(name: 'translated_text') final  String? translatedText;
+@override@JsonKey(name: 'source_lang') final  String? sourceLang;
+@override@JsonKey(name: 'target_lang') final  String? targetLang;
+@override@JsonKey(name: 'translation_status') final  String translationStatus;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 @override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
 
@@ -1061,16 +1069,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.translatedText, translatedText) || other.translatedText == translatedText)&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang)&&(identical(other.translationStatus, translationStatus) || other.translationStatus == translationStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,translatedText,sourceLang,targetLang,translationStatus,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, translatedText: $translatedText, sourceLang: $sourceLang, targetLang: $targetLang, translationStatus: $translationStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -1081,7 +1089,7 @@ abstract mixin class _$DocumentDtoCopyWith<$Res> implements $DocumentDtoCopyWith
   factory _$DocumentDtoCopyWith(_DocumentDto value, $Res Function(_DocumentDto) _then) = __$DocumentDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'translated_text') String? translatedText,@JsonKey(name: 'source_lang') String? sourceLang,@JsonKey(name: 'target_lang') String? targetLang,@JsonKey(name: 'translation_status') String translationStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -1098,7 +1106,7 @@ class __$DocumentDtoCopyWithImpl<$Res>
 
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? translatedText = freezed,Object? sourceLang = freezed,Object? targetLang = freezed,Object? translationStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_DocumentDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -1109,6 +1117,10 @@ as String,extractedText: freezed == extractedText ? _self.extractedText : extrac
 as String?,shortSummary: freezed == shortSummary ? _self.shortSummary : shortSummary // ignore: cast_nullable_to_non_nullable
 as String?,detailedSummary: freezed == detailedSummary ? _self.detailedSummary : detailedSummary // ignore: cast_nullable_to_non_nullable
 as String?,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
+as String,translatedText: freezed == translatedText ? _self.translatedText : translatedText // ignore: cast_nullable_to_non_nullable
+as String?,sourceLang: freezed == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String?,targetLang: freezed == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String?,translationStatus: null == translationStatus ? _self.translationStatus : translationStatus // ignore: cast_nullable_to_non_nullable
 as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
@@ -1913,6 +1925,544 @@ class __$SummaryStatusDtoCopyWithImpl<$Res>
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
 as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$TranslationRequestDto {
+
+@JsonKey(name: 'source_lang') String get sourceLang;@JsonKey(name: 'target_lang') String get targetLang;
+/// Create a copy of TranslationRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TranslationRequestDtoCopyWith<TranslationRequestDto> get copyWith => _$TranslationRequestDtoCopyWithImpl<TranslationRequestDto>(this as TranslationRequestDto, _$identity);
+
+  /// Serializes this TranslationRequestDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TranslationRequestDto&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,sourceLang,targetLang);
+
+@override
+String toString() {
+  return 'TranslationRequestDto(sourceLang: $sourceLang, targetLang: $targetLang)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TranslationRequestDtoCopyWith<$Res>  {
+  factory $TranslationRequestDtoCopyWith(TranslationRequestDto value, $Res Function(TranslationRequestDto) _then) = _$TranslationRequestDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'source_lang') String sourceLang,@JsonKey(name: 'target_lang') String targetLang
+});
+
+
+
+
+}
+/// @nodoc
+class _$TranslationRequestDtoCopyWithImpl<$Res>
+    implements $TranslationRequestDtoCopyWith<$Res> {
+  _$TranslationRequestDtoCopyWithImpl(this._self, this._then);
+
+  final TranslationRequestDto _self;
+  final $Res Function(TranslationRequestDto) _then;
+
+/// Create a copy of TranslationRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? sourceLang = null,Object? targetLang = null,}) {
+  return _then(TranslationRequestDto(
+sourceLang: null == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String,targetLang: null == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [TranslationRequestDto].
+extension TranslationRequestDtoPatterns on TranslationRequestDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TranslationRequestDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TranslationRequestDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TranslationRequestDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _TranslationRequestDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TranslationRequestDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TranslationRequestDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'source_lang')  String sourceLang, @JsonKey(name: 'target_lang')  String targetLang)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TranslationRequestDto() when $default != null:
+return $default(_that.sourceLang,_that.targetLang);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'source_lang')  String sourceLang, @JsonKey(name: 'target_lang')  String targetLang)  $default,) {final _that = this;
+switch (_that) {
+case _TranslationRequestDto():
+return $default(_that.sourceLang,_that.targetLang);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'source_lang')  String sourceLang, @JsonKey(name: 'target_lang')  String targetLang)?  $default,) {final _that = this;
+switch (_that) {
+case _TranslationRequestDto() when $default != null:
+return $default(_that.sourceLang,_that.targetLang);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TranslationRequestDto implements TranslationRequestDto {
+  const _TranslationRequestDto({@JsonKey(name: 'source_lang') required this.sourceLang, @JsonKey(name: 'target_lang') required this.targetLang});
+  factory _TranslationRequestDto.fromJson(Map<String, dynamic> json) => _$TranslationRequestDtoFromJson(json);
+
+@override@JsonKey(name: 'source_lang') final  String sourceLang;
+@override@JsonKey(name: 'target_lang') final  String targetLang;
+
+/// Create a copy of TranslationRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TranslationRequestDtoCopyWith<_TranslationRequestDto> get copyWith => __$TranslationRequestDtoCopyWithImpl<_TranslationRequestDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TranslationRequestDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TranslationRequestDto&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,sourceLang,targetLang);
+
+@override
+String toString() {
+  return 'TranslationRequestDto(sourceLang: $sourceLang, targetLang: $targetLang)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TranslationRequestDtoCopyWith<$Res> implements $TranslationRequestDtoCopyWith<$Res> {
+  factory _$TranslationRequestDtoCopyWith(_TranslationRequestDto value, $Res Function(_TranslationRequestDto) _then) = __$TranslationRequestDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'source_lang') String sourceLang,@JsonKey(name: 'target_lang') String targetLang
+});
+
+
+
+
+}
+/// @nodoc
+class __$TranslationRequestDtoCopyWithImpl<$Res>
+    implements _$TranslationRequestDtoCopyWith<$Res> {
+  __$TranslationRequestDtoCopyWithImpl(this._self, this._then);
+
+  final _TranslationRequestDto _self;
+  final $Res Function(_TranslationRequestDto) _then;
+
+/// Create a copy of TranslationRequestDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? sourceLang = null,Object? targetLang = null,}) {
+  return _then(_TranslationRequestDto(
+sourceLang: null == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String,targetLang: null == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$TranslationStatusDto {
+
+ String get id;@JsonKey(name: 'translation_status') String get translationStatus;@JsonKey(name: 'source_lang') String? get sourceLang;@JsonKey(name: 'target_lang') String? get targetLang;
+/// Create a copy of TranslationStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TranslationStatusDtoCopyWith<TranslationStatusDto> get copyWith => _$TranslationStatusDtoCopyWithImpl<TranslationStatusDto>(this as TranslationStatusDto, _$identity);
+
+  /// Serializes this TranslationStatusDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TranslationStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.translationStatus, translationStatus) || other.translationStatus == translationStatus)&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,translationStatus,sourceLang,targetLang);
+
+@override
+String toString() {
+  return 'TranslationStatusDto(id: $id, translationStatus: $translationStatus, sourceLang: $sourceLang, targetLang: $targetLang)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TranslationStatusDtoCopyWith<$Res>  {
+  factory $TranslationStatusDtoCopyWith(TranslationStatusDto value, $Res Function(TranslationStatusDto) _then) = _$TranslationStatusDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id,@JsonKey(name: 'translation_status') String translationStatus,@JsonKey(name: 'source_lang') String? sourceLang,@JsonKey(name: 'target_lang') String? targetLang
+});
+
+
+
+
+}
+/// @nodoc
+class _$TranslationStatusDtoCopyWithImpl<$Res>
+    implements $TranslationStatusDtoCopyWith<$Res> {
+  _$TranslationStatusDtoCopyWithImpl(this._self, this._then);
+
+  final TranslationStatusDto _self;
+  final $Res Function(TranslationStatusDto) _then;
+
+/// Create a copy of TranslationStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? translationStatus = null,Object? sourceLang = freezed,Object? targetLang = freezed,}) {
+  return _then(TranslationStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,translationStatus: null == translationStatus ? _self.translationStatus : translationStatus // ignore: cast_nullable_to_non_nullable
+as String,sourceLang: freezed == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String?,targetLang: freezed == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String?,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [TranslationStatusDto].
+extension TranslationStatusDtoPatterns on TranslationStatusDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _TranslationStatusDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _TranslationStatusDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _TranslationStatusDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _TranslationStatusDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _TranslationStatusDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _TranslationStatusDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _TranslationStatusDto() when $default != null:
+return $default(_that.id,_that.translationStatus,_that.sourceLang,_that.targetLang);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang)  $default,) {final _that = this;
+switch (_that) {
+case _TranslationStatusDto():
+return $default(_that.id,_that.translationStatus,_that.sourceLang,_that.targetLang);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'translation_status')  String translationStatus, @JsonKey(name: 'source_lang')  String? sourceLang, @JsonKey(name: 'target_lang')  String? targetLang)?  $default,) {final _that = this;
+switch (_that) {
+case _TranslationStatusDto() when $default != null:
+return $default(_that.id,_that.translationStatus,_that.sourceLang,_that.targetLang);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _TranslationStatusDto implements TranslationStatusDto {
+  const _TranslationStatusDto({required this.id, @JsonKey(name: 'translation_status') required this.translationStatus, @JsonKey(name: 'source_lang') this.sourceLang, @JsonKey(name: 'target_lang') this.targetLang});
+  factory _TranslationStatusDto.fromJson(Map<String, dynamic> json) => _$TranslationStatusDtoFromJson(json);
+
+@override final  String id;
+@override@JsonKey(name: 'translation_status') final  String translationStatus;
+@override@JsonKey(name: 'source_lang') final  String? sourceLang;
+@override@JsonKey(name: 'target_lang') final  String? targetLang;
+
+/// Create a copy of TranslationStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$TranslationStatusDtoCopyWith<_TranslationStatusDto> get copyWith => __$TranslationStatusDtoCopyWithImpl<_TranslationStatusDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$TranslationStatusDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _TranslationStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.translationStatus, translationStatus) || other.translationStatus == translationStatus)&&(identical(other.sourceLang, sourceLang) || other.sourceLang == sourceLang)&&(identical(other.targetLang, targetLang) || other.targetLang == targetLang));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,translationStatus,sourceLang,targetLang);
+
+@override
+String toString() {
+  return 'TranslationStatusDto(id: $id, translationStatus: $translationStatus, sourceLang: $sourceLang, targetLang: $targetLang)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$TranslationStatusDtoCopyWith<$Res> implements $TranslationStatusDtoCopyWith<$Res> {
+  factory _$TranslationStatusDtoCopyWith(_TranslationStatusDto value, $Res Function(_TranslationStatusDto) _then) = __$TranslationStatusDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id,@JsonKey(name: 'translation_status') String translationStatus,@JsonKey(name: 'source_lang') String? sourceLang,@JsonKey(name: 'target_lang') String? targetLang
+});
+
+
+
+
+}
+/// @nodoc
+class __$TranslationStatusDtoCopyWithImpl<$Res>
+    implements _$TranslationStatusDtoCopyWith<$Res> {
+  __$TranslationStatusDtoCopyWithImpl(this._self, this._then);
+
+  final _TranslationStatusDto _self;
+  final $Res Function(_TranslationStatusDto) _then;
+
+/// Create a copy of TranslationStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? translationStatus = null,Object? sourceLang = freezed,Object? targetLang = freezed,}) {
+  return _then(_TranslationStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,translationStatus: null == translationStatus ? _self.translationStatus : translationStatus // ignore: cast_nullable_to_non_nullable
+as String,sourceLang: freezed == sourceLang ? _self.sourceLang : sourceLang // ignore: cast_nullable_to_non_nullable
+as String?,targetLang: freezed == targetLang ? _self.targetLang : targetLang // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 

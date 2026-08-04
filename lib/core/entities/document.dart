@@ -8,6 +8,9 @@ enum DocumentStatus { processing, ready, failed }
 /// Summarization lifecycle — separate from OCR [DocumentStatus].
 enum SummaryStatus { idle, processing, ready, failed }
 
+/// Translation lifecycle — separate from OCR [DocumentStatus] and [SummaryStatus].
+enum TranslationStatus { idle, processing, ready, failed }
+
 /// Shared document identity for scan, OCR, RAG, export, etc.
 ///
 /// Lives in `core/entities` so features never import `document_scan` internals
@@ -24,6 +27,10 @@ abstract class Document with _$Document {
     String? shortSummary,
     String? detailedSummary,
     @Default(SummaryStatus.idle) SummaryStatus summaryStatus,
+    String? translatedText,
+    String? sourceLang,
+    String? targetLang,
+    @Default(TranslationStatus.idle) TranslationStatus translationStatus,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Document;
@@ -61,6 +68,25 @@ extension SummaryStatusApiX on SummaryStatus {
         return SummaryStatus.failed;
       default:
         return SummaryStatus.idle;
+    }
+  }
+}
+
+extension TranslationStatusApiX on TranslationStatus {
+  String get apiValue => name;
+
+  static TranslationStatus fromApi(String value) {
+    switch (value.toLowerCase()) {
+      case 'idle':
+        return TranslationStatus.idle;
+      case 'processing':
+        return TranslationStatus.processing;
+      case 'ready':
+        return TranslationStatus.ready;
+      case 'failed':
+        return TranslationStatus.failed;
+      default:
+        return TranslationStatus.idle;
     }
   }
 }
