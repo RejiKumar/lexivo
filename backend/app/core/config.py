@@ -59,6 +59,13 @@ class Settings(BaseSettings):
     document_ai_processor_id: str = ""
     document_ai_location: str = "us"
 
+    # Subscription / free-tier quotas (OpenSpec subscription)
+    # Paywall UI flag only — caps always enforce regardless of this flag.
+    subscription_paywall_enabled: bool = False
+    free_tier_docs_per_month: int = 20
+    free_tier_chat_messages_per_day: int = 100
+    free_tier_ocr_pages_per_month: int = 500
+
 
 @lru_cache
 def get_settings() -> Settings:

@@ -18,6 +18,13 @@ from app.schemas.documents import (
 )
 from app.schemas.exports import ExportRequest, ExportResponse
 from app.schemas.notifications import NotificationListResponse, NotificationResponse
+from app.schemas.subscriptions import (
+    QuotaExceededDetail,
+    SubscriptionMeResponse,
+    SubscriptionUpgradeResponse,
+    UsageBucketResponse,
+    UsageBreakdownResponse,
+)
 from app.schemas.users import UserProfileResponse, UserProfileUpdateRequest
 
 __all__ = [
@@ -34,9 +41,14 @@ __all__ = [
     "ExportResponse",
     "NotificationListResponse",
     "NotificationResponse",
+    "QuotaExceededDetail",
+    "SubscriptionMeResponse",
+    "SubscriptionUpgradeResponse",
     "SummaryStatusResponse",
     "TranslationRequest",
     "TranslationStatusResponse",
+    "UsageBucketResponse",
+    "UsageBreakdownResponse",
     "UserProfileResponse",
     "UserProfileUpdateRequest",
 ]

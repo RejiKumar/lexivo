@@ -17,6 +17,7 @@ from app.repositories.chat_repo import ChatMessageRepository, ChatRepository
 from app.repositories.chunk_repo import DocumentChunkRepository
 from app.repositories.document_repo import DocumentRepository
 from app.services.base import BaseService, ConflictError, NotFoundError, ValidationError
+from app.services.quota_service import QuotaService
 
 # Prefer ``ask``; Master also accepts alias ``rag_chat``.
 ASK_INTENT = "ask"
@@ -35,6 +36,7 @@ class ChatService(BaseService[Chat]):
         *,
         llm: LLMProvider,
         rag_pipeline: Any,
+        quota: QuotaService | None = None,
     ) -> None:
         super().__init__(chat_repository)
         self._chats = chat_repository
@@ -43,6 +45,7 @@ class ChatService(BaseService[Chat]):
         self._chunks = chunk_repository
         self._llm = llm
         self._rag_pipeline = rag_pipeline
+        self._quota = quota
 
     def ensure_chat(self, *, document_id: str, user_id: str) -> Chat:
         self._require_owned_document(document_id=document_id, user_id=user_id)
@@ -67,6 +70,9 @@ class ChatService(BaseService[Chat]):
             document_id=document_id, user_id=user_id
         )
         self._require_rag_ready(document)
+
+        if self._quota is not None:
+            self._quota.enforce_chat_message(user_id)
 
         chat = self._chats.get_or_create(user_id=user_id, document_id=document_id)
         asked_at = datetime.now(UTC)

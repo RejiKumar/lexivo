@@ -64,6 +64,22 @@ class ExportStatus(str, enum.Enum):
     failed = "failed"
 
 
+class SubscriptionTier(str, enum.Enum):
+    free = "free"
+    paid = "paid"
+
+
+class SubscriptionStatus(str, enum.Enum):
+    active = "active"
+    canceled = "canceled"
+
+
+class UsageResource(str, enum.Enum):
+    documents = "documents"
+    chat_messages = "chat_messages"
+    ocr_pages = "ocr_pages"
+
+
 class EmbeddingVector(TypeDecorator):
     """Dialect-safe embedding column: pgvector on Postgres, JSON text elsewhere.
 
@@ -130,6 +146,13 @@ class User(Base):
     notifications: Mapped[list["Notification"]] = relationship(
         back_populates="owner"
     )
+    subscription: Mapped["Subscription | None"] = relationship(
+        back_populates="owner",
+        uselist=False,
+    )
+    usage_events: Mapped[list["UsageEvent"]] = relationship(
+        back_populates="owner"
+    )
 
 
 class Document(Base):
@@ -161,6 +184,7 @@ class Document(Base):
         Enum(DocumentStatus, name="document_status"),
         default=DocumentStatus.processing,
     )
+    page_count: Mapped[int | None] = mapped_column(Integer, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -348,3 +372,76 @@ class Notification(Base):
     )
 
     owner: Mapped[User] = relationship(back_populates="notifications")
+
+
+class Subscription(Base):
+    """Per-user subscription tier — free by default; paid skips free-tier caps."""
+
+    __tablename__ = "subscriptions"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36),
+        ForeignKey("users.id", ondelete="CASCADE"),
+        unique=True,
+        index=True,
+    )
+    tier: Mapped[SubscriptionTier] = mapped_column(
+        Enum(SubscriptionTier, name="subscription_tier"),
+        default=SubscriptionTier.free,
+    )
+    status: Mapped[SubscriptionStatus] = mapped_column(
+        Enum(SubscriptionStatus, name="subscription_status"),
+        default=SubscriptionStatus.active,
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    owner: Mapped[User] = relationship(back_populates="subscription")
+
+
+class UsageEvent(Base):
+    """Usage ledger for quota enforcement (OCR pages + optional counters).
+
+    OCR rows are idempotent per ``(user_id, resource, document_id, period_start)``.
+    """
+
+    __tablename__ = "usage_events"
+    __table_args__ = (
+        UniqueConstraint(
+            "user_id",
+            "resource",
+            "document_id",
+            "period_start",
+            name="uq_usage_events_user_resource_doc_period",
+        ),
+    )
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    resource: Mapped[str] = mapped_column(String(64), nullable=False, index=True)
+    amount: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    period_start: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, index=True
+    )
+    document_id: Mapped[str | None] = mapped_column(
+        String(36),
+        ForeignKey("documents.id", ondelete="SET NULL"),
+        nullable=True,
+        index=True,
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    owner: Mapped[User] = relationship(back_populates="usage_events")

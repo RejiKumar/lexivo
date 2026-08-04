@@ -31,6 +31,39 @@ class ValidationError(Exception):
         super().__init__(message)
 
 
+class QuotaExceededError(Exception):
+    """Raised when a free-tier usage cap is exceeded.
+
+    Mapped once by the FastAPI exception handler to HTTP 429 with a consistent
+    ``quota_exceeded`` detail body (not ad-hoc per router).
+    """
+
+    def __init__(
+        self,
+        *,
+        resource: str,
+        limit: int,
+        period: str,
+        message: str | None = None,
+    ) -> None:
+        self.resource = resource
+        self.limit = limit
+        self.period = period
+        self.message = message or (
+            f"Free-tier {resource} limit of {limit} per {period} exceeded"
+        )
+        super().__init__(self.message)
+
+    def to_detail(self) -> dict[str, object]:
+        return {
+            "code": "quota_exceeded",
+            "resource": self.resource,
+            "limit": self.limit,
+            "period": self.period,
+            "message": self.message,
+        }
+
+
 class RepositoryProtocol(Protocol[T]):
     def create(self, **fields: Any) -> T: ...
 

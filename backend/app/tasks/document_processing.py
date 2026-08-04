@@ -18,11 +18,14 @@ from app.adapters.protocols import StorageProvider
 from app.adapters.push import StubPushProvider
 from app.agents.base_agent import AgentContext
 from app.agents.master_agent import run_master
+from app.core.config import get_settings
 from app.core.db import SessionLocal, get_engine
 from app.models import DocumentStatus, JobStatus
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
 from app.services.notification_service import emit_job_complete_notification
+from app.services.page_estimate import estimate_page_count
+from app.services.quota_service import QuotaService
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_ocr_provider, get_task_storage_provider
 
@@ -55,14 +58,44 @@ async def _load_document_bytes(storage: StorageProvider, key: str) -> bytes:
         return response.content
 
 
-def enqueue_document_processing(document_id: str) -> str:
+def enqueue_document_processing(
+    document_id: str,
+    *,
+    file_bytes: bytes | None = None,
+    filename: str | None = None,
+    user_id: str | None = None,
+) -> str:
     """Create/update an OCR job row and queue the run_ocr task unit.
 
-    Returns the job id. Signature stable for DocumentService callers.
+    When ``file_bytes`` (and preferably ``user_id``) are provided, free-tier OCR
+    page caps are enforced before queueing. Returns the job id.
     """
     get_engine()
     session = SessionLocal()
     try:
+        docs = DocumentRepository(session)
+        document = docs.get(document_id)
+        if document is None:
+            raise ValueError(f"Document not found: {document_id}")
+
+        owner_id = user_id or document.user_id
+        if file_bytes is not None:
+            estimate = estimate_page_count(file_bytes, filename)
+            QuotaService(session, get_settings()).enforce_ocr_pages(
+                user_id=owner_id,
+                document_id=document_id,
+                estimated_pages=estimate,
+            )
+        # When called as ``enqueue(document_id)`` after create_with_upload,
+        # document-create already enforced OCR estimate; skip duplicate check
+        # unless this is a re-OCR (page_count already set / usage exists).
+        elif document.page_count is not None:
+            QuotaService(session, get_settings()).enforce_ocr_pages(
+                user_id=owner_id,
+                document_id=document_id,
+                estimated_pages=max(1, int(document.page_count)),
+            )
+
         jobs = JobRepository(session)
         existing = jobs.list(
             {"document_id": document_id, "job_type": OCR_JOB_TYPE}
@@ -144,15 +177,21 @@ async def _run_ocr_async(
             raise RuntimeError(agent_result.error or "OCR agent failed")
 
         data = agent_result.data or {}
-        pages = int(data.get("pages", 0))
+        pages = int(data.get("pages", 0)) or 1
         text = str(data.get("text", ""))
 
         jobs.update(job_id, status=JobStatus.succeeded, error_message="")
-        # Persist OCR body for later RagPipeline.ingest (no RAG call here).
+        # Persist OCR body + page_count for later RagPipeline.ingest / quotas.
         docs.update(
             document_id,
             status=DocumentStatus.ready,
             extracted_text=text,
+            page_count=pages,
+        )
+        QuotaService(session, get_settings()).record_ocr_pages(
+            user_id=document.user_id,
+            document_id=document_id,
+            pages=pages,
         )
 
         await emit_job_complete_notification(

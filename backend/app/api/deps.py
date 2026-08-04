@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.adapters.notifications import SqlNotificationStore
 from app.adapters.protocols import StorageProvider
+from app.core.config import Settings, get_settings
 from app.core.db import get_db
 from app.core.dependencies import get_storage_provider
 from app.rag.chunker import Chunker
@@ -23,6 +24,8 @@ from app.services.chat_service import ChatService
 from app.services.document_service import DocumentService
 from app.services.export_service import ExportService
 from app.services.notification_service import NotificationService
+from app.services.quota_service import QuotaService
+from app.services.subscription_service import SubscriptionService
 from app.services.summary_service import SummaryService
 from app.services.translation_service import TranslationService
 from app.services.user_service import UserService
@@ -40,14 +43,30 @@ def get_user_service(db: Annotated[Session, Depends(get_db)]) -> UserService:
     return UserService(UserRepository(db))
 
 
+def get_quota_service(
+    db: Annotated[Session, Depends(get_db)],
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> QuotaService:
+    return QuotaService(db, settings)
+
+
+def get_subscription_service(
+    db: Annotated[Session, Depends(get_db)],
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> SubscriptionService:
+    return SubscriptionService(db, settings)
+
+
 def get_document_service(
     db: Annotated[Session, Depends(get_db)],
     storage: Annotated[StorageProvider, Depends(get_storage_provider)],
+    settings: Annotated[Settings, Depends(get_settings)],
 ) -> DocumentService:
     return DocumentService(
         DocumentRepository(db),
         storage=storage,
         enqueue_processing=enqueue_document_processing,
+        quota=QuotaService(db, settings),
     )
 
 
@@ -89,6 +108,7 @@ def get_notification_service(
 
 def get_chat_service(
     db: Annotated[Session, Depends(get_db)],
+    settings: Annotated[Settings, Depends(get_settings)],
 ) -> ChatService:
     """Wire ChatService with LLM + RagPipeline (Search uses pipeline inside Master)."""
     pipeline = RagPipeline(
@@ -105,4 +125,5 @@ def get_chat_service(
         DocumentChunkRepository(db),
         llm=get_task_llm_provider(),
         rag_pipeline=pipeline,
+        quota=QuotaService(db, settings),
     )

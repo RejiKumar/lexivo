@@ -27,6 +27,7 @@ class DocumentResponse(BaseModel):
     source_lang: str | None = None
     target_lang: str | None = None
     translation_status: TranslationStatusLiteral = "idle"
+    page_count: int | None = None
     created_at: datetime | None = None
     updated_at: datetime | None = None
 

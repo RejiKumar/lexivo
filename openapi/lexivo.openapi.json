@@ -910,6 +910,68 @@
           }
         }
       }
+    },
+    "/api/v1/subscriptions/me": {
+      "get": {
+        "tags": [
+          "subscriptions"
+        ],
+        "summary": "Get Subscription Me",
+        "operationId": "get_subscription_me_api_v1_subscriptions_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionMeResponse"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Free-tier quota exceeded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaExceededDetail"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/subscriptions/upgrade": {
+      "post": {
+        "tags": [
+          "subscriptions"
+        ],
+        "summary": "Upgrade Subscription",
+        "operationId": "upgrade_subscription_api_v1_subscriptions_upgrade_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionUpgradeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1250,6 +1312,17 @@
             "title": "Translation Status",
             "default": "idle"
           },
+          "page_count": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Page Count"
+          },
           "created_at": {
             "anyOf": [
               {
@@ -1528,6 +1601,117 @@
         ],
         "title": "NotificationResponse"
       },
+      "QuotaExceededDetail": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "const": "quota_exceeded",
+            "title": "Code",
+            "default": "quota_exceeded"
+          },
+          "resource": {
+            "type": "string",
+            "enum": [
+              "documents",
+              "chat_messages",
+              "ocr_pages"
+            ],
+            "title": "Resource"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "month",
+              "day"
+            ],
+            "title": "Period"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          }
+        },
+        "type": "object",
+        "required": [
+          "resource",
+          "limit",
+          "period",
+          "message"
+        ],
+        "title": "QuotaExceededDetail",
+        "description": "OpenAPI component for consistent 429 quota bodies."
+      },
+      "SubscriptionMeResponse": {
+        "properties": {
+          "tier": {
+            "type": "string",
+            "enum": [
+              "free",
+              "paid"
+            ],
+            "title": "Tier"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "canceled"
+            ],
+            "title": "Status",
+            "default": "active"
+          },
+          "paywall_enabled": {
+            "type": "boolean",
+            "title": "Paywall Enabled"
+          },
+          "usage": {
+            "$ref": "#/components/schemas/UsageBreakdownResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tier",
+          "paywall_enabled",
+          "usage"
+        ],
+        "title": "SubscriptionMeResponse"
+      },
+      "SubscriptionUpgradeResponse": {
+        "properties": {
+          "tier": {
+            "type": "string",
+            "enum": [
+              "free",
+              "paid"
+            ],
+            "title": "Tier"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "canceled"
+            ],
+            "title": "Status"
+          },
+          "paywall_enabled": {
+            "type": "boolean",
+            "title": "Paywall Enabled",
+            "description": "Mirrors Settings.subscription_paywall_enabled"
+          }
+        },
+        "type": "object",
+        "required": [
+          "tier",
+          "status",
+          "paywall_enabled"
+        ],
+        "title": "SubscriptionUpgradeResponse"
+      },
       "SummaryStatusResponse": {
         "properties": {
           "id": {
@@ -1631,6 +1815,53 @@
           "translation_status"
         ],
         "title": "TranslationStatusResponse"
+      },
+      "UsageBreakdownResponse": {
+        "properties": {
+          "documents": {
+            "$ref": "#/components/schemas/UsageBucketResponse"
+          },
+          "chat_messages": {
+            "$ref": "#/components/schemas/UsageBucketResponse"
+          },
+          "ocr_pages": {
+            "$ref": "#/components/schemas/UsageBucketResponse"
+          }
+        },
+        "type": "object",
+        "required": [
+          "documents",
+          "chat_messages",
+          "ocr_pages"
+        ],
+        "title": "UsageBreakdownResponse"
+      },
+      "UsageBucketResponse": {
+        "properties": {
+          "used": {
+            "type": "integer",
+            "title": "Used"
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limit"
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "month",
+              "day"
+            ],
+            "title": "Period"
+          }
+        },
+        "type": "object",
+        "required": [
+          "used",
+          "limit",
+          "period"
+        ],
+        "title": "UsageBucketResponse"
       },
       "UserProfileResponse": {
         "properties": {
