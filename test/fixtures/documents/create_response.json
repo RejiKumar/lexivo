@@ -1,0 +1,9 @@
+{
+  "id": "doc-new",
+  "user_id": "db-user-1",
+  "title": "Lease",
+  "storage_key": "uploads/doc-new.pdf",
+  "status": "processing",
+  "created_at": "2026-01-02T00:00:00Z",
+  "updated_at": "2026-01-02T00:00:00Z"
+}

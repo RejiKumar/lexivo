@@ -49,6 +49,29 @@ class ApiClient {
         (json) => DocumentStatusDto.fromJson(json),
       );
 
+  /// Multipart create + server-side StorageProvider upload + enqueue.
+  ///
+  /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
+  Future<Result<DocumentDto>> createDocument({
+    required List<int> bytes,
+    required String filename,
+    String? title,
+  }) async {
+    try {
+      final form = FormData.fromMap({
+        'file': MultipartFile.fromBytes(bytes, filename: filename),
+        if (title != null) 'title': title,
+      });
+      final response = await _dio.post<dynamic>(
+        '$_prefix/documents',
+        data: form,
+      );
+      return Result.success(DocumentDto.fromJson(_asMap(response.data)));
+    } catch (e, st) {
+      return Result.failure(ErrorMapper.map(e, st));
+    }
+  }
+
   Future<Result<T>> _get<T>(
     String path,
     T Function(Map<String, dynamic> json) parse,

@@ -12,7 +12,9 @@ Map<String, dynamic> readFixtureSync(String name) {
 File _fixtureFile(String name) {
   final candidates = [
     File('test/fixtures/$name'),
+    File('test/fixtures/documents/$name'),
     File('fixtures/$name'),
+    File('fixtures/documents/$name'),
   ];
   for (final f in candidates) {
     if (f.existsSync()) return f;

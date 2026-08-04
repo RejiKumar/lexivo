@@ -78,5 +78,44 @@ void main() {
       final status = await client.getDocumentStatus('doc-1');
       expect(status.valueOrNull?.status, 'processing');
     });
+
+    test('createDocument multipart file + optional title', () async {
+      adapter.onPost(
+        '/api/v1/documents',
+        (server) => server.reply(
+          201,
+          readFixtureSync('documents/create_response.json'),
+        ),
+        data: Matchers.any,
+      );
+
+      final result = await client.createDocument(
+        bytes: [37, 80, 68, 70], // %PDF
+        filename: 'lease.pdf',
+        title: 'Lease',
+      );
+      expect(result.isSuccess, isTrue);
+      expect(result.valueOrNull?.id, 'doc-new');
+      expect(result.valueOrNull?.status, 'processing');
+      expect(result.valueOrNull?.title, 'Lease');
+    });
+
+    test('createDocument maps Dio errors via ErrorMapper', () async {
+      adapter.onPost(
+        '/api/v1/documents',
+        (server) => server.reply(
+          422,
+          readFixtureSync('documents/error_validation.json'),
+        ),
+        data: Matchers.any,
+      );
+
+      final result = await client.createDocument(
+        bytes: [1, 2, 3],
+        filename: 'bad.bin',
+      );
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull, isNotNull);
+    });
   });
 }

@@ -4,6 +4,8 @@
 
 **Decision:** interim typed Dio façade in `lib/core/network/api_client.dart`, DTOs aligned to `openapi/lexivo.openapi.json` (auth/users/documents schemas from the FastAPI backend).
 
+Supports `createDocument` multipart (`file` + optional `title`) matching backend `POST /api/v1/documents` (`create_with_upload`). Feature code must call this method only — never storage SDKs.
+
 OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) is deferred — tracked as `TODO(openapi-codegen)`. Regen steps:
 
 1. Start backend; run `./tool/generate_api_client.sh` to refresh `openapi/lexivo.openapi.json`.
