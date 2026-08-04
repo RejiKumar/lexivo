@@ -28,8 +28,8 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ### 1.A Brand documentation (before locking values)
 
-- [ ] 1.1 Document chosen brand tokens in `core/design_system/tokens/BRAND.md` (or equivalent notes committed with tokens): primary palette hex (light/dark), secondary/neutral ramps, feedback colors, primary + optional display typeface names/sources, rationale vs “calm, confident, fast”
-- [ ] 1.2 Review brand doc against ui_design_system.md §1–§2 mood/principles; revise; commit brand doc
+- [x] 1.1 Document chosen brand tokens in `core/design_system/tokens/BRAND.md` (or equivalent notes committed with tokens): primary palette hex (light/dark), secondary/neutral ramps, feedback colors, primary + optional display typeface names/sources, rationale vs “calm, confident, fast”
+- [x] 1.2 Review brand doc against ui_design_system.md §1–§2 mood/principles; revise; commit brand doc
 
 ### 1.B Color tokens (§2.1)
 
