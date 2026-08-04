@@ -71,10 +71,10 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ## 2. LexivoButton (§3.1)
 
-- [ ] 2.1 Write failing widget tests for variants (`primary`, `secondary`, `ghost`, `destructive`), sizes (`sm`, `md`, `lg`), states (default, pressed, disabled, loading), props (`leadingIcon`, `trailingIcon`, `fullWidth`), and ≥44×44 touch target
-- [ ] 2.2 Implement `LexivoButton` in `components/button.dart` using tokens only
-- [ ] 2.3 Add golden tests for every variant × size × key state (incl. loading, disabled); capture baselines
-- [ ] 2.4 Review vs §3.1 + a11y; fix; commit
+- [x] 2.1 Write failing widget tests for variants (`primary`, `secondary`, `ghost`, `destructive`), sizes (`sm`, `md`, `lg`), states (default, pressed, disabled, loading), props (`leadingIcon`, `trailingIcon`, `fullWidth`), and ≥44×44 touch target
+- [x] 2.2 Implement `LexivoButton` in `components/button.dart` using tokens only
+- [x] 2.3 Add golden tests for every variant × size × key state (incl. loading, disabled); capture baselines
+- [x] 2.4 Review vs §3.1 + a11y; fix; commit
 
 ---
 

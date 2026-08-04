@@ -1,2 +1,4 @@
-/// Design-system components barrel. Components land after token/theme work.
+/// Design-system components barrel.
 library;
+
+export 'button.dart';
