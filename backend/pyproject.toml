@@ -23,6 +23,7 @@ dependencies = [
   "boto3>=1.35.0",
   "langgraph>=1.1.0,<2",
   "PyYAML>=6.0.2",
+  "pgvector>=0.3.6",
 ]
 
 [project.optional-dependencies]
@@ -42,4 +43,5 @@ testpaths = ["tests"]
 pythonpath = ["."]
 markers = [
   "compose: requires Docker Compose local stack (optional; skip in default CI)",
+  "postgres: requires Postgres+pgvector (skip when DATABASE_URL is SQLite-only)",
 ]
