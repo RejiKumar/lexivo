@@ -65,6 +65,9 @@ _DocumentDto _$DocumentDtoFromJson(Map<String, dynamic> json) => _DocumentDto(
   storageKey: json['storage_key'] as String?,
   status: json['status'] as String,
   extractedText: json['extracted_text'] as String?,
+  shortSummary: json['short_summary'] as String?,
+  detailedSummary: json['detailed_summary'] as String?,
+  summaryStatus: json['summary_status'] as String? ?? 'idle',
   createdAt: json['created_at'] == null
       ? null
       : DateTime.parse(json['created_at'] as String),
@@ -81,6 +84,9 @@ Map<String, dynamic> _$DocumentDtoToJson(_DocumentDto instance) =>
       'storage_key': instance.storageKey,
       'status': instance.status,
       'extracted_text': instance.extractedText,
+      'short_summary': instance.shortSummary,
+      'detailed_summary': instance.detailedSummary,
+      'summary_status': instance.summaryStatus,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
@@ -105,3 +111,15 @@ _DocumentStatusDto _$DocumentStatusDtoFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$DocumentStatusDtoToJson(_DocumentStatusDto instance) =>
     <String, dynamic>{'id': instance.id, 'status': instance.status};
+
+_SummaryStatusDto _$SummaryStatusDtoFromJson(Map<String, dynamic> json) =>
+    _SummaryStatusDto(
+      id: json['id'] as String,
+      summaryStatus: json['summary_status'] as String,
+    );
+
+Map<String, dynamic> _$SummaryStatusDtoToJson(_SummaryStatusDto instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'summary_status': instance.summaryStatus,
+    };

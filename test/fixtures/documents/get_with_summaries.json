@@ -1,0 +1,13 @@
+{
+  "id": "doc-1",
+  "user_id": "db-user-1",
+  "title": "Sample",
+  "storage_key": "uploads/doc-1.pdf",
+  "status": "ready",
+  "extracted_text": "Extracted OCR body from the lease agreement.",
+  "short_summary": "Lease covers term and rent.",
+  "detailed_summary": "This lease agreement outlines the rental term, payment schedule, and tenant obligations in detail.",
+  "summary_status": "ready",
+  "created_at": "2026-01-01T00:00:00Z",
+  "updated_at": "2026-01-01T00:00:00Z"
+}

@@ -33,7 +33,7 @@ void main() {
       );
     });
 
-    test('mapper includes extractedText from DTO', () {
+    test('mapper includes extractedText and summary fields from DTO', () {
       final dto = DocumentDto.fromJson({
         'id': 'doc-1',
         'user_id': 'u1',
@@ -41,10 +41,24 @@ void main() {
         'storage_key': 'k',
         'status': 'ready',
         'extracted_text': 'Hello OCR',
+        'short_summary': 'Short',
+        'detailed_summary': 'Detailed',
+        'summary_status': 'ready',
       });
       final doc = documentFromDto(dto);
       expect(doc.extractedText, 'Hello OCR');
       expect(doc.status, DocumentStatus.ready);
+      expect(doc.shortSummary, 'Short');
+      expect(doc.detailedSummary, 'Detailed');
+      expect(doc.summaryStatus, SummaryStatus.ready);
+    });
+
+    test('summary status API string mapping', () {
+      expect(SummaryStatusApiX.fromApi('idle'), SummaryStatus.idle);
+      expect(SummaryStatusApiX.fromApi('PROCESSING'), SummaryStatus.processing);
+      expect(SummaryStatusApiX.fromApi('ready'), SummaryStatus.ready);
+      expect(SummaryStatusApiX.fromApi('failed'), SummaryStatus.failed);
+      expect(SummaryStatus.ready.apiValue, 'ready');
     });
 
     test('API string mapping', () {

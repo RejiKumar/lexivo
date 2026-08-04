@@ -7,6 +7,9 @@ Document sampleDocument({
   DocumentStatus status = DocumentStatus.ready,
   String? title = 'Sample',
   String? extractedText,
+  String? shortSummary,
+  String? detailedSummary,
+  SummaryStatus summaryStatus = SummaryStatus.idle,
 }) {
   return Document(
     id: id,
@@ -15,6 +18,9 @@ Document sampleDocument({
     storageKey: 'uploads/$id.pdf',
     status: status,
     extractedText: extractedText,
+    shortSummary: shortSummary,
+    detailedSummary: detailedSummary,
+    summaryStatus: summaryStatus,
     createdAt: DateTime.utc(2026, 1, 1),
     updatedAt: DateTime.utc(2026, 1, 1),
   );

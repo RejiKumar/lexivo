@@ -49,6 +49,17 @@ class ApiClient {
         (json) => DocumentStatusDto.fromJson(json),
       );
 
+  /// Enqueue summarization (Master → Summary Agent). 202 when accepted.
+  Future<Result<DocumentDto>> requestSummary(String id) => _post(
+        '$_prefix/documents/$id/summary',
+        (json) => DocumentDto.fromJson(json),
+      );
+
+  Future<Result<SummaryStatusDto>> getSummaryStatus(String id) => _get(
+        '$_prefix/documents/$id/summary/status',
+        (json) => SummaryStatusDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
   /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
@@ -78,6 +89,19 @@ class ApiClient {
   ) async {
     try {
       final response = await _dio.get<dynamic>(path);
+      return Result.success(parse(_asMap(response.data)));
+    } catch (e, st) {
+      return Result.failure(ErrorMapper.map(e, st));
+    }
+  }
+
+  Future<Result<T>> _post<T>(
+    String path,
+    T Function(Map<String, dynamic> json) parse, {
+    Object? data,
+  }) async {
+    try {
+      final response = await _dio.post<dynamic>(path, data: data);
       return Result.success(parse(_asMap(response.data)));
     } catch (e, st) {
       return Result.failure(ErrorMapper.map(e, st));

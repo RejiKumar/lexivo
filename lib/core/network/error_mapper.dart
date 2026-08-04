@@ -50,9 +50,10 @@ abstract final class ErrorMapper {
         cause: error,
       );
     }
-    if (status == 422) {
+    if (status == 422 || status == 409) {
       return ValidationFailure(
-        message: bodyMessage ?? 'Validation failed',
+        message: bodyMessage ??
+            (status == 409 ? 'Document not ready' : 'Validation failed'),
         cause: error,
       );
     }

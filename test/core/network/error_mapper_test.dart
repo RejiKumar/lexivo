@@ -58,6 +58,24 @@ void main() {
       expect(ErrorMapper.map(server), isA<NetworkFailure>());
     });
 
+    test('409 → ValidationFailure (not-ready)', () {
+      final err = DioException(
+        requestOptions: RequestOptions(path: '/api/v1/documents/x/summary'),
+        type: DioExceptionType.badResponse,
+        response: Response(
+          requestOptions: RequestOptions(path: '/api/v1/documents/x/summary'),
+          statusCode: 409,
+          data: {
+            'detail':
+                'Document OCR is not ready; summarization requires status=ready',
+          },
+        ),
+      );
+      final failure = ErrorMapper.map(err);
+      expect(failure, isA<ValidationFailure>());
+      expect(failure.message, contains('not ready'));
+    });
+
     test('unknown → UnexpectedFailure', () {
       expect(ErrorMapper.map(StateError('boom')), isA<UnexpectedFailure>());
     });

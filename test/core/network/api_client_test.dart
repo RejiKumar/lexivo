@@ -156,5 +156,55 @@ void main() {
       expect(result.isFailure, isTrue);
       expect(result.failureOrNull, isNotNull);
     });
+
+    test('requestSummary / getSummaryStatus', () async {
+      adapter.onPost(
+        '/api/v1/documents/doc-1/summary',
+        (server) => server.reply(
+          202,
+          readFixtureSync('documents/summary_request_accepted.json'),
+        ),
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-1/summary/status',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/summary_status_processing.json'),
+        ),
+      );
+      adapter.onGet(
+        '/api/v1/documents/doc-sum',
+        (server) => server.reply(
+          200,
+          readFixtureSync('documents/get_with_summaries.json'),
+        ),
+      );
+
+      final requested = await client.requestSummary('doc-1');
+      expect(requested.isSuccess, isTrue);
+      expect(requested.valueOrNull?.summaryStatus, 'processing');
+
+      final status = await client.getSummaryStatus('doc-1');
+      expect(status.valueOrNull?.summaryStatus, 'processing');
+
+      final doc = await client.getDocument('doc-sum');
+      expect(doc.valueOrNull?.shortSummary, contains('Lease covers'));
+      expect(doc.valueOrNull?.detailedSummary, contains('rental term'));
+      expect(doc.valueOrNull?.summaryStatus, 'ready');
+    });
+
+    test('requestSummary 409 → ValidationFailure', () async {
+      adapter.onPost(
+        '/api/v1/documents/doc-1/summary',
+        (server) => server.reply(
+          409,
+          readFixtureSync('documents/summary_not_ready_409.json'),
+        ),
+      );
+
+      final result = await client.requestSummary('doc-1');
+      expect(result.isFailure, isTrue);
+      expect(result.failureOrNull?.message, contains('not ready'));
+    });
   });
 }

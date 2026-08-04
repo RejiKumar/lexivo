@@ -829,7 +829,7 @@ as String?,
 /// @nodoc
 mixin _$DocumentDto {
 
- String get id;@JsonKey(name: 'user_id') String get userId; String? get title;@JsonKey(name: 'storage_key') String? get storageKey; String get status;@JsonKey(name: 'extracted_text') String? get extractedText;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
+ String get id;@JsonKey(name: 'user_id') String get userId; String? get title;@JsonKey(name: 'storage_key') String? get storageKey; String get status;@JsonKey(name: 'extracted_text') String? get extractedText;@JsonKey(name: 'short_summary') String? get shortSummary;@JsonKey(name: 'detailed_summary') String? get detailedSummary;@JsonKey(name: 'summary_status') String get summaryStatus;@JsonKey(name: 'created_at') DateTime? get createdAt;@JsonKey(name: 'updated_at') DateTime? get updatedAt;
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -842,16 +842,16 @@ $DocumentDtoCopyWith<DocumentDto> get copyWith => _$DocumentDtoCopyWithImpl<Docu
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -862,7 +862,7 @@ abstract mixin class $DocumentDtoCopyWith<$Res>  {
   factory $DocumentDtoCopyWith(DocumentDto value, $Res Function(DocumentDto) _then) = _$DocumentDtoCopyWithImpl;
 @useResult
 $Res call({
- String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -879,7 +879,7 @@ class _$DocumentDtoCopyWithImpl<$Res>
 
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(DocumentDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -887,7 +887,10 @@ as String,title: freezed == title ? _self.title : title // ignore: cast_nullable
 as String?,storageKey: freezed == storageKey ? _self.storageKey : storageKey // ignore: cast_nullable_to_non_nullable
 as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,extractedText: freezed == extractedText ? _self.extractedText : extractedText // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,shortSummary: freezed == shortSummary ? _self.shortSummary : shortSummary // ignore: cast_nullable_to_non_nullable
+as String?,detailedSummary: freezed == detailedSummary ? _self.detailedSummary : detailedSummary // ignore: cast_nullable_to_non_nullable
+as String?,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -974,10 +977,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DocumentDto() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
   return orElse();
 
 }
@@ -995,10 +998,10 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _DocumentDto():
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -1015,10 +1018,10 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'user_id')  String userId,  String? title, @JsonKey(name: 'storage_key')  String? storageKey,  String status, @JsonKey(name: 'extracted_text')  String? extractedText, @JsonKey(name: 'short_summary')  String? shortSummary, @JsonKey(name: 'detailed_summary')  String? detailedSummary, @JsonKey(name: 'summary_status')  String summaryStatus, @JsonKey(name: 'created_at')  DateTime? createdAt, @JsonKey(name: 'updated_at')  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _DocumentDto() when $default != null:
-return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.createdAt,_that.updatedAt);case _:
+return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,_that.extractedText,_that.shortSummary,_that.detailedSummary,_that.summaryStatus,_that.createdAt,_that.updatedAt);case _:
   return null;
 
 }
@@ -1030,7 +1033,7 @@ return $default(_that.id,_that.userId,_that.title,_that.storageKey,_that.status,
 @JsonSerializable()
 
 class _DocumentDto implements DocumentDto {
-  const _DocumentDto({required this.id, @JsonKey(name: 'user_id') required this.userId, this.title, @JsonKey(name: 'storage_key') this.storageKey, required this.status, @JsonKey(name: 'extracted_text') this.extractedText, @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
+  const _DocumentDto({required this.id, @JsonKey(name: 'user_id') required this.userId, this.title, @JsonKey(name: 'storage_key') this.storageKey, required this.status, @JsonKey(name: 'extracted_text') this.extractedText, @JsonKey(name: 'short_summary') this.shortSummary, @JsonKey(name: 'detailed_summary') this.detailedSummary, @JsonKey(name: 'summary_status') this.summaryStatus = 'idle', @JsonKey(name: 'created_at') this.createdAt, @JsonKey(name: 'updated_at') this.updatedAt});
   factory _DocumentDto.fromJson(Map<String, dynamic> json) => _$DocumentDtoFromJson(json);
 
 @override final  String id;
@@ -1039,6 +1042,9 @@ class _DocumentDto implements DocumentDto {
 @override@JsonKey(name: 'storage_key') final  String? storageKey;
 @override final  String status;
 @override@JsonKey(name: 'extracted_text') final  String? extractedText;
+@override@JsonKey(name: 'short_summary') final  String? shortSummary;
+@override@JsonKey(name: 'detailed_summary') final  String? detailedSummary;
+@override@JsonKey(name: 'summary_status') final  String summaryStatus;
 @override@JsonKey(name: 'created_at') final  DateTime? createdAt;
 @override@JsonKey(name: 'updated_at') final  DateTime? updatedAt;
 
@@ -1055,16 +1061,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DocumentDto&&(identical(other.id, id) || other.id == id)&&(identical(other.userId, userId) || other.userId == userId)&&(identical(other.title, title) || other.title == title)&&(identical(other.storageKey, storageKey) || other.storageKey == storageKey)&&(identical(other.status, status) || other.status == status)&&(identical(other.extractedText, extractedText) || other.extractedText == extractedText)&&(identical(other.shortSummary, shortSummary) || other.shortSummary == shortSummary)&&(identical(other.detailedSummary, detailedSummary) || other.detailedSummary == detailedSummary)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt)&&(identical(other.updatedAt, updatedAt) || other.updatedAt == updatedAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,createdAt,updatedAt);
+int get hashCode => Object.hash(runtimeType,id,userId,title,storageKey,status,extractedText,shortSummary,detailedSummary,summaryStatus,createdAt,updatedAt);
 
 @override
 String toString() {
-  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, createdAt: $createdAt, updatedAt: $updatedAt)';
+  return 'DocumentDto(id: $id, userId: $userId, title: $title, storageKey: $storageKey, status: $status, extractedText: $extractedText, shortSummary: $shortSummary, detailedSummary: $detailedSummary, summaryStatus: $summaryStatus, createdAt: $createdAt, updatedAt: $updatedAt)';
 }
 
 
@@ -1075,7 +1081,7 @@ abstract mixin class _$DocumentDtoCopyWith<$Res> implements $DocumentDtoCopyWith
   factory _$DocumentDtoCopyWith(_DocumentDto value, $Res Function(_DocumentDto) _then) = __$DocumentDtoCopyWithImpl;
 @override @useResult
 $Res call({
- String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
+ String id,@JsonKey(name: 'user_id') String userId, String? title,@JsonKey(name: 'storage_key') String? storageKey, String status,@JsonKey(name: 'extracted_text') String? extractedText,@JsonKey(name: 'short_summary') String? shortSummary,@JsonKey(name: 'detailed_summary') String? detailedSummary,@JsonKey(name: 'summary_status') String summaryStatus,@JsonKey(name: 'created_at') DateTime? createdAt,@JsonKey(name: 'updated_at') DateTime? updatedAt
 });
 
 
@@ -1092,7 +1098,7 @@ class __$DocumentDtoCopyWithImpl<$Res>
 
 /// Create a copy of DocumentDto
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? userId = null,Object? title = freezed,Object? storageKey = freezed,Object? status = null,Object? extractedText = freezed,Object? shortSummary = freezed,Object? detailedSummary = freezed,Object? summaryStatus = null,Object? createdAt = freezed,Object? updatedAt = freezed,}) {
   return _then(_DocumentDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,userId: null == userId ? _self.userId : userId // ignore: cast_nullable_to_non_nullable
@@ -1100,7 +1106,10 @@ as String,title: freezed == title ? _self.title : title // ignore: cast_nullable
 as String?,storageKey: freezed == storageKey ? _self.storageKey : storageKey // ignore: cast_nullable_to_non_nullable
 as String?,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as String,extractedText: freezed == extractedText ? _self.extractedText : extractedText // ignore: cast_nullable_to_non_nullable
-as String?,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as String?,shortSummary: freezed == shortSummary ? _self.shortSummary : shortSummary // ignore: cast_nullable_to_non_nullable
+as String?,detailedSummary: freezed == detailedSummary ? _self.detailedSummary : detailedSummary // ignore: cast_nullable_to_non_nullable
+as String?,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
+as String,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,updatedAt: freezed == updatedAt ? _self.updatedAt : updatedAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -1637,6 +1646,272 @@ class __$DocumentStatusDtoCopyWithImpl<$Res>
   return _then(_DocumentStatusDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$SummaryStatusDto {
+
+ String get id;@JsonKey(name: 'summary_status') String get summaryStatus;
+/// Create a copy of SummaryStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$SummaryStatusDtoCopyWith<SummaryStatusDto> get copyWith => _$SummaryStatusDtoCopyWithImpl<SummaryStatusDto>(this as SummaryStatusDto, _$identity);
+
+  /// Serializes this SummaryStatusDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SummaryStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,summaryStatus);
+
+@override
+String toString() {
+  return 'SummaryStatusDto(id: $id, summaryStatus: $summaryStatus)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $SummaryStatusDtoCopyWith<$Res>  {
+  factory $SummaryStatusDtoCopyWith(SummaryStatusDto value, $Res Function(SummaryStatusDto) _then) = _$SummaryStatusDtoCopyWithImpl;
+@useResult
+$Res call({
+ String id,@JsonKey(name: 'summary_status') String summaryStatus
+});
+
+
+
+
+}
+/// @nodoc
+class _$SummaryStatusDtoCopyWithImpl<$Res>
+    implements $SummaryStatusDtoCopyWith<$Res> {
+  _$SummaryStatusDtoCopyWithImpl(this._self, this._then);
+
+  final SummaryStatusDto _self;
+  final $Res Function(SummaryStatusDto) _then;
+
+/// Create a copy of SummaryStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? summaryStatus = null,}) {
+  return _then(SummaryStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [SummaryStatusDto].
+extension SummaryStatusDtoPatterns on SummaryStatusDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _SummaryStatusDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _SummaryStatusDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _SummaryStatusDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _SummaryStatusDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _SummaryStatusDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _SummaryStatusDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'summary_status')  String summaryStatus)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _SummaryStatusDto() when $default != null:
+return $default(_that.id,_that.summaryStatus);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id, @JsonKey(name: 'summary_status')  String summaryStatus)  $default,) {final _that = this;
+switch (_that) {
+case _SummaryStatusDto():
+return $default(_that.id,_that.summaryStatus);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id, @JsonKey(name: 'summary_status')  String summaryStatus)?  $default,) {final _that = this;
+switch (_that) {
+case _SummaryStatusDto() when $default != null:
+return $default(_that.id,_that.summaryStatus);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _SummaryStatusDto implements SummaryStatusDto {
+  const _SummaryStatusDto({required this.id, @JsonKey(name: 'summary_status') required this.summaryStatus});
+  factory _SummaryStatusDto.fromJson(Map<String, dynamic> json) => _$SummaryStatusDtoFromJson(json);
+
+@override final  String id;
+@override@JsonKey(name: 'summary_status') final  String summaryStatus;
+
+/// Create a copy of SummaryStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$SummaryStatusDtoCopyWith<_SummaryStatusDto> get copyWith => __$SummaryStatusDtoCopyWithImpl<_SummaryStatusDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$SummaryStatusDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SummaryStatusDto&&(identical(other.id, id) || other.id == id)&&(identical(other.summaryStatus, summaryStatus) || other.summaryStatus == summaryStatus));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,id,summaryStatus);
+
+@override
+String toString() {
+  return 'SummaryStatusDto(id: $id, summaryStatus: $summaryStatus)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$SummaryStatusDtoCopyWith<$Res> implements $SummaryStatusDtoCopyWith<$Res> {
+  factory _$SummaryStatusDtoCopyWith(_SummaryStatusDto value, $Res Function(_SummaryStatusDto) _then) = __$SummaryStatusDtoCopyWithImpl;
+@override @useResult
+$Res call({
+ String id,@JsonKey(name: 'summary_status') String summaryStatus
+});
+
+
+
+
+}
+/// @nodoc
+class __$SummaryStatusDtoCopyWithImpl<$Res>
+    implements _$SummaryStatusDtoCopyWith<$Res> {
+  __$SummaryStatusDtoCopyWithImpl(this._self, this._then);
+
+  final _SummaryStatusDto _self;
+  final $Res Function(_SummaryStatusDto) _then;
+
+/// Create a copy of SummaryStatusDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? summaryStatus = null,}) {
+  return _then(_SummaryStatusDto(
+id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as String,summaryStatus: null == summaryStatus ? _self.summaryStatus : summaryStatus // ignore: cast_nullable_to_non_nullable
 as String,
   ));
 }

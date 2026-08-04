@@ -10,6 +10,9 @@ Document documentFromDto(DocumentDto dto) {
     storageKey: dto.storageKey,
     status: DocumentStatusApiX.fromApi(dto.status),
     extractedText: dto.extractedText,
+    shortSummary: dto.shortSummary,
+    detailedSummary: dto.detailedSummary,
+    summaryStatus: SummaryStatusApiX.fromApi(dto.summaryStatus),
     createdAt: dto.createdAt,
     updatedAt: dto.updatedAt,
   );
@@ -17,4 +20,8 @@ Document documentFromDto(DocumentDto dto) {
 
 DocumentStatus documentStatusFromDto(DocumentStatusDto dto) {
   return DocumentStatusApiX.fromApi(dto.status);
+}
+
+SummaryStatus summaryStatusFromDto(SummaryStatusDto dto) {
+  return SummaryStatusApiX.fromApi(dto.summaryStatus);
 }

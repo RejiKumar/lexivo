@@ -50,6 +50,9 @@ abstract class DocumentDto with _$DocumentDto {
     @JsonKey(name: 'storage_key') String? storageKey,
     required String status,
     @JsonKey(name: 'extracted_text') String? extractedText,
+    @JsonKey(name: 'short_summary') String? shortSummary,
+    @JsonKey(name: 'detailed_summary') String? detailedSummary,
+    @JsonKey(name: 'summary_status') @Default('idle') String summaryStatus,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _DocumentDto;
@@ -77,4 +80,15 @@ abstract class DocumentStatusDto with _$DocumentStatusDto {
 
   factory DocumentStatusDto.fromJson(Map<String, dynamic> json) =>
       _$DocumentStatusDtoFromJson(json);
+}
+
+@freezed
+abstract class SummaryStatusDto with _$SummaryStatusDto {
+  const factory SummaryStatusDto({
+    required String id,
+    @JsonKey(name: 'summary_status') required String summaryStatus,
+  }) = _SummaryStatusDto;
+
+  factory SummaryStatusDto.fromJson(Map<String, dynamic> json) =>
+      _$SummaryStatusDtoFromJson(json);
 }
