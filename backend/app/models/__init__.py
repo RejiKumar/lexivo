@@ -6,7 +6,18 @@ import uuid
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import DateTime, Enum, ForeignKey, Integer, String, Text, TypeDecorator, func
+from sqlalchemy import (
+    DateTime,
+    Enum,
+    ForeignKey,
+    Integer,
+    JSON,
+    String,
+    Text,
+    TypeDecorator,
+    UniqueConstraint,
+    func,
+)
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy.types import TEXT
 
@@ -38,6 +49,11 @@ class JobStatus(str, enum.Enum):
     running = "running"
     succeeded = "succeeded"
     failed = "failed"
+
+
+class ChatMessageRole(str, enum.Enum):
+    user = "user"
+    assistant = "assistant"
 
 
 class EmbeddingVector(TypeDecorator):
@@ -101,6 +117,7 @@ class User(Base):
     )
 
     documents: Mapped[list["Document"]] = relationship(back_populates="owner")
+    chats: Mapped[list["Chat"]] = relationship(back_populates="owner")
 
 
 class Document(Base):
@@ -142,6 +159,10 @@ class Document(Base):
     owner: Mapped[User] = relationship(back_populates="documents")
     jobs: Mapped[list["Job"]] = relationship(back_populates="document")
     chunks: Mapped[list["DocumentChunk"]] = relationship(
+        back_populates="document",
+        cascade="all, delete-orphan",
+    )
+    chats: Mapped[list["Chat"]] = relationship(
         back_populates="document",
         cascade="all, delete-orphan",
     )
@@ -194,3 +215,60 @@ class Job(Base):
     )
 
     document: Mapped[Document] = relationship(back_populates="jobs")
+
+
+class Chat(Base):
+    """Per-user, per-document chat thread (ask-the-document)."""
+
+    __tablename__ = "chats"
+    __table_args__ = (
+        UniqueConstraint("user_id", "document_id", name="uq_chats_user_document"),
+    )
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    user_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("users.id", ondelete="CASCADE"), index=True
+    )
+    document_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("documents.id", ondelete="CASCADE"), index=True
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
+    )
+
+    owner: Mapped[User] = relationship(back_populates="chats")
+    document: Mapped[Document] = relationship(back_populates="chats")
+    messages: Mapped[list["ChatMessage"]] = relationship(
+        back_populates="chat",
+        cascade="all, delete-orphan",
+        order_by="ChatMessage.created_at",
+    )
+
+
+class ChatMessage(Base):
+    __tablename__ = "chat_messages"
+
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    chat_id: Mapped[str] = mapped_column(
+        String(36), ForeignKey("chats.id", ondelete="CASCADE"), index=True
+    )
+    role: Mapped[ChatMessageRole] = mapped_column(
+        Enum(ChatMessageRole, name="chat_message_role"),
+        nullable=False,
+    )
+    content: Mapped[str] = mapped_column(Text, nullable=False)
+    citations: Mapped[list[dict[str, Any]] | None] = mapped_column(
+        JSON, nullable=True
+    )
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now()
+    )
+
+    chat: Mapped[Chat] = relationship(back_populates="messages")

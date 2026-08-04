@@ -287,6 +287,8 @@ def api_client(
     test_settings: Settings,
     fake_storage: FakeStorageProvider,
     fake_ocr: FakeOCRProvider,
+    fake_embedder: FakeEmbedder,
+    fake_llm: FakeLLMProvider,
     celery_eager: None,
 ) -> Generator[TestClient, None, None]:
     """HTTPX/Starlette TestClient with auth, storage, DB, and eager OCR overrides."""
@@ -294,7 +296,12 @@ def api_client(
 
     db_mod._engine = db_engine
     SessionLocal.configure(bind=db_engine)
-    set_task_provider_overrides(ocr=fake_ocr, storage=fake_storage)
+    set_task_provider_overrides(
+        ocr=fake_ocr,
+        storage=fake_storage,
+        embedding=fake_embedder,
+        llm=fake_llm,
+    )
 
     app = create_app()
     app.dependency_overrides[get_settings] = lambda: test_settings
