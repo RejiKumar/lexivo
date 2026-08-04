@@ -46,9 +46,9 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 1.A Config (pydantic-settings)
 
-- [ ] 1.1 Write failing unit tests for `Settings` loading from env: database URL, Redis URL, Celery broker, Supabase/R2/Gemini/Mistral keys, adapter provider selectors (`AUTH_PROVIDER`, `OCR_PROVIDER`, `LLM_PROVIDER`, `STORAGE_PROVIDER`) with defaults = supabase / mistral / gemini / r2
-- [ ] 1.2 Implement `app/core/config.py` via pydantic-settings; no hardcoded secrets; document required env vars in `backend/.env.example`
-- [ ] 1.3 Review vs architecture.md §6 (env-driven config); fix; commit
+- [x] 1.1 Write failing unit tests for `Settings` loading from env: database URL, Redis URL, Celery broker, Supabase/R2/Gemini/Mistral keys, adapter provider selectors (`AUTH_PROVIDER`, `OCR_PROVIDER`, `LLM_PROVIDER`, `STORAGE_PROVIDER`) with defaults = supabase / mistral / gemini / r2
+- [x] 1.2 Implement `app/core/config.py` via pydantic-settings; no hardcoded secrets; document required env vars in `backend/.env.example`
+- [x] 1.3 Review vs architecture.md §6 (env-driven config); fix; commit
 
 ### 1.B Database session
 
