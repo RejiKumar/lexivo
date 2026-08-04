@@ -1,0 +1,156 @@
+name: Build
+description: Build Flutter web/Android artifacts or backend Docker image
+inputs:
+  target:
+    description: "web | android-apk | android-aab | backend-image"
+    required: true
+  flutter-version:
+    description: Flutter SDK version
+    required: false
+    default: "3.38.3"
+  flutter-working-directory:
+    description: Flutter project root
+    required: false
+    default: "."
+  backend-working-directory:
+    description: Backend root (Dockerfile context)
+    required: false
+    default: "backend"
+  image-name:
+    description: Docker image name (without tag)
+    required: false
+    default: "lexivo-backend"
+  image-tag:
+    description: Docker image tag
+    required: false
+    default: "local"
+  api-base-url:
+    description: --dart-define=API_BASE_URL
+    required: false
+    default: "http://localhost:8000"
+  supabase-url:
+    description: --dart-define=SUPABASE_URL
+    required: false
+    default: ""
+  supabase-anon-key:
+    description: --dart-define=SUPABASE_ANON_KEY
+    required: false
+    default: ""
+  sentry-dsn:
+    description: --dart-define=SENTRY_DSN
+    required: false
+    default: ""
+  posthog-api-key:
+    description: --dart-define=POSTHOG_API_KEY
+    required: false
+    default: ""
+  posthog-host:
+    description: --dart-define=POSTHOG_HOST
+    required: false
+    default: ""
+  subscription-paywall-enabled:
+    description: --dart-define=SUBSCRIPTION_PAYWALL_ENABLED
+    required: false
+    default: "false"
+
+outputs:
+  web-path:
+    description: Flutter web build output
+    value: ${{ inputs.flutter-working-directory }}/build/web
+  apk-path:
+    description: APK path
+    value: ${{ inputs.flutter-working-directory }}/build/app/outputs/flutter-apk/app-release.apk
+  aab-path:
+    description: AAB path
+    value: ${{ inputs.flutter-working-directory }}/build/app/outputs/bundle/release/app-release.aab
+  image-ref:
+    description: Built image reference
+    value: ${{ inputs.image-name }}:${{ inputs.image-tag }}
+
+runs:
+  using: composite
+  steps:
+    - name: Validate target
+      shell: bash
+      run: |
+        case "${{ inputs.target }}" in
+          web|android-apk|android-aab|backend-image) ;;
+          *) echo "Invalid target: ${{ inputs.target }}"; exit 1 ;;
+        esac
+
+    - name: Set up Flutter
+      if: inputs.target != 'backend-image'
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ inputs.flutter-version }}
+        channel: stable
+        cache: true
+
+    - name: Set up Java (Android)
+      if: inputs.target == 'android-apk' || inputs.target == 'android-aab'
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: "17"
+        cache: gradle
+
+    - name: Flutter pub get
+      if: inputs.target != 'backend-image'
+      shell: bash
+      working-directory: ${{ inputs.flutter-working-directory }}
+      run: flutter pub get
+
+    - name: Build Flutter web
+      if: inputs.target == 'web'
+      shell: bash
+      working-directory: ${{ inputs.flutter-working-directory }}
+      run: |
+        flutter build web --release \
+          --dart-define=API_BASE_URL=${{ inputs.api-base-url }} \
+          --dart-define=SUPABASE_URL=${{ inputs.supabase-url }} \
+          --dart-define=SUPABASE_ANON_KEY=${{ inputs.supabase-anon-key }} \
+          --dart-define=SENTRY_DSN=${{ inputs.sentry-dsn }} \
+          --dart-define=POSTHOG_API_KEY=${{ inputs.posthog-api-key }} \
+          --dart-define=POSTHOG_HOST=${{ inputs.posthog-host }} \
+          --dart-define=SUBSCRIPTION_PAYWALL_ENABLED=${{ inputs.subscription-paywall-enabled }}
+
+    - name: Build Android APK
+      if: inputs.target == 'android-apk'
+      shell: bash
+      working-directory: ${{ inputs.flutter-working-directory }}
+      run: |
+        flutter build apk --release \
+          --dart-define=API_BASE_URL=${{ inputs.api-base-url }} \
+          --dart-define=SUPABASE_URL=${{ inputs.supabase-url }} \
+          --dart-define=SUPABASE_ANON_KEY=${{ inputs.supabase-anon-key }} \
+          --dart-define=SENTRY_DSN=${{ inputs.sentry-dsn }} \
+          --dart-define=POSTHOG_API_KEY=${{ inputs.posthog-api-key }} \
+          --dart-define=POSTHOG_HOST=${{ inputs.posthog-host }} \
+          --dart-define=SUBSCRIPTION_PAYWALL_ENABLED=${{ inputs.subscription-paywall-enabled }}
+
+    - name: Build Android AAB
+      if: inputs.target == 'android-aab'
+      shell: bash
+      working-directory: ${{ inputs.flutter-working-directory }}
+      run: |
+        flutter build appbundle --release \
+          --dart-define=API_BASE_URL=${{ inputs.api-base-url }} \
+          --dart-define=SUPABASE_URL=${{ inputs.supabase-url }} \
+          --dart-define=SUPABASE_ANON_KEY=${{ inputs.supabase-anon-key }} \
+          --dart-define=SENTRY_DSN=${{ inputs.sentry-dsn }} \
+          --dart-define=POSTHOG_API_KEY=${{ inputs.posthog-api-key }} \
+          --dart-define=POSTHOG_HOST=${{ inputs.posthog-host }} \
+          --dart-define=SUBSCRIPTION_PAYWALL_ENABLED=${{ inputs.subscription-paywall-enabled }}
+
+    - name: Set up Docker Buildx
+      if: inputs.target == 'backend-image'
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build backend image
+      if: inputs.target == 'backend-image'
+      shell: bash
+      run: |
+        docker build \
+          -t "${{ inputs.image-name }}:${{ inputs.image-tag }}" \
+          -f "${{ inputs.backend-working-directory }}/Dockerfile" \
+          "${{ inputs.backend-working-directory }}"
