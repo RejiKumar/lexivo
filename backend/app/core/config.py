@@ -24,6 +24,8 @@ class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://lexivo:lexivo@localhost:5432/lexivo"
     redis_url: str = "redis://localhost:6379/0"
     celery_broker_url: str = "redis://localhost:6379/1"
+    # Eager mode runs tasks in-process (CI / unit tests without Redis)
+    celery_task_always_eager: bool = False
 
     # Adapter provider selectors (launch defaults)
     auth_provider: AuthProviderName = "supabase"

@@ -24,7 +24,7 @@ class DocumentService(BaseService[Document]):
         super().__init__(repository)
         self._documents = repository
         self._storage = storage
-        # Stubbed until Celery task units land in §9
+        # Wired to Celery enqueue_document_processing (OCR task unit)
         self._enqueue_processing = enqueue_processing
 
     async def create_with_upload(

@@ -1,6 +1,5 @@
 """FastAPI dependencies that construct domain services (repos via session)."""
 
-from collections.abc import Callable
 from typing import Annotated
 
 from fastapi import Depends
@@ -13,6 +12,7 @@ from app.repositories.document_repo import DocumentRepository
 from app.repositories.user_repo import UserRepository
 from app.services.document_service import DocumentService
 from app.services.user_service import UserService
+from app.tasks.document_processing import enqueue_document_processing
 
 
 def get_user_service(db: Annotated[Session, Depends(get_db)]) -> UserService:
@@ -23,10 +23,8 @@ def get_document_service(
     db: Annotated[Session, Depends(get_db)],
     storage: Annotated[StorageProvider, Depends(get_storage_provider)],
 ) -> DocumentService:
-    # enqueue_processing left None until Celery task units (§9)
-    enqueue: Callable[[str], None] | None = None
     return DocumentService(
         DocumentRepository(db),
         storage=storage,
-        enqueue_processing=enqueue,
+        enqueue_processing=enqueue_document_processing,
     )
