@@ -1,0 +1,9 @@
+{
+  "detail": [
+    {
+      "loc": ["body", "email"],
+      "msg": "value is not a valid email address",
+      "type": "value_error"
+    }
+  ]
+}
