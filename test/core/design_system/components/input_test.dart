@@ -103,5 +103,57 @@ void main() {
       final box = tester.getSize(find.byType(TextField));
       expect(box.height, greaterThanOrEqualTo(44));
     });
+
+    testWidgets('password variant obscures text by default', (tester) async {
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: const LexivoTextField(
+            variant: LexivoTextFieldVariant.password,
+            label: 'Password',
+            hintText: '••••••••',
+          ),
+        ),
+      );
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.obscureText, isTrue);
+      expect(find.byIcon(Icons.visibility_outlined), findsOneWidget);
+    });
+
+    testWidgets('password visibility toggle is at least 44x44', (tester) async {
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: const LexivoTextField(
+            variant: LexivoTextFieldVariant.password,
+            hintText: 'secret',
+          ),
+        ),
+      );
+      final toggle = find.byTooltip('Show password');
+      expect(toggle, findsOneWidget);
+      final size = tester.getSize(toggle);
+      expect(size.width, greaterThanOrEqualTo(44));
+      expect(size.height, greaterThanOrEqualTo(44));
+
+      await tester.tap(toggle);
+      await tester.pump();
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.obscureText, isFalse);
+    });
+
+    testWidgets('obscureText true works without password variant',
+        (tester) async {
+      await tester.pumpWidget(
+        wrapWithLexivoTheme(
+          child: const LexivoTextField(
+            obscureText: true,
+            showObscureToggle: false,
+            hintText: 'secret',
+          ),
+        ),
+      );
+      final field = tester.widget<TextField>(find.byType(TextField));
+      expect(field.obscureText, isTrue);
+      expect(find.byIcon(Icons.visibility_outlined), findsNothing);
+    });
   });
 }

@@ -90,3 +90,7 @@ Icon sizes: `LexivoIconSize` (`sm` 16 / `md` 22 / `lg` 24). Spacing hairline: `L
 ## Motion & spacing
 
 Spacing, radius, elevation, and motion presets are product-standard (8pt scale, 120/200/300ms) — see `ui_design_system.md` §2.2–§2.6. They are not brand-differentiated beyond using the same calm easing (easeOut / easeInOut / easeInOutCubic).
+
+## Inputs — password
+
+`LexivoTextField` supports `LexivoTextFieldVariant.password` and/or `obscureText: true`, with an optional ≥44×44 visibility toggle (`showObscureToggle`). Auth and other features must use this DS control — never a raw `TextField` for passwords.
