@@ -2,7 +2,13 @@
 
 from __future__ import annotations
 
+import hashlib
+import math
+
 from app.adapters.types import OCRResult, UserIdentity
+
+# Deterministic fake embedding dimensionality for RAG unit/integration tests.
+FAKE_EMBEDDING_DIM = 32
 
 
 class FakeAuthProvider:
@@ -86,3 +92,27 @@ class FakeOCRProvider:
             pages=self.pages,
             metadata={"provider": "fake"},
         )
+
+
+class FakeEmbedder:
+    """Deterministic hash→vector EmbeddingProvider — no network."""
+
+    def __init__(self, *, dim: int = FAKE_EMBEDDING_DIM) -> None:
+        self.dim = dim
+        self.calls: list[list[str]] = []
+
+    async def embed(self, texts: list[str]) -> list[list[float]]:
+        self.calls.append(list(texts))
+        return [self._vector_for(t) for t in texts]
+
+    def _vector_for(self, text: str) -> list[float]:
+        digest = hashlib.sha256(text.encode("utf-8")).digest()
+        # Expand digest into dim floats in [-1, 1], then L2-normalize.
+        raw: list[float] = []
+        i = 0
+        while len(raw) < self.dim:
+            byte = digest[i % len(digest)]
+            raw.append((byte / 127.5) - 1.0)
+            i += 1
+        norm = math.sqrt(sum(x * x for x in raw)) or 1.0
+        return [x / norm for x in raw]
