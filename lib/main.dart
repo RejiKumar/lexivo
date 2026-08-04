@@ -13,6 +13,7 @@ import 'package:lexivo/features/notifications/notifications.dart';
 import 'package:lexivo/features/ocr/ocr.dart';
 import 'package:lexivo/features/pdf_export/pdf_export.dart';
 import 'package:lexivo/features/rag_chat/rag_chat.dart';
+import 'package:lexivo/features/subscription/subscription.dart';
 import 'package:lexivo/features/summarization/summarization.dart';
 import 'package:lexivo/features/translation/translation.dart';
 
@@ -46,6 +47,7 @@ Future<void> main() async {
         ...ragChatCoreOverrides(),
         ...pdfExportCoreOverrides(),
         ...notificationsCoreOverrides(),
+        ...subscriptionCoreOverrides(),
         showcaseEnabledProvider.overrideWith(
           (ref) => AppRouter.showcaseEnabled,
         ),

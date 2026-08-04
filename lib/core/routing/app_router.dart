@@ -61,6 +61,13 @@ typedef NotificationsScreenBuilders = ({
   Widget Function(BuildContext context) inbox,
 });
 
+/// Subscription feature screen builders — injected from `features/subscription` barrel.
+typedef SubscriptionScreenBuilders = ({
+  Widget Function(BuildContext context) paywall,
+  Widget Function(BuildContext context) upgrade,
+  Widget Function(BuildContext context) usageSummary,
+});
+
 final authScreenBuildersProvider = Provider<AuthScreenBuilders>((ref) {
   return (
     signIn: (_) => const _StubPage(title: 'Sign in'),
@@ -115,6 +122,18 @@ final notificationsScreenBuildersProvider =
   );
 });
 
+final subscriptionScreenBuildersProvider =
+    Provider<SubscriptionScreenBuilders>((ref) {
+  return (
+    paywall: (_) => const _StubPage(title: 'Subscription'),
+    upgrade: (_) => const _StubPage(title: 'Upgrade'),
+    usageSummary: (_) => const _StubPage(title: 'Usage'),
+  );
+});
+
+/// Paywall UI visibility — override from subscription feature / tests.
+final subscriptionPaywallEnabledProvider = Provider<bool>((ref) => false);
+
 final goRouterProvider = Provider<GoRouter>((ref) {
   final builders = ref.watch(authScreenBuildersProvider);
   final documentBuilders = ref.watch(documentScreenBuildersProvider);
@@ -124,7 +143,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   final ragChatBuilders = ref.watch(ragChatScreenBuildersProvider);
   final pdfExportBuilders = ref.watch(pdfExportScreenBuildersProvider);
   final notificationsBuilders = ref.watch(notificationsScreenBuildersProvider);
+  final subscriptionBuilders = ref.watch(subscriptionScreenBuildersProvider);
   final showcaseEnabled = ref.watch(showcaseEnabledProvider);
+  final paywallEnabled = ref.watch(subscriptionPaywallEnabledProvider);
   final refresh = _AuthRefresh(ref);
   ref.onDispose(refresh.dispose);
 
@@ -142,7 +163,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         location: location,
       );
       if (authRedirect != null) return authRedirect;
-      return RouteGuards.subscriptionGuard(auth: auth, location: location);
+      return RouteGuards.subscriptionGuard(
+        auth: auth,
+        location: location,
+        paywallEnabled: paywallEnabled,
+      );
     },
     routes: [
       GoRoute(
@@ -169,6 +194,19 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: RouteGuards.notifications,
         name: 'notifications',
         builder: (context, state) => notificationsBuilders.inbox(context),
+      ),
+      GoRoute(
+        path: RouteGuards.subscription,
+        name: 'subscription',
+        builder: (context, state) => subscriptionBuilders.paywall(context),
+        routes: [
+          GoRoute(
+            path: 'upgrade',
+            name: 'subscription-upgrade',
+            builder: (context, state) =>
+                subscriptionBuilders.upgrade(context),
+          ),
+        ],
       ),
       GoRoute(
         path: RouteGuards.documents,

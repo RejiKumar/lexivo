@@ -56,5 +56,16 @@ void main() {
         isNull,
       );
     });
+
+    test('subscription guard redirects when paywall off', () {
+      expect(
+        RouteGuards.subscriptionGuard(
+          auth: const AuthGuardState(isAuthenticated: true),
+          location: RouteGuards.subscription,
+          paywallEnabled: false,
+        ),
+        RouteGuards.account,
+      );
+    });
   });
 }

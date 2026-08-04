@@ -38,7 +38,15 @@ abstract final class RouteGuards {
   static String documentExport(String documentId) =>
       '/documents/$documentId/export';
 
+  static const subscription = '/subscription';
+  static const subscriptionUpgrade = '/subscription/upgrade';
+
   static const authRoutes = {signIn, signUp};
+
+  static bool isSubscriptionRoute(String location) =>
+      location == subscription ||
+      location == subscriptionUpgrade ||
+      location.startsWith('$subscription/');
 
   /// Unauthenticated users hitting protected routes → sign-in.
   /// Authenticated users on auth screens → home.
@@ -59,11 +67,16 @@ abstract final class RouteGuards {
     return null;
   }
 
-  /// Subscription guard stub — pass-through until subscription feature lands.
+  /// Hide paywall/upgrade routes when [paywallEnabled] is false.
+  /// Auth remains the responsibility of [authGuard].
   static String? subscriptionGuard({
     required AuthGuardState auth,
     required String location,
+    bool paywallEnabled = false,
   }) {
+    if (!paywallEnabled && isSubscriptionRoute(location)) {
+      return account;
+    }
     return null;
   }
 }
