@@ -59,9 +59,10 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ### 1.C Docker Compose local stack
 
-- [ ] 1.8 Write Compose file: Postgres+pgvector, Redis, backend API, Celery worker; shared env from `.env.example`; healthchecks for Postgres/Redis
+- [x] 1.8 Write Compose file: Postgres+pgvector, Redis, backend API, Celery worker; shared env from `.env.example`; healthchecks for Postgres/Redis
 - [ ] 1.9 Integration smoke: `docker compose up` brings services healthy; backend `/health` reachable from host
-- [ ] 1.10 Review vs architecture.md §6 local stack; fix; commit Compose + docs note (Cloud Run later)
+  <!-- PARTIAL: Compose files + README verify steps shipped; Docker not available in agent session — host must run smoke manually -->
+- [x] 1.10 Review vs architecture.md §6 local stack; fix; commit Compose + docs note (Cloud Run later)
 
 ---
 

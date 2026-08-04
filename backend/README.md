@@ -13,6 +13,7 @@ Health: `GET http://127.0.0.1:8000/api/v1/health`
 ## Docker Compose (local stack)
 
 Requires Docker Desktop / Docker Engine with Compose v2.
+**Hosting (Cloud Run / Railway) is later** — Compose is the local stack only (architecture.md §6).
 
 ```bash
 cd backend
@@ -20,13 +21,16 @@ copy .env.example .env   # PowerShell; or `cp .env.example .env`
 docker compose up --build
 ```
 
-Services: Postgres+pgvector, Redis, API, Celery worker.
-Cloud Run / Railway hosting is deferred; Compose is the local stack only (architecture.md §6).
+Services: Postgres+pgvector, Redis, API (`:8000`), Celery worker.
 
-### Verify Compose smoke (task 1.9)
+### Verify Compose smoke (task 1.9) — host verification
 
-1. `docker compose up --build -d`
-2. Wait until Postgres and Redis healthchecks are healthy
-3. `curl http://127.0.0.1:8000/api/v1/health` → `{"status":"ok"}`
-4. `docker compose down`
+Docker was not available in the Backend Agent CI/session environment; run this on a host with Docker:
+
+1. `cd backend`
+2. `copy .env.example .env` (or `cp .env.example .env`)
+3. `docker compose up --build -d`
+4. Wait until `postgres` and `redis` (and ideally `api`) report healthy
+5. `curl http://127.0.0.1:8000/api/v1/health` → `{"status":"ok"}`
+6. `docker compose down`
 """
