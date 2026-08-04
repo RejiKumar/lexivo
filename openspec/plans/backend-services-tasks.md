@@ -68,11 +68,11 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ## 2. Adapter Protocols + DI
 
-- [ ] 2.1 Write failing unit tests asserting Protocol shapes exist and are structural: `AuthProvider.verify_token`, `StorageProvider.upload` / `signed_url`, `LLMProvider.complete`, `OCRProvider.extract_text` (match architecture.md §3.3 signatures; shared types `UserIdentity`, `OCRResult`)
-- [ ] 2.2 Implement Protocol modules + shared result/identity types under `app/adapters/` (or `app/adapters/protocols.py`); no SDK imports in Protocol files
-- [ ] 2.3 Write failing tests for DI providers: with default Settings, bindings resolve to Supabase / R2 / Gemini / Mistral concrete classes (may use fakes until adapters land — mark xfail or inject stubs temporarily)
-- [ ] 2.4 Implement FastAPI dependency providers (`get_auth_provider`, `get_storage_provider`, `get_llm_provider`, `get_ocr_provider`) switching on Settings selectors
-- [ ] 2.5 Review vs OpenSpec backend-services “Adapter protocols” + “Default bindings”; fix; commit
+- [x] 2.1 Write failing unit tests asserting Protocol shapes exist and are structural: `AuthProvider.verify_token`, `StorageProvider.upload` / `signed_url`, `LLMProvider.complete`, `OCRProvider.extract_text` (match architecture.md §3.3 signatures; shared types `UserIdentity`, `OCRResult`)
+- [x] 2.2 Implement Protocol modules + shared result/identity types under `app/adapters/` (or `app/adapters/protocols.py`); no SDK imports in Protocol files
+- [x] 2.3 Write failing tests for DI providers: with default Settings, bindings resolve to Supabase / R2 / Gemini / Mistral concrete classes (may use fakes until adapters land — mark xfail or inject stubs temporarily)
+- [x] 2.4 Implement FastAPI dependency providers (`get_auth_provider`, `get_storage_provider`, `get_llm_provider`, `get_ocr_provider`) switching on Settings selectors
+- [x] 2.5 Review vs OpenSpec backend-services “Adapter protocols” + “Default bindings”; fix; commit
 
 ---
 
