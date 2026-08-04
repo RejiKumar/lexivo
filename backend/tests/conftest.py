@@ -38,6 +38,27 @@ TEST_JWT_SECRET = "shared-test-jwt-secret-32chars!!"
 
 
 @pytest.fixture
+def agent_context():
+    """Shared AgentContext stub for agent/Master tests."""
+    from app.agents.base_agent import AgentContext
+
+    return AgentContext(
+        document_id="doc-test",
+        job_id="job-test",
+        user_id="user-test",
+        correlation_id="corr-test",
+    )
+
+
+@pytest.fixture
+def master_with_ocr(fake_ocr: FakeOCRProvider):
+    """Master Agent graph factory with OCR node wired to FakeOCRProvider."""
+    from app.agents.master_agent import build_master_agent
+
+    return build_master_agent(ocr_provider=fake_ocr)
+
+
+@pytest.fixture
 def test_settings() -> Settings:
     return Settings(
         auth_provider="supabase",
