@@ -10,6 +10,20 @@ uvicorn app.main:app --reload --app-dir .
 
 Health: `GET http://127.0.0.1:8000/api/v1/health`
 
+## Tests
+
+```bash
+cd backend
+python -m pip install -e ".[dev]"
+python -m pytest
+```
+
+Default CI uses **eager Celery** + Protocol fakes (no Redis/SDK). Optional Compose-backed cases are marked `@pytest.mark.compose` and skipped unless you opt in:
+
+```bash
+python -m pytest -m compose
+```
+
 ## Docker Compose (local stack)
 
 Requires Docker Desktop / Docker Engine with Compose v2.

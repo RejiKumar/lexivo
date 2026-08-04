@@ -178,22 +178,22 @@ Execution order: **STEP 3.3** — Backend core (auth, documents, users) + adapte
 
 ## 9. Celery task units (upload / OCR enqueue — minimal core)
 
-- [ ] 9.1 Write failing unit tests for Celery app config (broker from Settings) and task registration
-- [ ] 9.2 Implement `app/tasks/` Celery app + worker entry compatible with Compose
-- [ ] 9.3 Write failing tests for `enqueue_document_processing` (or equivalent): given document id, creates/updates job row and queues OCR task unit
-- [ ] 9.4 Implement minimal task units: e.g. `run_ocr` calling OCRProvider Protocol (injected/factory — not SDK), update document/job status; **no** agent graph, embeddings, or RAG
-- [ ] 9.5 Wire DocumentService create/upload path to enqueue task
-- [ ] 9.6 Integration test (Compose or eager Celery): upload → task runs with mocked OCRProvider → status transitions queryable
-- [ ] 9.7 Review vs OpenSpec “Composable Celery tasks” / OCR task unit (core only); fix; commit
+- [x] 9.1 Write failing unit tests for Celery app config (broker from Settings) and task registration
+- [x] 9.2 Implement `app/tasks/` Celery app + worker entry compatible with Compose
+- [x] 9.3 Write failing tests for `enqueue_document_processing` (or equivalent): given document id, creates/updates job row and queues OCR task unit
+- [x] 9.4 Implement minimal task units: e.g. `run_ocr` calling OCRProvider Protocol (injected/factory — not SDK), update document/job status; **no** agent graph, embeddings, or RAG
+- [x] 9.5 Wire DocumentService create/upload path to enqueue task
+- [x] 9.6 Integration test (Compose or eager Celery): upload → task runs with mocked OCRProvider → status transitions queryable
+- [x] 9.7 Review vs OpenSpec “Composable Celery tasks” / OCR task unit (core only); fix; commit
 
 ---
 
 ## 10. Shared test fixtures + pytest green
 
-- [ ] 10.1 Add shared fixtures: test Settings, DB session (SQLite or testcontainer Postgres), fake Auth/Storage/LLM/OCR providers implementing Protocols, APITestClient with auth header helper
-- [ ] 10.2 Ensure all unit + API + task tests use shared fixtures; remove duplicated mocks
-- [ ] 10.3 Run full `pytest` suite green locally (and document Compose-backed integration optional marker)
-- [ ] 10.4 Review fixture hygiene (fakes implement Protocols; no concrete SDK required for default CI); fix; commit
+- [x] 10.1 Add shared fixtures: test Settings, DB session (SQLite or testcontainer Postgres), fake Auth/Storage/LLM/OCR providers implementing Protocols, APITestClient with auth header helper
+- [x] 10.2 Ensure all unit + API + task tests use shared fixtures; remove duplicated mocks
+- [x] 10.3 Run full `pytest` suite green locally (and document Compose-backed integration optional marker)
+- [x] 10.4 Review fixture hygiene (fakes implement Protocols; no concrete SDK required for default CI); fix; commit
 
 ---
 
@@ -220,6 +220,6 @@ Run after §§2–9 land; blockers must be fixed before declaring STEP 3.3 done.
   <!-- Concrete adapters §§3–6 done; BaseService/repos/routers/Celery remain §§7–9 -->
 - [x] BaseService + UserService + DocumentService + repositories
 - [x] Thin routers: auth, users, documents; OpenAPI from Pydantic
-- [ ] Minimal Celery upload/OCR enqueue path
-- [ ] Shared fixtures; pytest green
+- [x] Minimal Celery upload/OCR enqueue path
+- [x] Shared fixtures; pytest green
 - [ ] Reviewer gates 11.1–11.7 passed

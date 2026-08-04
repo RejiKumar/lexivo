@@ -1,38 +1,16 @@
 """Unit tests for UserService upsert/get/update profile."""
 
-from collections.abc import Generator
-
 import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.pool import StaticPool
+from sqlalchemy.orm import Session
 
 from app.adapters.types import UserIdentity
-from app.core.db import Base
 from app.repositories.user_repo import UserRepository
 from app.services.base import NotFoundError
 from app.services.user_service import UserService
 
 
-@pytest.fixture
-def user_service() -> Generator[UserService, None, None]:
-    engine = create_engine(
-        "sqlite+pysqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
-    )
-    Base.metadata.create_all(engine)
-    SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
-    session = SessionLocal()
-    try:
-        yield UserService(UserRepository(session))
-    finally:
-        session.close()
-        Base.metadata.drop_all(engine)
-        engine.dispose()
-
-
-def test_upsert_from_identity_creates_user(user_service: UserService) -> None:
+def test_upsert_from_identity_creates_user(db_session: Session) -> None:
+    user_service = UserService(UserRepository(db_session))
     identity = UserIdentity(
         subject="ext-1",
         email="one@example.com",
@@ -44,7 +22,8 @@ def test_upsert_from_identity_creates_user(user_service: UserService) -> None:
     assert user.display_name == "One"
 
 
-def test_upsert_from_identity_updates_existing(user_service: UserService) -> None:
+def test_upsert_from_identity_updates_existing(db_session: Session) -> None:
+    user_service = UserService(UserRepository(db_session))
     first = user_service.upsert_from_identity(
         UserIdentity(subject="ext-1", email="old@example.com", display_name="Old")
     )
@@ -63,7 +42,8 @@ def test_upsert_from_identity_updates_existing(user_service: UserService) -> Non
     assert third.display_name == "Custom"
 
 
-def test_get_and_update_profile_fields(user_service: UserService) -> None:
+def test_get_and_update_profile_fields(db_session: Session) -> None:
+    user_service = UserService(UserRepository(db_session))
     user = user_service.upsert_from_identity(
         UserIdentity(subject="ext-2", email="two@example.com", display_name="Two")
     )
@@ -75,6 +55,7 @@ def test_get_and_update_profile_fields(user_service: UserService) -> None:
     assert user_service.get_profile(user.id).display_name == "Two Updated"
 
 
-def test_update_profile_rejects_unknown_user(user_service: UserService) -> None:
+def test_update_profile_rejects_unknown_user(db_session: Session) -> None:
+    user_service = UserService(UserRepository(db_session))
     with pytest.raises(NotFoundError):
         user_service.update_profile("missing", display_name="X")

@@ -1,35 +1,11 @@
 """Unit tests for User, Document, and Job repository CRUD (SQL only)."""
 
-from collections.abc import Generator
+from sqlalchemy.orm import Session
 
-import pytest
-from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-from sqlalchemy.pool import StaticPool
-
-from app.core.db import Base
 from app.models import Document, DocumentStatus, Job, JobStatus, User
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
 from app.repositories.user_repo import UserRepository
-
-
-@pytest.fixture
-def db_session() -> Generator[Session, None, None]:
-    engine = create_engine(
-        "sqlite+pysqlite://",
-        connect_args={"check_same_thread": False},
-        poolclass=StaticPool,
-    )
-    Base.metadata.create_all(engine)
-    SessionLocal = sessionmaker(bind=engine, expire_on_commit=False)
-    session = SessionLocal()
-    try:
-        yield session
-    finally:
-        session.close()
-        Base.metadata.drop_all(engine)
-        engine.dispose()
 
 
 def test_user_repository_crud(db_session: Session) -> None:
