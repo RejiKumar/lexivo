@@ -33,39 +33,39 @@ Execution order: STEP 3.2 / archived tasks §2 (gate before any feature UI)
 
 ### 1.B Color tokens (§2.1)
 
-- [ ] 1.3 Write failing unit tests for all semantic color tokens (light + dark values for every key in §2.1) and `ThemeExtension<LexivoColors>` resolution
-- [ ] 1.4 Implement `LexivoColors` in `tokens/color.dart` with light/dark factories; expose via theme extension only (no raw hex in consumers)
-- [ ] 1.5 Review colors vs §2.1 + WCAG AA contrast notes; fix; commit
+- [x] 1.3 Write failing unit tests for all semantic color tokens (light + dark values for every key in §2.1) and `ThemeExtension<LexivoColors>` resolution
+- [x] 1.4 Implement `LexivoColors` in `tokens/color.dart` with light/dark factories; expose via theme extension only (no raw hex in consumers)
+- [x] 1.5 Review colors vs §2.1 + WCAG AA contrast notes; fix; commit
 
 ### 1.C Spacing + radius (§2.2–§2.3)
 
-- [ ] 1.6 Write failing unit tests for spacing scale (xxs…xxl) and radius scale (sm, md, lg, pill)
-- [ ] 1.7 Implement `LexivoSpacing` / `LexivoRadius` in `tokens/spacing.dart` and `tokens/radius.dart`
-- [ ] 1.8 Review vs §2.2–§2.3; fix; commit
+- [x] 1.6 Write failing unit tests for spacing scale (xxs…xxl) and radius scale (sm, md, lg, pill)
+- [x] 1.7 Implement `LexivoSpacing` / `LexivoRadius` in `tokens/spacing.dart` and `tokens/radius.dart`
+- [x] 1.8 Review vs §2.2–§2.3; fix; commit
 
 ### 1.D Elevation (§2.4)
 
-- [ ] 1.9 Write failing unit tests for elevation.0–elevation.3 as named `BoxShadow` presets (no ad-hoc shadows)
-- [ ] 1.10 Implement `LexivoElevation` in `tokens/elevation.dart`
-- [ ] 1.11 Review vs §2.4; fix; commit
+- [x] 1.9 Write failing unit tests for elevation.0–elevation.3 as named `BoxShadow` presets (no ad-hoc shadows)
+- [x] 1.10 Implement `LexivoElevation` in `tokens/elevation.dart`
+- [x] 1.11 Review vs §2.4; fix; commit
 
 ### 1.E Typography (§2.5)
 
-- [ ] 1.12 Write failing unit tests for type scale: display, headline, title, body, bodyStrong, caption, label (sizes/weights/letter-spacing per §2.5)
-- [ ] 1.13 Implement `LexivoTypography` / `TextTheme` mapping in `tokens/typography.dart` using documented typefaces
-- [ ] 1.14 Review vs §2.5 + brand doc; fix; commit
+- [x] 1.12 Write failing unit tests for type scale: display, headline, title, body, bodyStrong, caption, label (sizes/weights/letter-spacing per §2.5)
+- [x] 1.13 Implement `LexivoTypography` / `TextTheme` mapping in `tokens/typography.dart` using documented typefaces
+- [x] 1.14 Review vs §2.5 + brand doc; fix; commit
 
 ### 1.F Motion (§2.6)
 
-- [ ] 1.15 Write failing unit tests for motion.fast / standard / slow (durations + curves per §2.6)
-- [ ] 1.16 Implement `LexivoMotion` in `tokens/motion.dart`
-- [ ] 1.17 Review vs §2.6; fix; commit
+- [x] 1.15 Write failing unit tests for motion.fast / standard / slow (durations + curves per §2.6)
+- [x] 1.16 Implement `LexivoMotion` in `tokens/motion.dart`
+- [x] 1.17 Review vs §2.6; fix; commit
 
 ### 1.G Theme assembly
 
-- [ ] 1.18 Write failing unit/widget tests that light and dark `ThemeData` switch and resolve `LexivoColors` + typography from tokens
-- [ ] 1.19 Implement `design_system/theme/` + `core/theming/app_theme.dart` assembling ThemeData from tokens (light/dark)
-- [ ] 1.20 Review theme switchability vs OpenSpec “Theme-switchable tokens”; fix; commit
+- [x] 1.18 Write failing unit/widget tests that light and dark `ThemeData` switch and resolve `LexivoColors` + typography from tokens
+- [x] 1.19 Implement `design_system/theme/` + `core/theming/app_theme.dart` assembling ThemeData from tokens (light/dark)
+- [x] 1.20 Review theme switchability vs OpenSpec “Theme-switchable tokens”; fix; commit
 
 ---
 
