@@ -1,0 +1,4 @@
+schema: spec-driven
+created: 2026-08-03
+goal: Convert nexora_spec.md, architecture.md, and ui_design_system.md into
+  structured OpenSpec capabilities for orchestrated implementation
