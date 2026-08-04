@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from sqlalchemy import case
 from sqlalchemy.orm import Session
 
 from app.models import Chat, ChatMessage, ChatMessageRole
@@ -37,10 +38,14 @@ class ChatMessageRepository(BaseRepository[ChatMessage]):
         super().__init__(session)
 
     def list_by_chat(self, chat_id: str) -> list[ChatMessage]:
+        role_order = case(
+            (ChatMessage.role == ChatMessageRole.user, 0),
+            else_=1,
+        )
         return (
             self.session.query(ChatMessage)
             .filter(ChatMessage.chat_id == chat_id)
-            .order_by(ChatMessage.created_at.asc(), ChatMessage.id.asc())
+            .order_by(ChatMessage.created_at.asc(), role_order, ChatMessage.id.asc())
             .all()
         )
 
@@ -51,10 +56,14 @@ class ChatMessageRepository(BaseRepository[ChatMessage]):
         role: ChatMessageRole,
         content: str,
         citations: list[dict[str, Any]] | None = None,
+        created_at: Any | None = None,
     ) -> ChatMessage:
-        return self.create(
-            chat_id=chat_id,
-            role=role,
-            content=content,
-            citations=citations,
-        )
+        fields: dict[str, Any] = {
+            "chat_id": chat_id,
+            "role": role,
+            "content": content,
+            "citations": citations,
+        }
+        if created_at is not None:
+            fields["created_at"] = created_at
+        return self.create(**fields)

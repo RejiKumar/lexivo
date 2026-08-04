@@ -6,6 +6,7 @@ Prefer Master intent ``ask`` (alias ``rag_chat`` accepted by Master ASK_INTENTS)
 
 from __future__ import annotations
 
+from datetime import UTC, datetime, timedelta
 from typing import Any
 
 from app.adapters.protocols import LLMProvider
@@ -68,10 +69,12 @@ class ChatService(BaseService[Chat]):
         self._require_rag_ready(document)
 
         chat = self._chats.get_or_create(user_id=user_id, document_id=document_id)
+        asked_at = datetime.now(UTC)
         self._messages.add_message(
             chat_id=chat.id,
             role=ChatMessageRole.user,
             content=question,
+            created_at=asked_at,
         )
 
         context = AgentContext(
@@ -92,6 +95,7 @@ class ChatService(BaseService[Chat]):
             role=ChatMessageRole.assistant,
             content=answer,
             citations=citations,
+            created_at=asked_at + timedelta(milliseconds=1),
         )
 
     def _require_owned_document(self, *, document_id: str, user_id: str):
