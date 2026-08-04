@@ -150,7 +150,7 @@ class _RagChatScreenState extends ConsumerState<RagChatScreen> {
                                         message: '',
                                         variant: LexivoChatBubbleVariant
                                             .assistantStreaming,
-                                        debugDisableStreamingAnimation: true,
+                                        animateStreaming: false,
                                       );
                                     }
                                     final message = chat.messages[index];

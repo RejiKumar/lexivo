@@ -322,7 +322,7 @@ class _StubPage extends StatelessWidget {
 /// Notifies GoRouter when [authGuardStateProvider] changes.
 class _AuthRefresh extends ChangeNotifier {
   _AuthRefresh(this._ref) {
-    _ref.listen<AuthGuardState>(authGuardStateProvider, (_, __) {
+    _ref.listen<AuthGuardState>(authGuardStateProvider, (_, _) {
       notifyListeners();
     });
   }

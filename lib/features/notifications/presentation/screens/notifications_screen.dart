@@ -47,7 +47,7 @@ class NotificationsScreen extends ConsumerWidget {
                           .refresh(),
                       child: ListView.separated(
                         itemCount: items.length,
-                        separatorBuilder: (_, __) =>
+                        separatorBuilder: (_, _) =>
                             const SizedBox(height: LexivoSpacing.sm),
                         itemBuilder: (context, index) {
                           final item = items[index];

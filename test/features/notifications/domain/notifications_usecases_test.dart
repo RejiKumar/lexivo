@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/utils/result.dart';
 import 'package:lexivo/features/notifications/domain/usecases/notifications_usecases.dart';
-import 'package:lexivo/features/notifications/notifications.dart';
 
 import '../../../helpers/fake_notifications_repository.dart';
 

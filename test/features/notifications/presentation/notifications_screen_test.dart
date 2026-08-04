@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/components/error_banner.dart';

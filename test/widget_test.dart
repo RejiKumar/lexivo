@@ -1,11 +1,9 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 
 import 'helpers/fake_auth_repository.dart';
 import 'helpers/test_harness.dart';
-import 'package:lexivo/features/auth/auth.dart';
 
 void main() {
   testWidgets('LexivoRouterApp shows sign-in when unauthenticated',

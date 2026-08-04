@@ -175,7 +175,7 @@ class ApiClient {
     try {
       final form = FormData.fromMap({
         'file': MultipartFile.fromBytes(bytes, filename: filename),
-        if (title != null) 'title': title,
+        'title': ?title,
       });
       final response = await _dio.post<dynamic>(
         '$_prefix/documents',

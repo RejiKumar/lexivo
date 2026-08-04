@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/utils/result.dart';
 import 'package:lexivo/features/translation/domain/usecases/translation_usecases.dart';
-import 'package:lexivo/features/translation/translation.dart';
 
 import '../../../helpers/fake_translation_repository.dart';
 

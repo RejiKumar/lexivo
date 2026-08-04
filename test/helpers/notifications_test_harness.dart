@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/notifications/notifications.dart';
-import 'package:lexivo/features/notifications/presentation/providers/notifications_providers.dart';
 
 import 'fake_notifications_repository.dart';
 

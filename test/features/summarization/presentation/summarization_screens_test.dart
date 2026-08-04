@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/components/error_banner.dart';
@@ -6,7 +5,6 @@ import 'package:lexivo/core/design_system/components/skeleton_loader.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/summarization/presentation/providers/summarization_providers.dart';
 import 'package:lexivo/features/summarization/summarization.dart';
 
 import '../../../helpers/fake_summarization_repository.dart';

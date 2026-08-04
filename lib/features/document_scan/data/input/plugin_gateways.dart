@@ -8,9 +8,8 @@ import 'package:lexivo/features/document_scan/data/input/input_gateways.dart';
 class ImagePickerCameraGateway implements CameraGateway {
   ImagePickerCameraGateway({
     ImagePicker? picker,
-    Future<bool> Function()? availabilityProbe,
-  })  : _picker = picker ?? ImagePicker(),
-        _availabilityProbe = availabilityProbe;
+    this._availabilityProbe,
+  })  : _picker = picker ?? ImagePicker();
 
   final ImagePicker _picker;
   final Future<bool> Function()? _availabilityProbe;

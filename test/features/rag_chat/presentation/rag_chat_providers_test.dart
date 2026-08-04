@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/rag_chat/domain/entities/chat_message.dart';
 import 'package:lexivo/features/rag_chat/presentation/providers/rag_chat_providers.dart';
 
 import '../../../helpers/fake_rag_chat_repository.dart';

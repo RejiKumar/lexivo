@@ -7,7 +7,6 @@ import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/summarization/presentation/providers/summarization_providers.dart';
 import 'package:lexivo/features/summarization/summarization.dart';
 
 import '../../helpers/fake_summarization_repository.dart';

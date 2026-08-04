@@ -285,7 +285,7 @@ class _LangDropdown extends StatelessWidget {
         ),
         const SizedBox(height: LexivoSpacing.xs),
         DropdownButtonFormField<String>(
-          value: value,
+          initialValue: value,
           items: [
             for (final code in options)
               DropdownMenuItem(

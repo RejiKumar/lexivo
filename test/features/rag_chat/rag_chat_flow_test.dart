@@ -8,7 +8,6 @@ import 'package:lexivo/core/design_system/components/error_banner.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/rag_chat/presentation/providers/rag_chat_providers.dart';
 import 'package:lexivo/features/rag_chat/rag_chat.dart';
 
 import '../../helpers/fake_rag_chat_repository.dart';

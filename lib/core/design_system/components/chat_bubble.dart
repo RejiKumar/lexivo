@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../tokens/color.dart';
@@ -17,7 +16,7 @@ class LexivoChatBubble extends StatefulWidget {
     required this.message,
     this.variant = LexivoChatBubbleVariant.assistant,
     this.citationChips,
-    @visibleForTesting this.debugDisableStreamingAnimation = false,
+    this.animateStreaming = true,
   });
 
   final String message;
@@ -26,9 +25,8 @@ class LexivoChatBubble extends StatefulWidget {
   /// Optional slot for citation chip widgets — no rag feature models.
   final Widget? citationChips;
 
-  /// Freezes streaming indicator for goldens.
-  @visibleForTesting
-  final bool debugDisableStreamingAnimation;
+  /// When false, freezes the streaming pulse (showcase, goldens, pending placeholder).
+  final bool animateStreaming;
 
   @override
   State<LexivoChatBubble> createState() => _LexivoChatBubbleState();
@@ -44,7 +42,7 @@ class _LexivoChatBubbleState extends State<LexivoChatBubble>
   @override
   void initState() {
     super.initState();
-    if (_streaming && !widget.debugDisableStreamingAnimation) {
+    if (_streaming && widget.animateStreaming) {
       _pulse = AnimationController(
         vsync: this,
         duration: LexivoMotion.standard.duration,
@@ -55,8 +53,7 @@ class _LexivoChatBubbleState extends State<LexivoChatBubble>
   @override
   void didUpdateWidget(covariant LexivoChatBubble oldWidget) {
     super.didUpdateWidget(oldWidget);
-    final shouldAnimate =
-        _streaming && !widget.debugDisableStreamingAnimation;
+    final shouldAnimate = _streaming && widget.animateStreaming;
     if (shouldAnimate && _pulse == null) {
       _pulse = AnimationController(
         vsync: this,

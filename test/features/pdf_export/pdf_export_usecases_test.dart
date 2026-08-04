@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/pdf_export/domain/entities/export_job.dart';
 import 'package:lexivo/features/pdf_export/domain/usecases/pdf_export_usecases.dart';
 import 'package:lexivo/features/pdf_export/pdf_export.dart';
 

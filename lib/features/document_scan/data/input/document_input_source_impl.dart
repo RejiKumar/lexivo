@@ -8,12 +8,10 @@ import 'package:lexivo/features/document_scan/data/input/input_gateways.dart';
 /// PDFs skip crop. See `docs/document_input_source.md`.
 class DocumentInputSourceImpl implements DocumentInputSource {
   DocumentInputSourceImpl({
-    required CameraGateway camera,
+    required this._camera,
     required FilePickerGateway files,
-    required DocumentCropper cropper,
-  })  : _camera = camera,
-        _files = files,
-        _cropper = cropper;
+    required this._cropper,
+  })  : _files = files;
 
   final CameraGateway _camera;
   final FilePickerGateway _files;

@@ -48,7 +48,7 @@ class DocumentLibraryScreen extends ConsumerWidget {
                     }
                     return ListView.separated(
                       itemCount: docs.length,
-                      separatorBuilder: (_, __) =>
+                      separatorBuilder: (_, _) =>
                           const SizedBox(height: LexivoSpacing.sm),
                       itemBuilder: (context, index) {
                         final doc = docs[index];

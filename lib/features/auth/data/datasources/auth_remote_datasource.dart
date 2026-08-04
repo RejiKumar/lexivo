@@ -23,10 +23,9 @@ abstract class SupabaseAuthGateway {
 /// Maps Supabase session + backend profile endpoints.
 class AuthRemoteDatasource {
   AuthRemoteDatasource({
-    required SupabaseAuthGateway supabase,
+    required this._supabase,
     required ApiClient apiClient,
-  })  : _supabase = supabase,
-        _api = apiClient;
+  })  : _api = apiClient;
 
   final SupabaseAuthGateway _supabase;
   final ApiClient _api;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/subscription/presentation/providers/subscription_providers.dart';
@@ -57,17 +56,17 @@ Widget wrapPaywallScreen({
     routes: [
       GoRoute(
         path: RouteGuards.subscription,
-        builder: (_, __) => const PaywallScreen(),
+        builder: (_, _) => const PaywallScreen(),
         routes: [
           GoRoute(
             path: 'upgrade',
-            builder: (_, __) => const UpgradeScreen(),
+            builder: (_, _) => const UpgradeScreen(),
           ),
         ],
       ),
       GoRoute(
         path: RouteGuards.account,
-        builder: (_, __) => const Scaffold(body: Text('Account')),
+        builder: (_, _) => const Scaffold(body: Text('Account')),
       ),
     ],
   );
@@ -93,11 +92,11 @@ Widget wrapUpgradeScreen({
     routes: [
       GoRoute(
         path: RouteGuards.subscription,
-        builder: (_, __) => const PaywallScreen(),
+        builder: (_, _) => const PaywallScreen(),
         routes: [
           GoRoute(
             path: 'upgrade',
-            builder: (_, __) => const UpgradeScreen(),
+            builder: (_, _) => const UpgradeScreen(),
           ),
         ],
       ),

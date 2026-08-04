@@ -63,7 +63,7 @@ void main() {
                 child: LexivoChatBubble(
                   variant: LexivoChatBubbleVariant.assistantStreaming,
                   message: 'Drafting a reply',
-                  debugDisableStreamingAnimation: true,
+                  animateStreaming: false,
                 ),
               ),
             ),

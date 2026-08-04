@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/core/utils/result.dart';
-import 'package:lexivo/features/translation/presentation/providers/translation_providers.dart';
 import 'package:lexivo/features/translation/translation.dart';
 
 import '../../../helpers/fake_translation_repository.dart';

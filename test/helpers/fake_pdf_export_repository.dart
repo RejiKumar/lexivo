@@ -35,7 +35,7 @@ class FakePdfExportRepository implements PdfExportRepository {
       return Result.failure(f);
     }
     final job = ExportJob(
-      id: 'exp-${requestCalls}',
+      id: 'exp-$requestCalls',
       documentId: documentId,
       toggles: toggles,
       status: requestResultStatus,

@@ -436,7 +436,7 @@ class _DesignSystemShowcaseState extends State<DesignSystemShowcase> {
         LexivoChatBubble(
           variant: LexivoChatBubbleVariant.assistantStreaming,
           message: 'Streaming…',
-          debugDisableStreamingAnimation: true,
+          animateStreaming: false,
         ),
       ],
     );

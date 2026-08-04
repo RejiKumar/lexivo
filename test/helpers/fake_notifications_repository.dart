@@ -63,7 +63,7 @@ AppNotification sampleNotification({
     title: title,
     body: body,
     payload: {
-      if (documentId != null) 'document_id': documentId,
+      'document_id': ?documentId,
       'job_type': 'ocr',
     },
     readAt: unread ? null : DateTime.utc(2026, 8, 4, 11),

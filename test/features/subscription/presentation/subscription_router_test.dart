@@ -6,7 +6,6 @@ import 'package:lexivo/core/subscription/subscription_flags.dart';
 import 'package:lexivo/features/subscription/subscription.dart';
 
 import '../../../helpers/fake_subscription_repository.dart';
-import '../../../helpers/subscription_test_harness.dart';
 
 void main() {
   group('RouteGuards.subscriptionGuard', () {

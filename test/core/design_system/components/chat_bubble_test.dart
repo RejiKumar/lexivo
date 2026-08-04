@@ -41,7 +41,7 @@ void main() {
           child: const LexivoChatBubble(
             variant: LexivoChatBubbleVariant.assistantStreaming,
             message: 'Thinking',
-            debugDisableStreamingAnimation: true,
+            animateStreaming: false,
           ),
         ),
       );

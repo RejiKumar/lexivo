@@ -66,9 +66,9 @@ class LexivoBottomSheet extends StatelessWidget {
       isScrollControlled: isScrollControlled,
       builder: (context) => LexivoBottomSheet(
         variant: variant,
-        child: child,
         actions: actions,
         title: title,
+        child: child,
       ),
     );
   }

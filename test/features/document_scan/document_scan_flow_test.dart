@@ -7,7 +7,6 @@ import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/features/auth/auth.dart';
-import 'package:lexivo/features/document_scan/document_scan.dart';
 import 'package:lexivo/features/document_scan/presentation/providers/document_providers.dart';
 
 import '../../helpers/fake_auth_repository.dart';

@@ -6,7 +6,6 @@ import 'package:lexivo/core/design_system/components/skeleton_loader.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/features/ocr/ocr.dart';
-import 'package:lexivo/features/ocr/presentation/providers/ocr_providers.dart';
 
 import '../../../helpers/fake_ocr_repository.dart';
 import '../../../helpers/ocr_test_harness.dart';
