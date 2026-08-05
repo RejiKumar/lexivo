@@ -1,986 +1,59 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "Lexivo API",
-    "version": "0.1.0"
-  },
-  "paths": {
-    "/api/v1/health": {
-      "get": {
-        "tags": [
-          "health"
-        ],
-        "summary": "Health",
-        "operationId": "health_api_v1_health_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "additionalProperties": {
-                    "type": "string"
-                  },
-                  "type": "object",
-                  "title": "Response Health Api V1 Health Get"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/auth/me": {
-      "get": {
-        "tags": [
-          "auth"
-        ],
-        "summary": "Auth Me",
-        "operationId": "auth_me_api_v1_auth_me_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AuthSessionResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      }
-    },
-    "/api/v1/users/me": {
-      "get": {
-        "tags": [
-          "users"
-        ],
-        "summary": "Get My Profile",
-        "operationId": "get_my_profile_api_v1_users_me_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserProfileResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "users"
-        ],
-        "summary": "Update My Profile",
-        "operationId": "update_my_profile_api_v1_users_me_patch",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UserProfileUpdateRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UserProfileResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      }
-    },
-    "/api/v1/documents": {
-      "post": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Create Document",
-        "operationId": "create_document_api_v1_documents_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_create_document_api_v1_documents_post"
-              }
-            }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "List Documents",
-        "operationId": "list_documents_api_v1_documents_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "status_filter",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/DocumentStatus"
-                },
-                {
-                  "type": "null"
-                }
-              ],
-              "title": "Status Filter"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentListResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}": {
-      "get": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Get Document",
-        "operationId": "get_document_api_v1_documents__document_id__get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/status": {
-      "get": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Get Document Status",
-        "operationId": "get_document_status_api_v1_documents__document_id__status_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentStatusResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/summary": {
-      "post": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Request Document Summary",
-        "operationId": "request_document_summary_api_v1_documents__document_id__summary_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "202": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/summary/status": {
-      "get": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Get Document Summary Status",
-        "operationId": "get_document_summary_status_api_v1_documents__document_id__summary_status_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SummaryStatusResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/translation": {
-      "post": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Request Document Translation",
-        "operationId": "request_document_translation_api_v1_documents__document_id__translation_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TranslationRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DocumentResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/translation/status": {
-      "get": {
-        "tags": [
-          "documents"
-        ],
-        "summary": "Get Document Translation Status",
-        "operationId": "get_document_translation_status_api_v1_documents__document_id__translation_status_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TranslationStatusResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/chats/{doc_id}": {
-      "post": {
-        "tags": [
-          "chats"
-        ],
-        "summary": "Ensure Chat",
-        "operationId": "ensure_chat_api_v1_chats__doc_id__post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "doc_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Doc Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/chats/{doc_id}/messages": {
-      "get": {
-        "tags": [
-          "chats"
-        ],
-        "summary": "List Chat Messages",
-        "operationId": "list_chat_messages_api_v1_chats__doc_id__messages_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "doc_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Doc Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatMessageListResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "chats"
-        ],
-        "summary": "Post Chat Message",
-        "operationId": "post_chat_message_api_v1_chats__doc_id__messages_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "doc_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Doc Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ChatMessageCreate"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ChatMessageResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/export": {
-      "post": {
-        "tags": [
-          "exports"
-        ],
-        "summary": "Request Document Export",
-        "operationId": "request_document_export_api_v1_documents__document_id__export_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ExportRequest"
-              }
-            }
-          }
-        },
-        "responses": {
-          "202": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExportResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/documents/{document_id}/export/status": {
-      "get": {
-        "tags": [
-          "exports"
-        ],
-        "summary": "Get Document Export Status",
-        "operationId": "get_document_export_status_api_v1_documents__document_id__export_status_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "document_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Document Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExportResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/exports/{export_id}": {
-      "get": {
-        "tags": [
-          "exports"
-        ],
-        "summary": "Get Export",
-        "operationId": "get_export_api_v1_exports__export_id__get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "export_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Export Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ExportResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/notifications": {
-      "get": {
-        "tags": [
-          "notifications"
-        ],
-        "summary": "List Notifications",
-        "operationId": "list_notifications_api_v1_notifications_get",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "unread_only",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": false,
-              "title": "Unread Only"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationListResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/notifications/{notification_id}/read": {
-      "post": {
-        "tags": [
-          "notifications"
-        ],
-        "summary": "Mark Notification Read",
-        "operationId": "mark_notification_read_api_v1_notifications__notification_id__read_post",
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "notification_id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Notification Id"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/NotificationResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v1/subscriptions/me": {
-      "get": {
-        "tags": [
-          "subscriptions"
-        ],
-        "summary": "Get Subscription Me",
-        "operationId": "get_subscription_me_api_v1_subscriptions_me_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubscriptionMeResponse"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Free-tier quota exceeded",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/QuotaExceededDetail"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      }
-    },
-    "/api/v1/subscriptions/upgrade": {
-      "post": {
-        "tags": [
-          "subscriptions"
-        ],
-        "summary": "Upgrade Subscription",
-        "operationId": "upgrade_subscription_api_v1_subscriptions_upgrade_post",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SubscriptionUpgradeResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "HTTPBearer": []
-          }
-        ]
-      }
-    }
-  },
   "components": {
     "schemas": {
-      "AuthSessionResponse": {
+      "AppVersionResponse": {
         "properties": {
-          "subject": {
-            "type": "string",
-            "title": "Subject"
+          "android": {
+            "$ref": "#/components/schemas/PlatformVersionInfo"
+          },
+          "force_update_message": {
+            "title": "Force Update Message",
+            "type": "string"
+          },
+          "ios": {
+            "$ref": "#/components/schemas/PlatformVersionInfo"
+          },
+          "latest_version": {
+            "title": "Latest Version",
+            "type": "string"
+          },
+          "min_supported_version": {
+            "title": "Min Supported Version",
+            "type": "string"
+          },
+          "soft_update_message": {
+            "title": "Soft Update Message",
+            "type": "string"
+          },
+          "web": {
+            "$ref": "#/components/schemas/WebVersionInfo"
+          }
+        },
+        "required": [
+          "latest_version",
+          "min_supported_version",
+          "soft_update_message",
+          "force_update_message",
+          "android",
+          "ios",
+          "web"
+        ],
+        "title": "AppVersionResponse",
+        "type": "object"
+      },
+      "AuthSessionResponse": {
+        "description": "Identity-backed session payload for /auth/me.",
+        "properties": {
+          "display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Name"
           },
           "email": {
             "anyOf": [
@@ -993,31 +66,23 @@
             ],
             "title": "Email"
           },
-          "display_name": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Display Name"
+          "subject": {
+            "title": "Subject",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "subject"
         ],
         "title": "AuthSessionResponse",
-        "description": "Identity-backed session payload for /auth/me."
+        "type": "object"
       },
       "Body_create_document_api_v1_documents_post": {
         "properties": {
           "file": {
-            "type": "string",
             "contentMediaType": "application/octet-stream",
-            "title": "File"
+            "title": "File",
+            "type": "string"
           },
           "title": {
             "anyOf": [
@@ -1031,25 +96,25 @@
             "title": "Title"
           }
         },
-        "type": "object",
         "required": [
           "file"
         ],
-        "title": "Body_create_document_api_v1_documents_post"
+        "title": "Body_create_document_api_v1_documents_post",
+        "type": "object"
       },
       "ChatMessageCreate": {
         "properties": {
           "content": {
-            "type": "string",
             "minLength": 1,
-            "title": "Content"
+            "title": "Content",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "content"
         ],
-        "title": "ChatMessageCreate"
+        "title": "ChatMessageCreate",
+        "type": "object"
       },
       "ChatMessageListResponse": {
         "properties": {
@@ -1057,34 +122,18 @@
             "items": {
               "$ref": "#/components/schemas/ChatMessageResponse"
             },
-            "type": "array",
-            "title": "Items"
+            "title": "Items",
+            "type": "array"
           }
         },
-        "type": "object",
-        "title": "ChatMessageListResponse"
+        "title": "ChatMessageListResponse",
+        "type": "object"
       },
       "ChatMessageResponse": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
           "chat_id": {
-            "type": "string",
-            "title": "Chat Id"
-          },
-          "role": {
-            "type": "string",
-            "enum": [
-              "user",
-              "assistant"
-            ],
-            "title": "Role"
-          },
-          "content": {
-            "type": "string",
-            "title": "Content"
+            "title": "Chat Id",
+            "type": "string"
           },
           "citations": {
             "anyOf": [
@@ -1101,47 +150,51 @@
             ],
             "title": "Citations"
           },
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
           "created_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
             "title": "Created At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "title": "Role",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "chat_id",
           "role",
           "content"
         ],
-        "title": "ChatMessageResponse"
+        "title": "ChatMessageResponse",
+        "type": "object"
       },
       "ChatResponse": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "User Id"
-          },
-          "document_id": {
-            "type": "string",
-            "title": "Document Id"
-          },
           "created_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
@@ -1149,26 +202,38 @@
             ],
             "title": "Created At"
           },
+          "document_id": {
+            "title": "Document Id",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
           "updated_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
             "title": "Updated At"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "user_id",
           "document_id"
         ],
-        "title": "ChatResponse"
+        "title": "ChatResponse",
+        "type": "object"
       },
       "DocumentListResponse": {
         "properties": {
@@ -1176,75 +241,26 @@
             "items": {
               "$ref": "#/components/schemas/DocumentResponse"
             },
-            "type": "array",
-            "title": "Items"
+            "title": "Items",
+            "type": "array"
           }
         },
-        "type": "object",
-        "title": "DocumentListResponse"
+        "title": "DocumentListResponse",
+        "type": "object"
       },
       "DocumentResponse": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "user_id": {
-            "type": "string",
-            "title": "User Id"
-          },
-          "title": {
+          "created_at": {
             "anyOf": [
               {
+                "format": "date-time",
                 "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Title"
-          },
-          "storage_key": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Storage Key"
-          },
-          "status": {
-            "type": "string",
-            "enum": [
-              "processing",
-              "ready",
-              "failed"
-            ],
-            "title": "Status"
-          },
-          "extracted_text": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Extracted Text"
-          },
-          "short_summary": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Short Summary"
+            "title": "Created At"
           },
           "detailed_summary": {
             "anyOf": [
@@ -1257,18 +273,7 @@
             ],
             "title": "Detailed Summary"
           },
-          "summary_status": {
-            "type": "string",
-            "enum": [
-              "idle",
-              "processing",
-              "ready",
-              "failed"
-            ],
-            "title": "Summary Status",
-            "default": "idle"
-          },
-          "translated_text": {
+          "extracted_text": {
             "anyOf": [
               {
                 "type": "string"
@@ -1277,40 +282,11 @@
                 "type": "null"
               }
             ],
-            "title": "Translated Text"
+            "title": "Extracted Text"
           },
-          "source_lang": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Lang"
-          },
-          "target_lang": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Target Lang"
-          },
-          "translation_status": {
-            "type": "string",
-            "enum": [
-              "idle",
-              "processing",
-              "ready",
-              "failed"
-            ],
-            "title": "Translation Status",
-            "default": "idle"
+          "id": {
+            "title": "Id",
+            "type": "string"
           },
           "page_count": {
             "anyOf": [
@@ -1323,126 +299,36 @@
             ],
             "title": "Page Count"
           },
-          "created_at": {
+          "short_summary": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Created At"
+            "title": "Short Summary"
           },
-          "updated_at": {
+          "source_lang": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Updated At"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "user_id",
-          "status"
-        ],
-        "title": "DocumentResponse"
-      },
-      "DocumentStatus": {
-        "type": "string",
-        "enum": [
-          "processing",
-          "ready",
-          "failed"
-        ],
-        "title": "DocumentStatus"
-      },
-      "DocumentStatusResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
+            "title": "Source Lang"
           },
           "status": {
-            "type": "string",
             "enum": [
               "processing",
               "ready",
               "failed"
             ],
-            "title": "Status"
-          }
-        },
-        "type": "object",
-        "required": [
-          "id",
-          "status"
-        ],
-        "title": "DocumentStatusResponse"
-      },
-      "ExportRequest": {
-        "properties": {
-          "include_summary": {
-            "type": "boolean",
-            "title": "Include Summary",
-            "default": false
-          },
-          "include_translation": {
-            "type": "boolean",
-            "title": "Include Translation",
-            "default": false
-          },
-          "include_chat": {
-            "type": "boolean",
-            "title": "Include Chat",
-            "default": false
-          }
-        },
-        "type": "object",
-        "title": "ExportRequest"
-      },
-      "ExportResponse": {
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "document_id": {
-            "type": "string",
-            "title": "Document Id"
-          },
-          "include_summary": {
-            "type": "boolean",
-            "title": "Include Summary",
-            "default": false
-          },
-          "include_translation": {
-            "type": "boolean",
-            "title": "Include Translation",
-            "default": false
-          },
-          "include_chat": {
-            "type": "boolean",
-            "title": "Include Chat",
-            "default": false
-          },
-          "export_status": {
-            "type": "string",
-            "enum": [
-              "idle",
-              "processing",
-              "ready",
-              "failed"
-            ],
-            "title": "Export Status"
+            "title": "Status",
+            "type": "string"
           },
           "storage_key": {
             "anyOf": [
@@ -1455,7 +341,18 @@
             ],
             "title": "Storage Key"
           },
-          "signed_url": {
+          "summary_status": {
+            "default": "idle",
+            "enum": [
+              "idle",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Summary Status",
+            "type": "string"
+          },
+          "target_lang": {
             "anyOf": [
               {
                 "type": "string"
@@ -1464,7 +361,136 @@
                 "type": "null"
               }
             ],
-            "title": "Signed Url"
+            "title": "Target Lang"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "translated_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Translated Text"
+          },
+          "translation_status": {
+            "default": "idle",
+            "enum": [
+              "idle",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Translation Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Updated At"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "user_id",
+          "status"
+        ],
+        "title": "DocumentResponse",
+        "type": "object"
+      },
+      "DocumentStatus": {
+        "enum": [
+          "processing",
+          "ready",
+          "failed"
+        ],
+        "title": "DocumentStatus",
+        "type": "string"
+      },
+      "DocumentStatusResponse": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status"
+        ],
+        "title": "DocumentStatusResponse",
+        "type": "object"
+      },
+      "ExportRequest": {
+        "properties": {
+          "include_chat": {
+            "default": false,
+            "title": "Include Chat",
+            "type": "boolean"
+          },
+          "include_summary": {
+            "default": false,
+            "title": "Include Summary",
+            "type": "boolean"
+          },
+          "include_translation": {
+            "default": false,
+            "title": "Include Translation",
+            "type": "boolean"
+          }
+        },
+        "title": "ExportRequest",
+        "type": "object"
+      },
+      "ExportResponse": {
+        "properties": {
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "document_id": {
+            "title": "Document Id",
+            "type": "string"
           },
           "error_message": {
             "anyOf": [
@@ -1477,23 +503,62 @@
             ],
             "title": "Error Message"
           },
-          "created_at": {
+          "export_status": {
+            "enum": [
+              "idle",
+              "processing",
+              "ready",
+              "failed"
+            ],
+            "title": "Export Status",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "include_chat": {
+            "default": false,
+            "title": "Include Chat",
+            "type": "boolean"
+          },
+          "include_summary": {
+            "default": false,
+            "title": "Include Summary",
+            "type": "boolean"
+          },
+          "include_translation": {
+            "default": false,
+            "title": "Include Translation",
+            "type": "boolean"
+          },
+          "signed_url": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Created At"
+            "title": "Signed Url"
+          },
+          "storage_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storage Key"
           },
           "updated_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
@@ -1502,13 +567,13 @@
             "title": "Updated At"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "document_id",
           "export_status"
         ],
-        "title": "ExportResponse"
+        "title": "ExportResponse",
+        "type": "object"
       },
       "HTTPValidationError": {
         "properties": {
@@ -1516,12 +581,12 @@
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             },
-            "type": "array",
-            "title": "Detail"
+            "title": "Detail",
+            "type": "array"
           }
         },
-        "type": "object",
-        "title": "HTTPValidationError"
+        "title": "HTTPValidationError",
+        "type": "object"
       },
       "NotificationListResponse": {
         "properties": {
@@ -1529,49 +594,53 @@
             "items": {
               "$ref": "#/components/schemas/NotificationResponse"
             },
-            "type": "array",
-            "title": "Items"
+            "title": "Items",
+            "type": "array"
           },
           "total": {
-            "type": "integer",
-            "title": "Total"
+            "title": "Total",
+            "type": "integer"
           }
         },
-        "type": "object",
         "required": [
           "items",
           "total"
         ],
-        "title": "NotificationListResponse"
+        "title": "NotificationListResponse",
+        "type": "object"
       },
       "NotificationResponse": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "type": {
-            "type": "string",
-            "title": "Type"
-          },
-          "title": {
-            "type": "string",
-            "title": "Title"
-          },
           "body": {
-            "type": "string",
-            "title": "Body"
+            "title": "Body",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
           },
           "payload": {
             "additionalProperties": true,
-            "type": "object",
-            "title": "Payload"
+            "title": "Payload",
+            "type": "object"
           },
           "read_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
@@ -1579,63 +648,83 @@
             ],
             "title": "Read At"
           },
-          "created_at": {
-            "anyOf": [
-              {
-                "type": "string",
-                "format": "date-time"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At"
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "type",
           "title",
           "body"
         ],
-        "title": "NotificationResponse"
+        "title": "NotificationResponse",
+        "type": "object"
+      },
+      "PlatformVersionInfo": {
+        "properties": {
+          "latest_version": {
+            "title": "Latest Version",
+            "type": "string"
+          },
+          "min_supported_version": {
+            "title": "Min Supported Version",
+            "type": "string"
+          },
+          "store_url": {
+            "default": "",
+            "description": "Play / App Store listing URL (empty until configured)",
+            "title": "Store Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "latest_version",
+          "min_supported_version"
+        ],
+        "title": "PlatformVersionInfo",
+        "type": "object"
       },
       "QuotaExceededDetail": {
+        "description": "OpenAPI component for consistent 429 quota bodies.",
         "properties": {
           "code": {
-            "type": "string",
             "const": "quota_exceeded",
+            "default": "quota_exceeded",
             "title": "Code",
-            "default": "quota_exceeded"
+            "type": "string"
+          },
+          "limit": {
+            "title": "Limit",
+            "type": "integer"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "period": {
+            "enum": [
+              "month",
+              "day"
+            ],
+            "title": "Period",
+            "type": "string"
           },
           "resource": {
-            "type": "string",
             "enum": [
               "documents",
               "chat_messages",
               "ocr_pages"
             ],
-            "title": "Resource"
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Limit"
-          },
-          "period": {
-            "type": "string",
-            "enum": [
-              "month",
-              "day"
-            ],
-            "title": "Period"
-          },
-          "message": {
-            "type": "string",
-            "title": "Message"
+            "title": "Resource",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "resource",
           "limit",
@@ -1643,103 +732,102 @@
           "message"
         ],
         "title": "QuotaExceededDetail",
-        "description": "OpenAPI component for consistent 429 quota bodies."
+        "type": "object"
       },
       "SubscriptionMeResponse": {
         "properties": {
-          "tier": {
-            "type": "string",
-            "enum": [
-              "free",
-              "paid"
-            ],
-            "title": "Tier"
+          "paywall_enabled": {
+            "title": "Paywall Enabled",
+            "type": "boolean"
           },
           "status": {
-            "type": "string",
+            "default": "active",
             "enum": [
               "active",
               "canceled"
             ],
             "title": "Status",
-            "default": "active"
+            "type": "string"
           },
-          "paywall_enabled": {
-            "type": "boolean",
-            "title": "Paywall Enabled"
+          "tier": {
+            "enum": [
+              "free",
+              "paid"
+            ],
+            "title": "Tier",
+            "type": "string"
           },
           "usage": {
             "$ref": "#/components/schemas/UsageBreakdownResponse"
           }
         },
-        "type": "object",
         "required": [
           "tier",
           "paywall_enabled",
           "usage"
         ],
-        "title": "SubscriptionMeResponse"
+        "title": "SubscriptionMeResponse",
+        "type": "object"
       },
       "SubscriptionUpgradeResponse": {
         "properties": {
-          "tier": {
-            "type": "string",
-            "enum": [
-              "free",
-              "paid"
-            ],
-            "title": "Tier"
+          "paywall_enabled": {
+            "description": "Mirrors Settings.subscription_paywall_enabled",
+            "title": "Paywall Enabled",
+            "type": "boolean"
           },
           "status": {
-            "type": "string",
             "enum": [
               "active",
               "canceled"
             ],
-            "title": "Status"
+            "title": "Status",
+            "type": "string"
           },
-          "paywall_enabled": {
-            "type": "boolean",
-            "title": "Paywall Enabled",
-            "description": "Mirrors Settings.subscription_paywall_enabled"
+          "tier": {
+            "enum": [
+              "free",
+              "paid"
+            ],
+            "title": "Tier",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "tier",
           "status",
           "paywall_enabled"
         ],
-        "title": "SubscriptionUpgradeResponse"
+        "title": "SubscriptionUpgradeResponse",
+        "type": "object"
       },
       "SummaryStatusResponse": {
         "properties": {
           "id": {
-            "type": "string",
-            "title": "Id"
+            "title": "Id",
+            "type": "string"
           },
           "summary_status": {
-            "type": "string",
             "enum": [
               "idle",
               "processing",
               "ready",
               "failed"
             ],
-            "title": "Summary Status"
+            "title": "Summary Status",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "summary_status"
         ],
-        "title": "SummaryStatusResponse"
+        "title": "SummaryStatusResponse",
+        "type": "object"
       },
       "TranslationRequest": {
         "properties": {
           "source_lang": {
-            "type": "string",
             "enum": [
               "en",
               "es",
@@ -1748,10 +836,10 @@
               "hi",
               "pt"
             ],
-            "title": "Source Lang"
+            "title": "Source Lang",
+            "type": "string"
           },
           "target_lang": {
-            "type": "string",
             "enum": [
               "en",
               "es",
@@ -1760,129 +848,123 @@
               "hi",
               "pt"
             ],
-            "title": "Target Lang"
+            "title": "Target Lang",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "source_lang",
           "target_lang"
         ],
-        "title": "TranslationRequest"
+        "title": "TranslationRequest",
+        "type": "object"
       },
       "TranslationStatusResponse": {
         "properties": {
           "id": {
-            "type": "string",
-            "title": "Id"
+            "title": "Id",
+            "type": "string"
+          },
+          "source_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Source Lang"
+          },
+          "target_lang": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Lang"
           },
           "translation_status": {
-            "type": "string",
             "enum": [
               "idle",
               "processing",
               "ready",
               "failed"
             ],
-            "title": "Translation Status"
-          },
-          "source_lang": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Source Lang"
-          },
-          "target_lang": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Target Lang"
+            "title": "Translation Status",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "translation_status"
         ],
-        "title": "TranslationStatusResponse"
+        "title": "TranslationStatusResponse",
+        "type": "object"
       },
       "UsageBreakdownResponse": {
         "properties": {
-          "documents": {
+          "chat_messages": {
             "$ref": "#/components/schemas/UsageBucketResponse"
           },
-          "chat_messages": {
+          "documents": {
             "$ref": "#/components/schemas/UsageBucketResponse"
           },
           "ocr_pages": {
             "$ref": "#/components/schemas/UsageBucketResponse"
           }
         },
-        "type": "object",
         "required": [
           "documents",
           "chat_messages",
           "ocr_pages"
         ],
-        "title": "UsageBreakdownResponse"
+        "title": "UsageBreakdownResponse",
+        "type": "object"
       },
       "UsageBucketResponse": {
         "properties": {
-          "used": {
-            "type": "integer",
-            "title": "Used"
-          },
           "limit": {
-            "type": "integer",
-            "title": "Limit"
+            "title": "Limit",
+            "type": "integer"
           },
           "period": {
-            "type": "string",
             "enum": [
               "month",
               "day"
             ],
-            "title": "Period"
+            "title": "Period",
+            "type": "string"
+          },
+          "used": {
+            "title": "Used",
+            "type": "integer"
           }
         },
-        "type": "object",
         "required": [
           "used",
           "limit",
           "period"
         ],
-        "title": "UsageBucketResponse"
+        "title": "UsageBucketResponse",
+        "type": "object"
       },
       "UserProfileResponse": {
         "properties": {
-          "id": {
-            "type": "string",
-            "title": "Id"
-          },
-          "external_id": {
-            "type": "string",
-            "title": "External Id"
-          },
-          "email": {
+          "created_at": {
             "anyOf": [
               {
+                "format": "date-time",
                 "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Email"
+            "title": "Created At"
           },
           "display_name": {
             "anyOf": [
@@ -1895,23 +977,30 @@
             ],
             "title": "Display Name"
           },
-          "created_at": {
+          "email": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Created At"
+            "title": "Email"
+          },
+          "external_id": {
+            "title": "External Id",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
           },
           "updated_at": {
             "anyOf": [
               {
-                "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "type": "string"
               },
               {
                 "type": "null"
@@ -1920,12 +1009,12 @@
             "title": "Updated At"
           }
         },
-        "type": "object",
         "required": [
           "id",
           "external_id"
         ],
-        "title": "UserProfileResponse"
+        "title": "UserProfileResponse",
+        "type": "object"
       },
       "UserProfileUpdateRequest": {
         "properties": {
@@ -1952,11 +1041,18 @@
             "title": "Email"
           }
         },
-        "type": "object",
-        "title": "UserProfileUpdateRequest"
+        "title": "UserProfileUpdateRequest",
+        "type": "object"
       },
       "ValidationError": {
         "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
           "loc": {
             "items": {
               "anyOf": [
@@ -1968,38 +1064,1045 @@
                 }
               ]
             },
-            "type": "array",
-            "title": "Location"
+            "title": "Location",
+            "type": "array"
           },
           "msg": {
-            "type": "string",
-            "title": "Message"
+            "title": "Message",
+            "type": "string"
           },
           "type": {
-            "type": "string",
-            "title": "Error Type"
-          },
-          "input": {
-            "title": "Input"
-          },
-          "ctx": {
-            "type": "object",
-            "title": "Context"
+            "title": "Error Type",
+            "type": "string"
           }
         },
-        "type": "object",
         "required": [
           "loc",
           "msg",
           "type"
         ],
-        "title": "ValidationError"
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "WebVersionInfo": {
+        "properties": {
+          "latest_version": {
+            "title": "Latest Version",
+            "type": "string"
+          },
+          "min_supported_version": {
+            "title": "Min Supported Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "latest_version",
+          "min_supported_version"
+        ],
+        "title": "WebVersionInfo",
+        "type": "object"
       }
     },
     "securitySchemes": {
       "HTTPBearer": {
-        "type": "http",
-        "scheme": "bearer"
+        "scheme": "bearer",
+        "type": "http"
+      }
+    }
+  },
+  "info": {
+    "title": "Lexivo API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/app/version": {
+      "get": {
+        "operationId": "get_app_version_api_v1_app_version_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppVersionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Get App Version",
+        "tags": [
+          "app"
+        ]
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "operationId": "auth_me_api_v1_auth_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Auth Me",
+        "tags": [
+          "auth"
+        ]
+      }
+    },
+    "/api/v1/chats/{doc_id}": {
+      "post": {
+        "operationId": "ensure_chat_api_v1_chats__doc_id__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "doc_id",
+            "required": true,
+            "schema": {
+              "title": "Doc Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Ensure Chat",
+        "tags": [
+          "chats"
+        ]
+      }
+    },
+    "/api/v1/chats/{doc_id}/messages": {
+      "get": {
+        "operationId": "list_chat_messages_api_v1_chats__doc_id__messages_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "doc_id",
+            "required": true,
+            "schema": {
+              "title": "Doc Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Chat Messages",
+        "tags": [
+          "chats"
+        ]
+      },
+      "post": {
+        "operationId": "post_chat_message_api_v1_chats__doc_id__messages_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "doc_id",
+            "required": true,
+            "schema": {
+              "title": "Doc Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatMessageCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChatMessageResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Post Chat Message",
+        "tags": [
+          "chats"
+        ]
+      }
+    },
+    "/api/v1/documents": {
+      "get": {
+        "operationId": "list_documents_api_v1_documents_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "status_filter",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/DocumentStatus"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status Filter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Documents",
+        "tags": [
+          "documents"
+        ]
+      },
+      "post": {
+        "operationId": "create_document_api_v1_documents_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_create_document_api_v1_documents_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Create Document",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}": {
+      "get": {
+        "operationId": "get_document_api_v1_documents__document_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Document",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/export": {
+      "post": {
+        "operationId": "request_document_export_api_v1_documents__document_id__export_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Document Export",
+        "tags": [
+          "exports"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/export/status": {
+      "get": {
+        "operationId": "get_document_export_status_api_v1_documents__document_id__export_status_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Document Export Status",
+        "tags": [
+          "exports"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/status": {
+      "get": {
+        "operationId": "get_document_status_api_v1_documents__document_id__status_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentStatusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Document Status",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/summary": {
+      "post": {
+        "operationId": "request_document_summary_api_v1_documents__document_id__summary_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Document Summary",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/summary/status": {
+      "get": {
+        "operationId": "get_document_summary_status_api_v1_documents__document_id__summary_status_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryStatusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Document Summary Status",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/translation": {
+      "post": {
+        "operationId": "request_document_translation_api_v1_documents__document_id__translation_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TranslationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DocumentResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Request Document Translation",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/documents/{document_id}/translation/status": {
+      "get": {
+        "operationId": "get_document_translation_status_api_v1_documents__document_id__translation_status_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "document_id",
+            "required": true,
+            "schema": {
+              "title": "Document Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TranslationStatusResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Document Translation Status",
+        "tags": [
+          "documents"
+        ]
+      }
+    },
+    "/api/v1/exports/{export_id}": {
+      "get": {
+        "operationId": "get_export_api_v1_exports__export_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "export_id",
+            "required": true,
+            "schema": {
+              "title": "Export Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Export",
+        "tags": [
+          "exports"
+        ]
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Api V1 Health Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/v1/notifications": {
+      "get": {
+        "operationId": "list_notifications_api_v1_notifications_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "unread_only",
+            "required": false,
+            "schema": {
+              "default": false,
+              "title": "Unread Only",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationListResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "List Notifications",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/notifications/{notification_id}/read": {
+      "post": {
+        "operationId": "mark_notification_read_api_v1_notifications__notification_id__read_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "notification_id",
+            "required": true,
+            "schema": {
+              "title": "Notification Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Mark Notification Read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/v1/subscriptions/me": {
+      "get": {
+        "operationId": "get_subscription_me_api_v1_subscriptions_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionMeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/QuotaExceededDetail"
+                }
+              }
+            },
+            "description": "Free-tier quota exceeded"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get Subscription Me",
+        "tags": [
+          "subscriptions"
+        ]
+      }
+    },
+    "/api/v1/subscriptions/upgrade": {
+      "post": {
+        "operationId": "upgrade_subscription_api_v1_subscriptions_upgrade_post",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionUpgradeResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Upgrade Subscription",
+        "tags": [
+          "subscriptions"
+        ]
+      }
+    },
+    "/api/v1/users/me": {
+      "get": {
+        "operationId": "get_my_profile_api_v1_users_me_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Get My Profile",
+        "tags": [
+          "users"
+        ]
+      },
+      "patch": {
+        "operationId": "update_my_profile_api_v1_users_me_patch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserProfileUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "summary": "Update My Profile",
+        "tags": [
+          "users"
+        ]
       }
     }
   }

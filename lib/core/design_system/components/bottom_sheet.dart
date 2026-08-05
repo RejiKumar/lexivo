@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../tokens/color.dart';
@@ -57,6 +56,8 @@ class LexivoBottomSheet extends StatelessWidget {
     List<LexivoBottomSheetAction> actions = const [],
     String? title,
     bool isScrollControlled = true,
+    bool isDismissible = true,
+    bool enableDrag = true,
   }) {
     final colors = Theme.of(context).extension<LexivoColors>()!;
     return showModalBottomSheet<T>(
@@ -64,6 +65,8 @@ class LexivoBottomSheet extends StatelessWidget {
       backgroundColor: Colors.transparent,
       barrierColor: colors.overlayScrim,
       isScrollControlled: isScrollControlled,
+      isDismissible: isDismissible,
+      enableDrag: enableDrag,
       builder: (context) => LexivoBottomSheet(
         variant: variant,
         actions: actions,

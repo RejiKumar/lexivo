@@ -10,6 +10,8 @@ void main() {
       expect(AppConfig.posthogApiKey, isEmpty);
       expect(AppConfig.sentryEnabled, isFalse);
       expect(AppConfig.posthogEnabled, isFalse);
+      expect(AppConfig.enableAds, isFalse);
+      expect(AppConfig.childDirected, isFalse);
     });
 
     test('API base URL is readable without network', () {

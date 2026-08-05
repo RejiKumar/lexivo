@@ -11,7 +11,15 @@ import '../../../helpers/fake_rag_chat_repository.dart';
 import '../../../helpers/rag_chat_test_harness.dart';
 
 void main() {
+  void setMobileSurface(WidgetTester tester) {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+  }
+
   testWidgets('empty → LexivoEmptyState', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository();
     await tester.pumpWidget(
       wrapRagChatScreen(
@@ -29,6 +37,7 @@ void main() {
 
   testWidgets('messages → LexivoChatBubble user/assistant + chips',
       (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository(
       initialMessages: [sampleUserMessage(), sampleAssistantMessage()],
     );
@@ -48,6 +57,7 @@ void main() {
   });
 
   testWidgets('failed load → LexivoErrorBanner', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository()
       ..nextListFailure = const UnexpectedFailure(message: 'load failed');
     await tester.pumpWidget(
@@ -64,6 +74,7 @@ void main() {
   });
 
   testWidgets('sending → assistantStreaming bubble', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository()
       ..sendDelay = const Duration(milliseconds: 200);
     await tester.pumpWidget(

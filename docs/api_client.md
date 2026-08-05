@@ -30,7 +30,7 @@ OpenAPI codegen (`openapi-generator` dart-dio / `swagger_dart_code_generator`) i
 
 ## Env
 
-See `.env.example`: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`, plus optional `SENTRY_DSN` / `POSTHOG_*`. Deployment secrets: [docs/deployment.md](deployment.md).
+See `.env.example`: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`, plus optional `SENTRY_DSN` / `POSTHOG_*`. Env/secrets matrix: [environment-strategy.md](environment-strategy.md). Deploy: [deployment-guide.md](deployment-guide.md).
 
 ## Riverpod note
 

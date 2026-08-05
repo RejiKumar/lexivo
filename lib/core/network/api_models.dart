@@ -297,3 +297,42 @@ abstract class SubscriptionUpgradeDto with _$SubscriptionUpgradeDto {
   factory SubscriptionUpgradeDto.fromJson(Map<String, dynamic> json) =>
       _$SubscriptionUpgradeDtoFromJson(json);
 }
+
+@freezed
+abstract class PlatformVersionInfoDto with _$PlatformVersionInfoDto {
+  const factory PlatformVersionInfoDto({
+    @JsonKey(name: 'latest_version') required String latestVersion,
+    @JsonKey(name: 'min_supported_version') required String minSupportedVersion,
+    @JsonKey(name: 'store_url') @Default('') String storeUrl,
+  }) = _PlatformVersionInfoDto;
+
+  factory PlatformVersionInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$PlatformVersionInfoDtoFromJson(json);
+}
+
+@freezed
+abstract class WebVersionInfoDto with _$WebVersionInfoDto {
+  const factory WebVersionInfoDto({
+    @JsonKey(name: 'latest_version') required String latestVersion,
+    @JsonKey(name: 'min_supported_version') required String minSupportedVersion,
+  }) = _WebVersionInfoDto;
+
+  factory WebVersionInfoDto.fromJson(Map<String, dynamic> json) =>
+      _$WebVersionInfoDtoFromJson(json);
+}
+
+@freezed
+abstract class AppVersionDto with _$AppVersionDto {
+  const factory AppVersionDto({
+    @JsonKey(name: 'latest_version') required String latestVersion,
+    @JsonKey(name: 'min_supported_version') required String minSupportedVersion,
+    @JsonKey(name: 'soft_update_message') required String softUpdateMessage,
+    @JsonKey(name: 'force_update_message') required String forceUpdateMessage,
+    required PlatformVersionInfoDto android,
+    required PlatformVersionInfoDto ios,
+    required WebVersionInfoDto web,
+  }) = _AppVersionDto;
+
+  factory AppVersionDto.fromJson(Map<String, dynamic> json) =>
+      _$AppVersionDtoFromJson(json);
+}

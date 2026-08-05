@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
@@ -46,6 +47,8 @@ Widget wrapAuthScreen(Widget child, {List<Override> overrides = const []}) {
     overrides: overrides,
     child: MaterialApp(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       home: child,
     ),
   );

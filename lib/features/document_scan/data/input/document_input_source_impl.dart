@@ -9,9 +9,9 @@ import 'package:lexivo/features/document_scan/data/input/input_gateways.dart';
 class DocumentInputSourceImpl implements DocumentInputSource {
   DocumentInputSourceImpl({
     required this._camera,
-    required FilePickerGateway files,
+    required this._files,
     required this._cropper,
-  })  : _files = files;
+  });
 
   final CameraGateway _camera;
   final FilePickerGateway _files;

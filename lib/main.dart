@@ -6,6 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:lexivo/core/config/app_config.dart';
 import 'package:lexivo/core/design_system/showcase/design_system_flags.dart';
 import 'package:lexivo/core/design_system/showcase/design_system_showcase.dart';
+import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/observability/posthog_bootstrap.dart';
 import 'package:lexivo/core/observability/sentry_bootstrap.dart';
 import 'package:lexivo/core/routing/app_router.dart';
@@ -33,7 +34,7 @@ Future<void> main() async {
   if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
     await Supabase.initialize(
       url: supabaseUrl,
-      anonKey: supabaseAnonKey,
+      publishableKey: supabaseAnonKey,
     );
   } else if (kDebugMode) {
     debugPrint(
@@ -83,6 +84,8 @@ class LexivoApp extends StatelessWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routes: showShowcase
           ? <String, WidgetBuilder>{
               AppRouter.designSystemShowcase: (_) =>
@@ -102,10 +105,11 @@ class LexivoHomePlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     return Scaffold(
       body: Center(
         child: Text(
-          'Lexivo',
+          l10n.appTitle,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),

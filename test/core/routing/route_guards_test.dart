@@ -37,13 +37,13 @@ void main() {
       );
     });
 
-    test('authenticated on auth screens → home', () {
+    test('authenticated on auth screens → documents', () {
       expect(
         RouteGuards.authGuard(
           auth: const AuthGuardState(isAuthenticated: true),
           location: RouteGuards.signIn,
         ),
-        RouteGuards.home,
+        RouteGuards.documents,
       );
     });
 

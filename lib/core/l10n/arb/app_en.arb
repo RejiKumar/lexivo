@@ -1,0 +1,239 @@
+{
+  "@@locale": "en",
+  "appTitle": "Lexivo",
+  "@appTitle": {
+    "description": "Application / brand title"
+  },
+  "navDocuments": "Documents",
+  "@navDocuments": {
+    "description": "Primary nav: document library"
+  },
+  "navScan": "Scan",
+  "@navScan": {
+    "description": "Primary nav: document scan"
+  },
+  "navNotifications": "Notifications",
+  "@navNotifications": {
+    "description": "Primary nav: notifications inbox"
+  },
+  "navAccount": "Account",
+  "@navAccount": {
+    "description": "Primary nav: account settings"
+  },
+  "signInTitle": "Sign in",
+  "@signInTitle": {
+    "description": "Sign-in screen title and primary CTA"
+  },
+  "signUpTitle": "Create account",
+  "@signUpTitle": {
+    "description": "Sign-up screen title"
+  },
+  "signUpAction": "Sign up",
+  "@signUpAction": {
+    "description": "Sign-up primary button"
+  },
+  "createAnAccount": "Create an account",
+  "@createAnAccount": {
+    "description": "Link from sign-in to sign-up"
+  },
+  "alreadyHaveAccount": "Already have an account",
+  "@alreadyHaveAccount": {
+    "description": "Link from sign-up to sign-in"
+  },
+  "emailLabel": "Email",
+  "@emailLabel": {
+    "description": "Email field label"
+  },
+  "emailHint": "you@lexivo.app",
+  "@emailHint": {
+    "description": "Email field hint"
+  },
+  "passwordLabel": "Password",
+  "@passwordLabel": {
+    "description": "Password field label"
+  },
+  "passwordHint": "Your password",
+  "@passwordHint": {
+    "description": "Sign-in password hint"
+  },
+  "passwordHintSignUp": "At least 6 characters",
+  "@passwordHintSignUp": {
+    "description": "Sign-up password hint"
+  },
+  "displayNameLabel": "Display name",
+  "@displayNameLabel": {
+    "description": "Display name field label"
+  },
+  "displayNameHintOptional": "Optional",
+  "@displayNameHintOptional": {
+    "description": "Optional display name hint"
+  },
+  "emailRequired": "Email is required",
+  "@emailRequired": {
+    "description": "Validation: empty email"
+  },
+  "passwordRequired": "Password is required",
+  "@passwordRequired": {
+    "description": "Validation: empty password"
+  },
+  "passwordTooShort": "Password must be at least 6 characters",
+  "@passwordTooShort": {
+    "description": "Validation: password length"
+  },
+  "accountTitle": "Account",
+  "@accountTitle": {
+    "description": "Account settings screen title"
+  },
+  "accountSettings": "Account settings",
+  "@accountSettings": {
+    "description": "Navigate to account settings"
+  },
+  "saveAction": "Save",
+  "@saveAction": {
+    "description": "Save account changes"
+  },
+  "accountUpdated": "Account updated",
+  "@accountUpdated": {
+    "description": "Success snackbar after account save"
+  },
+  "signOutAction": "Sign out",
+  "@signOutAction": {
+    "description": "Sign out button"
+  },
+  "signedIn": "Signed in",
+  "@signedIn": {
+    "description": "Authenticated status without email"
+  },
+  "signedInAs": "Signed in as {email}",
+  "@signedInAs": {
+    "description": "Authenticated status with email",
+    "placeholders": {
+      "email": {
+        "type": "String",
+        "example": "alex@lexivo.app"
+      }
+    }
+  },
+  "libraryEmptyTitle": "No documents yet",
+  "@libraryEmptyTitle": {
+    "description": "Document library empty-state title"
+  },
+  "libraryEmptyDescription": "Scan or upload a document to get started.",
+  "@libraryEmptyDescription": {
+    "description": "Document library empty-state description"
+  },
+  "libraryScanAction": "Scan document",
+  "@libraryScanAction": {
+    "description": "CTA to open document scan"
+  },
+  "untitledDocument": "Untitled",
+  "@untitledDocument": {
+    "description": "Fallback title when a document has no name"
+  },
+  "librarySelectDocumentTitle": "Select a document",
+  "@librarySelectDocumentTitle": {
+    "description": "Detail pane placeholder when nothing is selected"
+  },
+  "librarySelectDocumentDescription": "Choose a document from the list to preview actions.",
+  "@librarySelectDocumentDescription": {
+    "description": "Detail pane placeholder description"
+  },
+  "libraryOpenDocument": "Open document",
+  "@libraryOpenDocument": {
+    "description": "Open selected document OCR flow"
+  },
+  "libraryDocumentActions": "Document actions",
+  "@libraryDocumentActions": {
+    "description": "Title for document action overlay"
+  },
+  "libraryCloseAction": "Close",
+  "@libraryCloseAction": {
+    "description": "Dismiss document actions overlay"
+  },
+  "chatTitle": "Ask the document",
+  "@chatTitle": {
+    "description": "RAG chat screen title"
+  },
+  "backAction": "Back",
+  "@backAction": {
+    "description": "Navigate back"
+  },
+  "exportAction": "Export",
+  "@exportAction": {
+    "description": "Open document export"
+  },
+  "chatEmptyTitle": "Ask anything",
+  "@chatEmptyTitle": {
+    "description": "RAG chat empty conversation title"
+  },
+  "chatEmptyDescription": "Send a question about this document to get a grounded answer with citations.",
+  "@chatEmptyDescription": {
+    "description": "RAG chat empty conversation description"
+  },
+  "chatInputHint": "Ask a question…",
+  "@chatInputHint": {
+    "description": "RAG chat composer hint"
+  },
+  "sendAction": "Send",
+  "@sendAction": {
+    "description": "Send chat message"
+  },
+  "chatContextTitle": "Context",
+  "@chatContextTitle": {
+    "description": "Citations / context side panel title"
+  },
+  "chatContextEmptyTitle": "No citations yet",
+  "@chatContextEmptyTitle": {
+    "description": "Empty citations panel title"
+  },
+  "chatContextEmptyDescription": "Answers with source snippets will appear here.",
+  "@chatContextEmptyDescription": {
+    "description": "Empty citations panel description"
+  },
+  "chatCitationFallback": "Citation {index}",
+  "@chatCitationFallback": {
+    "description": "Fallback citation chip label",
+    "placeholders": {
+      "index": {
+        "type": "String",
+        "example": "1"
+      }
+    }
+  },
+  "chatCitationDetailsTitle": "Citation",
+  "@chatCitationDetailsTitle": {
+    "description": "Citation detail sheet/dialog title"
+  },
+  "chatDoneAction": "Done",
+  "@chatDoneAction": {
+    "description": "Dismiss citation detail overlay"
+  },
+  "upgradeSoftTitle": "Update available",
+  "@upgradeSoftTitle": {
+    "description": "Soft-update prompt title"
+  },
+  "upgradeForceTitle": "Update required",
+  "@upgradeForceTitle": {
+    "description": "Force-update blocking prompt title"
+  },
+  "upgradeSoftBody": "A new version of Lexivo is available.",
+  "@upgradeSoftBody": {
+    "description": "Fallback soft-update body when server message is empty"
+  },
+  "upgradeForceBody": "Please update Lexivo to continue.",
+  "@upgradeForceBody": {
+    "description": "Fallback force-update body when server message is empty"
+  },
+  "upgradeLaterAction": "Later",
+  "@upgradeLaterAction": {
+    "description": "Dismiss soft-update prompt"
+  },
+  "upgradeUpdateAction": "Update",
+  "@upgradeUpdateAction": {
+    "description": "Open store listing to update the app"
+  },
+  "upgradeReloadAction": "Reload",
+  "@upgradeReloadAction": {
+    "description": "Reload web app for the latest version"
+  }
+}

@@ -7,6 +7,7 @@ import '../../../../core/design_system/components/error_banner.dart';
 import '../../../../core/design_system/components/input.dart';
 import '../../../../core/design_system/tokens/spacing.dart';
 import '../../../../core/design_system/tokens/typography.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/routing/route_guards.dart';
 import '../providers/auth_providers.dart';
 
@@ -32,10 +33,12 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
   }
 
   Future<void> _submit() async {
+    final l10n = AppLocalizations.of(context);
     setState(() {
-      _emailError = _email.text.trim().isEmpty ? 'Email is required' : null;
+      _emailError =
+          _email.text.trim().isEmpty ? l10n.emailRequired : null;
       _passwordError =
-          _password.text.isEmpty ? 'Password is required' : null;
+          _password.text.isEmpty ? l10n.passwordRequired : null;
     });
     if (_emailError != null || _passwordError != null) return;
 
@@ -49,6 +52,7 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final auth = ref.watch(authStateProvider);
     final failure = auth.failure;
 
@@ -59,9 +63,9 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text('Lexivo', style: LexivoTypography.display),
+              Text(l10n.appTitle, style: LexivoTypography.display),
               const SizedBox(height: LexivoSpacing.sm),
-              Text('Sign in', style: LexivoTypography.title),
+              Text(l10n.signInTitle, style: LexivoTypography.title),
               const SizedBox(height: LexivoSpacing.lg),
               if (failure != null) ...[
                 LexivoErrorBanner(message: failure.message),
@@ -69,28 +73,28 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
               ],
               LexivoTextField(
                 controller: _email,
-                label: 'Email',
-                hintText: 'you@lexivo.app',
+                label: l10n.emailLabel,
+                hintText: l10n.emailHint,
                 errorText: _emailError,
               ),
               const SizedBox(height: LexivoSpacing.md),
               LexivoTextField(
                 controller: _password,
                 variant: LexivoTextFieldVariant.password,
-                label: 'Password',
-                hintText: 'Your password',
+                label: l10n.passwordLabel,
+                hintText: l10n.passwordHint,
                 errorText: _passwordError,
               ),
               const SizedBox(height: LexivoSpacing.lg),
               LexivoButton(
-                label: 'Sign in',
+                label: l10n.signInTitle,
                 loading: _submitting || auth.isLoading,
                 onPressed: _submit,
                 fullWidth: true,
               ),
               const SizedBox(height: LexivoSpacing.md),
               LexivoButton(
-                label: 'Create an account',
+                label: l10n.createAnAccount,
                 variant: LexivoButtonVariant.ghost,
                 onPressed: () => context.go(RouteGuards.signUp),
               ),

@@ -6,6 +6,10 @@
 	<string>Lexivo needs camera access to scan documents.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Lexivo needs photo library access to upload documents.</string>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-3940256099942544~1458002511</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>This identifier will be used to deliver personalized ads when you allow it.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

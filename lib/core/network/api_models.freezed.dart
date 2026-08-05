@@ -6109,4 +6109,874 @@ as bool,
 
 }
 
+
+/// @nodoc
+mixin _$PlatformVersionInfoDto {
+
+@JsonKey(name: 'latest_version') String get latestVersion;@JsonKey(name: 'min_supported_version') String get minSupportedVersion;@JsonKey(name: 'store_url') String get storeUrl;
+/// Create a copy of PlatformVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$PlatformVersionInfoDtoCopyWith<PlatformVersionInfoDto> get copyWith => _$PlatformVersionInfoDtoCopyWithImpl<PlatformVersionInfoDto>(this as PlatformVersionInfoDto, _$identity);
+
+  /// Serializes this PlatformVersionInfoDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PlatformVersionInfoDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion)&&(identical(other.storeUrl, storeUrl) || other.storeUrl == storeUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion,storeUrl);
+
+@override
+String toString() {
+  return 'PlatformVersionInfoDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion, storeUrl: $storeUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $PlatformVersionInfoDtoCopyWith<$Res>  {
+  factory $PlatformVersionInfoDtoCopyWith(PlatformVersionInfoDto value, $Res Function(PlatformVersionInfoDto) _then) = _$PlatformVersionInfoDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion,@JsonKey(name: 'store_url') String storeUrl
+});
+
+
+
+
+}
+/// @nodoc
+class _$PlatformVersionInfoDtoCopyWithImpl<$Res>
+    implements $PlatformVersionInfoDtoCopyWith<$Res> {
+  _$PlatformVersionInfoDtoCopyWithImpl(this._self, this._then);
+
+  final PlatformVersionInfoDto _self;
+  final $Res Function(PlatformVersionInfoDto) _then;
+
+/// Create a copy of PlatformVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,Object? storeUrl = null,}) {
+  return _then(PlatformVersionInfoDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,storeUrl: null == storeUrl ? _self.storeUrl : storeUrl // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [PlatformVersionInfoDto].
+extension PlatformVersionInfoDtoPatterns on PlatformVersionInfoDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _PlatformVersionInfoDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _PlatformVersionInfoDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _PlatformVersionInfoDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'store_url')  String storeUrl)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.storeUrl);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'store_url')  String storeUrl)  $default,) {final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto():
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.storeUrl);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'store_url')  String storeUrl)?  $default,) {final _that = this;
+switch (_that) {
+case _PlatformVersionInfoDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.storeUrl);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _PlatformVersionInfoDto implements PlatformVersionInfoDto {
+  const _PlatformVersionInfoDto({@JsonKey(name: 'latest_version') required this.latestVersion, @JsonKey(name: 'min_supported_version') required this.minSupportedVersion, @JsonKey(name: 'store_url') this.storeUrl = ''});
+  factory _PlatformVersionInfoDto.fromJson(Map<String, dynamic> json) => _$PlatformVersionInfoDtoFromJson(json);
+
+@override@JsonKey(name: 'latest_version') final  String latestVersion;
+@override@JsonKey(name: 'min_supported_version') final  String minSupportedVersion;
+@override@JsonKey(name: 'store_url') final  String storeUrl;
+
+/// Create a copy of PlatformVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$PlatformVersionInfoDtoCopyWith<_PlatformVersionInfoDto> get copyWith => __$PlatformVersionInfoDtoCopyWithImpl<_PlatformVersionInfoDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$PlatformVersionInfoDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _PlatformVersionInfoDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion)&&(identical(other.storeUrl, storeUrl) || other.storeUrl == storeUrl));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion,storeUrl);
+
+@override
+String toString() {
+  return 'PlatformVersionInfoDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion, storeUrl: $storeUrl)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$PlatformVersionInfoDtoCopyWith<$Res> implements $PlatformVersionInfoDtoCopyWith<$Res> {
+  factory _$PlatformVersionInfoDtoCopyWith(_PlatformVersionInfoDto value, $Res Function(_PlatformVersionInfoDto) _then) = __$PlatformVersionInfoDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion,@JsonKey(name: 'store_url') String storeUrl
+});
+
+
+
+
+}
+/// @nodoc
+class __$PlatformVersionInfoDtoCopyWithImpl<$Res>
+    implements _$PlatformVersionInfoDtoCopyWith<$Res> {
+  __$PlatformVersionInfoDtoCopyWithImpl(this._self, this._then);
+
+  final _PlatformVersionInfoDto _self;
+  final $Res Function(_PlatformVersionInfoDto) _then;
+
+/// Create a copy of PlatformVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,Object? storeUrl = null,}) {
+  return _then(_PlatformVersionInfoDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,storeUrl: null == storeUrl ? _self.storeUrl : storeUrl // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$WebVersionInfoDto {
+
+@JsonKey(name: 'latest_version') String get latestVersion;@JsonKey(name: 'min_supported_version') String get minSupportedVersion;
+/// Create a copy of WebVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WebVersionInfoDtoCopyWith<WebVersionInfoDto> get copyWith => _$WebVersionInfoDtoCopyWithImpl<WebVersionInfoDto>(this as WebVersionInfoDto, _$identity);
+
+  /// Serializes this WebVersionInfoDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WebVersionInfoDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion);
+
+@override
+String toString() {
+  return 'WebVersionInfoDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WebVersionInfoDtoCopyWith<$Res>  {
+  factory $WebVersionInfoDtoCopyWith(WebVersionInfoDto value, $Res Function(WebVersionInfoDto) _then) = _$WebVersionInfoDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion
+});
+
+
+
+
+}
+/// @nodoc
+class _$WebVersionInfoDtoCopyWithImpl<$Res>
+    implements $WebVersionInfoDtoCopyWith<$Res> {
+  _$WebVersionInfoDtoCopyWithImpl(this._self, this._then);
+
+  final WebVersionInfoDto _self;
+  final $Res Function(WebVersionInfoDto) _then;
+
+/// Create a copy of WebVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,}) {
+  return _then(WebVersionInfoDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [WebVersionInfoDto].
+extension WebVersionInfoDtoPatterns on WebVersionInfoDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _WebVersionInfoDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _WebVersionInfoDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _WebVersionInfoDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _WebVersionInfoDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _WebVersionInfoDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _WebVersionInfoDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _WebVersionInfoDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion)  $default,) {final _that = this;
+switch (_that) {
+case _WebVersionInfoDto():
+return $default(_that.latestVersion,_that.minSupportedVersion);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion)?  $default,) {final _that = this;
+switch (_that) {
+case _WebVersionInfoDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _WebVersionInfoDto implements WebVersionInfoDto {
+  const _WebVersionInfoDto({@JsonKey(name: 'latest_version') required this.latestVersion, @JsonKey(name: 'min_supported_version') required this.minSupportedVersion});
+  factory _WebVersionInfoDto.fromJson(Map<String, dynamic> json) => _$WebVersionInfoDtoFromJson(json);
+
+@override@JsonKey(name: 'latest_version') final  String latestVersion;
+@override@JsonKey(name: 'min_supported_version') final  String minSupportedVersion;
+
+/// Create a copy of WebVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$WebVersionInfoDtoCopyWith<_WebVersionInfoDto> get copyWith => __$WebVersionInfoDtoCopyWithImpl<_WebVersionInfoDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$WebVersionInfoDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _WebVersionInfoDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion);
+
+@override
+String toString() {
+  return 'WebVersionInfoDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$WebVersionInfoDtoCopyWith<$Res> implements $WebVersionInfoDtoCopyWith<$Res> {
+  factory _$WebVersionInfoDtoCopyWith(_WebVersionInfoDto value, $Res Function(_WebVersionInfoDto) _then) = __$WebVersionInfoDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion
+});
+
+
+
+
+}
+/// @nodoc
+class __$WebVersionInfoDtoCopyWithImpl<$Res>
+    implements _$WebVersionInfoDtoCopyWith<$Res> {
+  __$WebVersionInfoDtoCopyWithImpl(this._self, this._then);
+
+  final _WebVersionInfoDto _self;
+  final $Res Function(_WebVersionInfoDto) _then;
+
+/// Create a copy of WebVersionInfoDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,}) {
+  return _then(_WebVersionInfoDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+
+/// @nodoc
+mixin _$AppVersionDto {
+
+@JsonKey(name: 'latest_version') String get latestVersion;@JsonKey(name: 'min_supported_version') String get minSupportedVersion;@JsonKey(name: 'soft_update_message') String get softUpdateMessage;@JsonKey(name: 'force_update_message') String get forceUpdateMessage; PlatformVersionInfoDto get android; PlatformVersionInfoDto get ios; WebVersionInfoDto get web;
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AppVersionDtoCopyWith<AppVersionDto> get copyWith => _$AppVersionDtoCopyWithImpl<AppVersionDto>(this as AppVersionDto, _$identity);
+
+  /// Serializes this AppVersionDto to a JSON map.
+  Map<String, dynamic> toJson();
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AppVersionDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion)&&(identical(other.softUpdateMessage, softUpdateMessage) || other.softUpdateMessage == softUpdateMessage)&&(identical(other.forceUpdateMessage, forceUpdateMessage) || other.forceUpdateMessage == forceUpdateMessage)&&(identical(other.android, android) || other.android == android)&&(identical(other.ios, ios) || other.ios == ios)&&(identical(other.web, web) || other.web == web));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion,softUpdateMessage,forceUpdateMessage,android,ios,web);
+
+@override
+String toString() {
+  return 'AppVersionDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion, softUpdateMessage: $softUpdateMessage, forceUpdateMessage: $forceUpdateMessage, android: $android, ios: $ios, web: $web)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AppVersionDtoCopyWith<$Res>  {
+  factory $AppVersionDtoCopyWith(AppVersionDto value, $Res Function(AppVersionDto) _then) = _$AppVersionDtoCopyWithImpl;
+@useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion,@JsonKey(name: 'soft_update_message') String softUpdateMessage,@JsonKey(name: 'force_update_message') String forceUpdateMessage, PlatformVersionInfoDto android, PlatformVersionInfoDto ios, WebVersionInfoDto web
+});
+
+
+$PlatformVersionInfoDtoCopyWith<$Res> get android;$PlatformVersionInfoDtoCopyWith<$Res> get ios;$WebVersionInfoDtoCopyWith<$Res> get web;
+
+}
+/// @nodoc
+class _$AppVersionDtoCopyWithImpl<$Res>
+    implements $AppVersionDtoCopyWith<$Res> {
+  _$AppVersionDtoCopyWithImpl(this._self, this._then);
+
+  final AppVersionDto _self;
+  final $Res Function(AppVersionDto) _then;
+
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,Object? softUpdateMessage = null,Object? forceUpdateMessage = null,Object? android = null,Object? ios = null,Object? web = null,}) {
+  return _then(AppVersionDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,softUpdateMessage: null == softUpdateMessage ? _self.softUpdateMessage : softUpdateMessage // ignore: cast_nullable_to_non_nullable
+as String,forceUpdateMessage: null == forceUpdateMessage ? _self.forceUpdateMessage : forceUpdateMessage // ignore: cast_nullable_to_non_nullable
+as String,android: null == android ? _self.android : android // ignore: cast_nullable_to_non_nullable
+as PlatformVersionInfoDto,ios: null == ios ? _self.ios : ios // ignore: cast_nullable_to_non_nullable
+as PlatformVersionInfoDto,web: null == web ? _self.web : web // ignore: cast_nullable_to_non_nullable
+as WebVersionInfoDto,
+  ));
+}
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlatformVersionInfoDtoCopyWith<$Res> get android {
+  
+  return $PlatformVersionInfoDtoCopyWith<$Res>(_self.android, (value) {
+    return _then(_self.copyWith(android: value));
+  });
+}/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlatformVersionInfoDtoCopyWith<$Res> get ios {
+  
+  return $PlatformVersionInfoDtoCopyWith<$Res>(_self.ios, (value) {
+    return _then(_self.copyWith(ios: value));
+  });
+}/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WebVersionInfoDtoCopyWith<$Res> get web {
+  
+  return $WebVersionInfoDtoCopyWith<$Res>(_self.web, (value) {
+    return _then(_self.copyWith(web: value));
+  });
+}
+}
+
+
+/// Adds pattern-matching-related methods to [AppVersionDto].
+extension AppVersionDtoPatterns on AppVersionDto {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AppVersionDto value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AppVersionDto() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AppVersionDto value)  $default,){
+final _that = this;
+switch (_that) {
+case _AppVersionDto():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AppVersionDto value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AppVersionDto() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'soft_update_message')  String softUpdateMessage, @JsonKey(name: 'force_update_message')  String forceUpdateMessage,  PlatformVersionInfoDto android,  PlatformVersionInfoDto ios,  WebVersionInfoDto web)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AppVersionDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.softUpdateMessage,_that.forceUpdateMessage,_that.android,_that.ios,_that.web);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'soft_update_message')  String softUpdateMessage, @JsonKey(name: 'force_update_message')  String forceUpdateMessage,  PlatformVersionInfoDto android,  PlatformVersionInfoDto ios,  WebVersionInfoDto web)  $default,) {final _that = this;
+switch (_that) {
+case _AppVersionDto():
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.softUpdateMessage,_that.forceUpdateMessage,_that.android,_that.ios,_that.web);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'latest_version')  String latestVersion, @JsonKey(name: 'min_supported_version')  String minSupportedVersion, @JsonKey(name: 'soft_update_message')  String softUpdateMessage, @JsonKey(name: 'force_update_message')  String forceUpdateMessage,  PlatformVersionInfoDto android,  PlatformVersionInfoDto ios,  WebVersionInfoDto web)?  $default,) {final _that = this;
+switch (_that) {
+case _AppVersionDto() when $default != null:
+return $default(_that.latestVersion,_that.minSupportedVersion,_that.softUpdateMessage,_that.forceUpdateMessage,_that.android,_that.ios,_that.web);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+@JsonSerializable()
+
+class _AppVersionDto implements AppVersionDto {
+  const _AppVersionDto({@JsonKey(name: 'latest_version') required this.latestVersion, @JsonKey(name: 'min_supported_version') required this.minSupportedVersion, @JsonKey(name: 'soft_update_message') required this.softUpdateMessage, @JsonKey(name: 'force_update_message') required this.forceUpdateMessage, required this.android, required this.ios, required this.web});
+  factory _AppVersionDto.fromJson(Map<String, dynamic> json) => _$AppVersionDtoFromJson(json);
+
+@override@JsonKey(name: 'latest_version') final  String latestVersion;
+@override@JsonKey(name: 'min_supported_version') final  String minSupportedVersion;
+@override@JsonKey(name: 'soft_update_message') final  String softUpdateMessage;
+@override@JsonKey(name: 'force_update_message') final  String forceUpdateMessage;
+@override final  PlatformVersionInfoDto android;
+@override final  PlatformVersionInfoDto ios;
+@override final  WebVersionInfoDto web;
+
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AppVersionDtoCopyWith<_AppVersionDto> get copyWith => __$AppVersionDtoCopyWithImpl<_AppVersionDto>(this, _$identity);
+
+@override
+Map<String, dynamic> toJson() {
+  return _$AppVersionDtoToJson(this, );
+}
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AppVersionDto&&(identical(other.latestVersion, latestVersion) || other.latestVersion == latestVersion)&&(identical(other.minSupportedVersion, minSupportedVersion) || other.minSupportedVersion == minSupportedVersion)&&(identical(other.softUpdateMessage, softUpdateMessage) || other.softUpdateMessage == softUpdateMessage)&&(identical(other.forceUpdateMessage, forceUpdateMessage) || other.forceUpdateMessage == forceUpdateMessage)&&(identical(other.android, android) || other.android == android)&&(identical(other.ios, ios) || other.ios == ios)&&(identical(other.web, web) || other.web == web));
+}
+
+@JsonKey(includeFromJson: false, includeToJson: false)
+@override
+int get hashCode => Object.hash(runtimeType,latestVersion,minSupportedVersion,softUpdateMessage,forceUpdateMessage,android,ios,web);
+
+@override
+String toString() {
+  return 'AppVersionDto(latestVersion: $latestVersion, minSupportedVersion: $minSupportedVersion, softUpdateMessage: $softUpdateMessage, forceUpdateMessage: $forceUpdateMessage, android: $android, ios: $ios, web: $web)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AppVersionDtoCopyWith<$Res> implements $AppVersionDtoCopyWith<$Res> {
+  factory _$AppVersionDtoCopyWith(_AppVersionDto value, $Res Function(_AppVersionDto) _then) = __$AppVersionDtoCopyWithImpl;
+@override @useResult
+$Res call({
+@JsonKey(name: 'latest_version') String latestVersion,@JsonKey(name: 'min_supported_version') String minSupportedVersion,@JsonKey(name: 'soft_update_message') String softUpdateMessage,@JsonKey(name: 'force_update_message') String forceUpdateMessage, PlatformVersionInfoDto android, PlatformVersionInfoDto ios, WebVersionInfoDto web
+});
+
+
+@override $PlatformVersionInfoDtoCopyWith<$Res> get android;@override $PlatformVersionInfoDtoCopyWith<$Res> get ios;@override $WebVersionInfoDtoCopyWith<$Res> get web;
+
+}
+/// @nodoc
+class __$AppVersionDtoCopyWithImpl<$Res>
+    implements _$AppVersionDtoCopyWith<$Res> {
+  __$AppVersionDtoCopyWithImpl(this._self, this._then);
+
+  final _AppVersionDto _self;
+  final $Res Function(_AppVersionDto) _then;
+
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? latestVersion = null,Object? minSupportedVersion = null,Object? softUpdateMessage = null,Object? forceUpdateMessage = null,Object? android = null,Object? ios = null,Object? web = null,}) {
+  return _then(_AppVersionDto(
+latestVersion: null == latestVersion ? _self.latestVersion : latestVersion // ignore: cast_nullable_to_non_nullable
+as String,minSupportedVersion: null == minSupportedVersion ? _self.minSupportedVersion : minSupportedVersion // ignore: cast_nullable_to_non_nullable
+as String,softUpdateMessage: null == softUpdateMessage ? _self.softUpdateMessage : softUpdateMessage // ignore: cast_nullable_to_non_nullable
+as String,forceUpdateMessage: null == forceUpdateMessage ? _self.forceUpdateMessage : forceUpdateMessage // ignore: cast_nullable_to_non_nullable
+as String,android: null == android ? _self.android : android // ignore: cast_nullable_to_non_nullable
+as PlatformVersionInfoDto,ios: null == ios ? _self.ios : ios // ignore: cast_nullable_to_non_nullable
+as PlatformVersionInfoDto,web: null == web ? _self.web : web // ignore: cast_nullable_to_non_nullable
+as WebVersionInfoDto,
+  ));
+}
+
+/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlatformVersionInfoDtoCopyWith<$Res> get android {
+  
+  return $PlatformVersionInfoDtoCopyWith<$Res>(_self.android, (value) {
+    return _then(_self.copyWith(android: value));
+  });
+}/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$PlatformVersionInfoDtoCopyWith<$Res> get ios {
+  
+  return $PlatformVersionInfoDtoCopyWith<$Res>(_self.ios, (value) {
+    return _then(_self.copyWith(ios: value));
+  });
+}/// Create a copy of AppVersionDto
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$WebVersionInfoDtoCopyWith<$Res> get web {
+  
+  return $WebVersionInfoDtoCopyWith<$Res>(_self.web, (value) {
+    return _then(_self.copyWith(web: value));
+  });
+}
+}
+
 // dart format on

@@ -396,3 +396,55 @@ Map<String, dynamic> _$SubscriptionUpgradeDtoToJson(
   'status': instance.status,
   'paywall_enabled': instance.paywallEnabled,
 };
+
+_PlatformVersionInfoDto _$PlatformVersionInfoDtoFromJson(
+  Map<String, dynamic> json,
+) => _PlatformVersionInfoDto(
+  latestVersion: json['latest_version'] as String,
+  minSupportedVersion: json['min_supported_version'] as String,
+  storeUrl: json['store_url'] as String? ?? '',
+);
+
+Map<String, dynamic> _$PlatformVersionInfoDtoToJson(
+  _PlatformVersionInfoDto instance,
+) => <String, dynamic>{
+  'latest_version': instance.latestVersion,
+  'min_supported_version': instance.minSupportedVersion,
+  'store_url': instance.storeUrl,
+};
+
+_WebVersionInfoDto _$WebVersionInfoDtoFromJson(Map<String, dynamic> json) =>
+    _WebVersionInfoDto(
+      latestVersion: json['latest_version'] as String,
+      minSupportedVersion: json['min_supported_version'] as String,
+    );
+
+Map<String, dynamic> _$WebVersionInfoDtoToJson(_WebVersionInfoDto instance) =>
+    <String, dynamic>{
+      'latest_version': instance.latestVersion,
+      'min_supported_version': instance.minSupportedVersion,
+    };
+
+_AppVersionDto _$AppVersionDtoFromJson(Map<String, dynamic> json) =>
+    _AppVersionDto(
+      latestVersion: json['latest_version'] as String,
+      minSupportedVersion: json['min_supported_version'] as String,
+      softUpdateMessage: json['soft_update_message'] as String,
+      forceUpdateMessage: json['force_update_message'] as String,
+      android: PlatformVersionInfoDto.fromJson(
+        json['android'] as Map<String, dynamic>,
+      ),
+      ios: PlatformVersionInfoDto.fromJson(json['ios'] as Map<String, dynamic>),
+      web: WebVersionInfoDto.fromJson(json['web'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$AppVersionDtoToJson(_AppVersionDto instance) =>
+    <String, dynamic>{
+      'latest_version': instance.latestVersion,
+      'min_supported_version': instance.minSupportedVersion,
+      'soft_update_message': instance.softUpdateMessage,
+      'force_update_message': instance.forceUpdateMessage,
+      'android': instance.android,
+      'ios': instance.ios,
+      'web': instance.web,
+    };

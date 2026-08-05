@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lexivo/core/design_system/components/chat_bubble.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/components/error_banner.dart';
+import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/core/utils/result.dart';
 import 'package:lexivo/features/rag_chat/rag_chat.dart';
 
 import '../../helpers/fake_rag_chat_repository.dart';
+import '../../helpers/rag_chat_test_harness.dart';
 
 void main() {
+  void setMobileSurface(WidgetTester tester) {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+  }
+
   testWidgets('empty → send → assistant + citation chips', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository();
     final router = GoRouter(
       initialLocation: RouteGuards.documentChat('doc-1'),
@@ -34,6 +44,8 @@ void main() {
         ],
         child: MaterialApp.router(
           theme: AppTheme.light,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
           routerConfig: router,
         ),
       ),
@@ -51,18 +63,16 @@ void main() {
   });
 
   testWidgets('resume shows prior history without re-ask', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository(
       initialMessages: [sampleUserMessage(), sampleAssistantMessage()],
     );
     await tester.pumpWidget(
-      ProviderScope(
+      wrapRagChatScreen(
+        const RagChatScreen(documentId: 'doc-1'),
         overrides: [
           ragChatRepositoryProvider.overrideWithValue(repo),
         ],
-        child: MaterialApp(
-          theme: AppTheme.light,
-          home: const RagChatScreen(documentId: 'doc-1'),
-        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -73,19 +83,17 @@ void main() {
   });
 
   testWidgets('not-ready → error banner, no grounded answer', (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository()
       ..nextSendFailure = const ValidationFailure(
         message: 'Document OCR is not ready',
       );
     await tester.pumpWidget(
-      ProviderScope(
+      wrapRagChatScreen(
+        const RagChatScreen(documentId: 'doc-1'),
         overrides: [
           ragChatRepositoryProvider.overrideWithValue(repo),
         ],
-        child: MaterialApp(
-          theme: AppTheme.light,
-          home: const RagChatScreen(documentId: 'doc-1'),
-        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -101,20 +109,18 @@ void main() {
 
   testWidgets('ungrounded cannot-answer renders; retry after failure',
       (tester) async {
+    setMobileSurface(tester);
     final repo = FakeRagChatRepository();
     repo.nextAssistant = sampleAssistantMessage(
       content: 'I cannot answer from the document.',
       citations: const [],
     );
     await tester.pumpWidget(
-      ProviderScope(
+      wrapRagChatScreen(
+        const RagChatScreen(documentId: 'doc-1'),
         overrides: [
           ragChatRepositoryProvider.overrideWithValue(repo),
         ],
-        child: MaterialApp(
-          theme: AppTheme.light,
-          home: const RagChatScreen(documentId: 'doc-1'),
-        ),
       ),
     );
     await tester.pumpAndSettle();

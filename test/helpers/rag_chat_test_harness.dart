@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/rag_chat/presentation/providers/rag_chat_providers.dart';
 import 'package:lexivo/features/rag_chat/rag_chat.dart';
@@ -45,6 +46,8 @@ Widget wrapRagChatScreen(
     overrides: overrides,
     child: MaterialApp.router(
       theme: AppTheme.light,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
     ),
   );

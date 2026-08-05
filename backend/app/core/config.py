@@ -75,6 +75,26 @@ class Settings(BaseSettings):
     free_tier_chat_messages_per_day: int = 100
     free_tier_ocr_pages_per_month: int = 500
 
+    # Browser CORS (Flutter web). Comma-separated origins, or "*" for local.
+    # Example: http://localhost:*,http://127.0.0.1:51992 — "*" is fine for app_env=local.
+    cors_origins: str = "*"
+
+    # Soft / force app upgrades (docs/app-versioning.md)
+    # Defaults align with pubspec so local/dev clients fail open to OK.
+    latest_app_version: str = "1.0.0"
+    min_supported_app_version: str = "1.0.0"
+    soft_update_message: str = "A new version of Lexivo is available."
+    force_update_message: str = "Please update Lexivo to continue."
+    # Empty per-platform overrides fall back to the global latest/min above.
+    android_latest_app_version: str = ""
+    android_min_supported_app_version: str = ""
+    android_store_url: str = ""
+    ios_latest_app_version: str = ""
+    ios_min_supported_app_version: str = ""
+    ios_store_url: str = ""
+    web_latest_app_version: str = ""
+    web_min_supported_app_version: str = ""
+
 
 @lru_cache
 def get_settings() -> Settings:

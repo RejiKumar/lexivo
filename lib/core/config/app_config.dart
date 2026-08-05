@@ -20,6 +20,27 @@ abstract final class AppConfig {
 
   static const String posthogHost = String.fromEnvironment('POSTHOG_HOST');
 
+  /// Master ads switch. Default off — no AdMob init / no ad UI.
+  /// Enable with `--dart-define=ENABLE_ADS=true`.
+  static const bool enableAds = bool.fromEnvironment(
+    'ENABLE_ADS',
+    defaultValue: false,
+  );
+
+  /// When true, request child-directed treatment (no personalized ads).
+  /// `--dart-define=CHILD_DIRECTED=true`.
+  static const bool childDirected = bool.fromEnvironment(
+    'CHILD_DIRECTED',
+    defaultValue: false,
+  );
+
+  /// When true, use production ad unit IDs. Default false → Google test units.
+  /// `--dart-define=ADS_USE_PRODUCTION_IDS=true`.
+  static const bool adsUseProductionIds = bool.fromEnvironment(
+    'ADS_USE_PRODUCTION_IDS',
+    defaultValue: false,
+  );
+
   static bool get sentryEnabled => sentryDsn.isNotEmpty;
 
   static bool get posthogEnabled => posthogApiKey.isNotEmpty;

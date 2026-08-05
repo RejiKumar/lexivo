@@ -6,6 +6,7 @@ import '../../../../core/design_system/components/input.dart';
 import '../../../../core/design_system/components/snackbar.dart';
 import '../../../../core/design_system/tokens/spacing.dart';
 import '../../../../core/design_system/tokens/typography.dart';
+import '../../../../core/l10n/l10n.dart';
 import '../../../../core/widgets/async_value_view.dart';
 import '../../domain/entities/auth_entities.dart';
 import '../providers/auth_providers.dart';
@@ -31,6 +32,7 @@ class _AccountSettingsScreenState extends ConsumerState<AccountSettingsScreen> {
   }
 
   Future<void> _save() async {
+    final l10n = AppLocalizations.of(context);
     final display = _displayName?.text.trim();
     final email = _email?.text.trim();
     setState(() => _saving = true);
@@ -44,7 +46,7 @@ class _AccountSettingsScreenState extends ConsumerState<AccountSettingsScreen> {
       success: (_) {
         LexivoSnackbar.show(
           context,
-          message: 'Account updated',
+          message: l10n.accountUpdated,
           variant: LexivoSnackbarVariant.success,
         );
         ref.invalidate(accountProfileProvider);
@@ -61,11 +63,12 @@ class _AccountSettingsScreenState extends ConsumerState<AccountSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final profile = ref.watch(accountProfileProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account', style: LexivoTypography.title),
+        title: Text(l10n.accountTitle, style: LexivoTypography.title),
       ),
       body: AsyncValueView<AuthUser>(
         value: profile,
@@ -82,18 +85,26 @@ class _AccountSettingsScreenState extends ConsumerState<AccountSettingsScreen> {
               children: [
                 LexivoTextField(
                   controller: _displayName,
-                  label: 'Display name',
+                  label: l10n.displayNameLabel,
                 ),
                 const SizedBox(height: LexivoSpacing.md),
                 LexivoTextField(
                   controller: _email,
-                  label: 'Email',
+                  label: l10n.emailLabel,
                 ),
                 const SizedBox(height: LexivoSpacing.lg),
                 LexivoButton(
-                  label: 'Save',
+                  label: l10n.saveAction,
                   loading: _saving,
                   onPressed: _save,
+                  fullWidth: true,
+                ),
+                const SizedBox(height: LexivoSpacing.md),
+                LexivoButton(
+                  label: l10n.signOutAction,
+                  variant: LexivoButtonVariant.ghost,
+                  onPressed: () =>
+                      ref.read(authStateProvider.notifier).signOut(),
                   fullWidth: true,
                 ),
               ],

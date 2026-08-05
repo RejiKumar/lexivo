@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../ads/ads.dart';
+import '../app_upgrade/app_upgrade.dart';
 import '../design_system/showcase/design_system_flags.dart';
 import '../design_system/showcase/design_system_showcase.dart';
+import '../l10n/l10n.dart';
 import '../theming/app_theme.dart';
+import 'adaptive_authenticated_shell.dart';
 import 'route_guards.dart';
 
 /// Whether the design-system showcase route is available.
@@ -163,6 +167,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         location: location,
       );
       if (authRedirect != null) return authRedirect;
+
+      if (auth.isAuthenticated && location == RouteGuards.home) {
+        return RouteGuards.documents;
+      }
+
       return RouteGuards.subscriptionGuard(
         auth: auth,
         location: location,
@@ -173,6 +182,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteGuards.home,
         name: 'home',
+        // Prefer documents as authenticated home; builder kept for legacy callers.
+        redirect: (context, state) => RouteGuards.documents,
         builder: (context, state) => builders.home(context),
       ),
       GoRoute(
@@ -184,16 +195,6 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         path: RouteGuards.signUp,
         name: 'sign-up',
         builder: (context, state) => builders.signUp(context),
-      ),
-      GoRoute(
-        path: RouteGuards.account,
-        name: 'account',
-        builder: (context, state) => builders.account(context),
-      ),
-      GoRoute(
-        path: RouteGuards.notifications,
-        name: 'notifications',
-        builder: (context, state) => notificationsBuilders.inbox(context),
       ),
       GoRoute(
         path: RouteGuards.subscription,
@@ -208,55 +209,71 @@ final goRouterProvider = Provider<GoRouter>((ref) {
           ),
         ],
       ),
-      GoRoute(
-        path: RouteGuards.documents,
-        name: 'documents',
-        builder: (context, state) => documentBuilders.library(context),
+      ShellRoute(
+        builder: (context, state, child) =>
+            AdaptiveAuthenticatedShell(child: child),
         routes: [
           GoRoute(
-            path: 'scan',
-            name: 'document-scan',
-            builder: (context, state) => documentBuilders.scan(context),
+            path: RouteGuards.account,
+            name: 'account',
+            builder: (context, state) => builders.account(context),
           ),
           GoRoute(
-            path: ':documentId/ocr',
-            name: 'document-ocr',
-            builder: (context, state) {
-              final documentId = state.pathParameters['documentId']!;
-              return ocrBuilders.result(context, documentId);
-            },
+            path: RouteGuards.notifications,
+            name: 'notifications',
+            builder: (context, state) => notificationsBuilders.inbox(context),
           ),
           GoRoute(
-            path: ':documentId/summary',
-            name: 'document-summary',
-            builder: (context, state) {
-              final documentId = state.pathParameters['documentId']!;
-              return summaryBuilders.result(context, documentId);
-            },
-          ),
-          GoRoute(
-            path: ':documentId/translation',
-            name: 'document-translation',
-            builder: (context, state) {
-              final documentId = state.pathParameters['documentId']!;
-              return translationBuilders.result(context, documentId);
-            },
-          ),
-          GoRoute(
-            path: ':documentId/chat',
-            name: 'document-chat',
-            builder: (context, state) {
-              final documentId = state.pathParameters['documentId']!;
-              return ragChatBuilders.result(context, documentId);
-            },
-          ),
-          GoRoute(
-            path: ':documentId/export',
-            name: 'document-export',
-            builder: (context, state) {
-              final documentId = state.pathParameters['documentId']!;
-              return pdfExportBuilders.result(context, documentId);
-            },
+            path: RouteGuards.documents,
+            name: 'documents',
+            builder: (context, state) => documentBuilders.library(context),
+            routes: [
+              GoRoute(
+                path: 'scan',
+                name: 'document-scan',
+                builder: (context, state) => documentBuilders.scan(context),
+              ),
+              GoRoute(
+                path: ':documentId/ocr',
+                name: 'document-ocr',
+                builder: (context, state) {
+                  final documentId = state.pathParameters['documentId']!;
+                  return ocrBuilders.result(context, documentId);
+                },
+              ),
+              GoRoute(
+                path: ':documentId/summary',
+                name: 'document-summary',
+                builder: (context, state) {
+                  final documentId = state.pathParameters['documentId']!;
+                  return summaryBuilders.result(context, documentId);
+                },
+              ),
+              GoRoute(
+                path: ':documentId/translation',
+                name: 'document-translation',
+                builder: (context, state) {
+                  final documentId = state.pathParameters['documentId']!;
+                  return translationBuilders.result(context, documentId);
+                },
+              ),
+              GoRoute(
+                path: ':documentId/chat',
+                name: 'document-chat',
+                builder: (context, state) {
+                  final documentId = state.pathParameters['documentId']!;
+                  return ragChatBuilders.result(context, documentId);
+                },
+              ),
+              GoRoute(
+                path: ':documentId/export',
+                name: 'document-export',
+                builder: (context, state) {
+                  final documentId = state.pathParameters['documentId']!;
+                  return pdfExportBuilders.result(context, documentId);
+                },
+              ),
+            ],
           ),
         ],
       ),
@@ -343,7 +360,16 @@ class LexivoRouterApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: ThemeMode.system,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
       routerConfig: router,
+      builder: (context, child) {
+        return AdsBootstrap(
+          child: AppUpgradeGate(
+            child: child ?? const SizedBox.shrink(),
+          ),
+        );
+      },
     );
   }
 }

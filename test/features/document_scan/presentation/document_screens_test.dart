@@ -63,6 +63,11 @@ void main() {
 
   group('DocumentLibraryScreen', () {
     testWidgets('empty → LexivoEmptyState', (tester) async {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
       final repo = FakeDocumentRepository(initial: []);
       await tester.pumpWidget(
         wrapDocumentScreen(
@@ -77,6 +82,11 @@ void main() {
     });
 
     testWidgets('items → LexivoDocumentCard with status badges', (tester) async {
+      tester.view.physicalSize = const Size(390, 844);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+
       final repo = FakeDocumentRepository(
         initial: [
           sampleDocument(id: 'a', status: DocumentStatus.processing, title: 'P'),

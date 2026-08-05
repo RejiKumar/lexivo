@@ -27,7 +27,7 @@ python -m pytest -m compose
 ## Docker Compose (local stack)
 
 Requires Docker Desktop / Docker Engine with Compose v2.
-**Hosting:** Cloud Run (API + Celery worker) + Cloudflare Pages (web) — see [docs/deployment.md](../docs/deployment.md).
+**Hosting:** Cloud Run (API + Celery worker) + Cloudflare Pages (web) — see [docs/deployment-guide.md](../docs/deployment-guide.md) (index: [docs/deployment.md](../docs/deployment.md)).
 Compose remains the **local** developer stack only (architecture.md §6).
 
 ```bash
@@ -40,7 +40,7 @@ Services: Postgres+pgvector, Redis, API (`:8000`), Celery worker.
 
 ### CI
 
-PR/main pipelines call reusable composites (`.github/actions/`) — Flutter analyze/test, pytest (eager Celery), OpenAPI snapshot check, Docker image build. See [docs/deployment.md](../docs/deployment.md).
+PR/main pipelines call reusable composites (`.github/actions/`) — Flutter analyze/test, pytest (eager Celery), OpenAPI snapshot check, Docker image build. See [docs/ci-cd.md](../docs/ci-cd.md).
 
 ### Verify Compose smoke (task 1.9) — host verification
 

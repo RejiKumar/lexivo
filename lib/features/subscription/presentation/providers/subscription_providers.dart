@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lexivo/core/ads/ads.dart';
 import 'package:lexivo/core/network/api_client.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/subscription/subscription_flags.dart';
@@ -85,7 +86,18 @@ final subscriptionScreenBuildersBridgeProvider =
   );
 });
 
+/// Derives ads suppress from subscription tier (paid ⇒ suppressed).
+/// Paywall UI flag stays independent and defaults off.
+final subscriptionAdsSuppressedProvider = Provider<bool>((ref) {
+  final async = ref.watch(subscriptionMeProvider);
+  return async.maybeWhen(
+    data: (status) => status.isPaid,
+    orElse: () => false,
+  );
+});
+
 /// Wire subscription routes + paywall flag into core GoRouter.
+/// Also feeds [adsSuppressedProvider] from tier without enabling paywall.
 List<Override> subscriptionCoreOverrides({bool? paywallEnabled}) => [
       subscriptionPaywallEnabledProvider.overrideWithValue(
         paywallEnabled ??
@@ -93,5 +105,8 @@ List<Override> subscriptionCoreOverrides({bool? paywallEnabled}) => [
       ),
       subscriptionScreenBuildersProvider.overrideWith(
         (ref) => ref.watch(subscriptionScreenBuildersBridgeProvider),
+      ),
+      adsSuppressedProvider.overrideWith(
+        (ref) => ref.watch(subscriptionAdsSuppressedProvider),
       ),
     ];

@@ -49,7 +49,7 @@ abstract final class RouteGuards {
       location.startsWith('$subscription/');
 
   /// Unauthenticated users hitting protected routes → sign-in.
-  /// Authenticated users on auth screens → home.
+  /// Authenticated users on auth screens → documents (primary home).
   static String? authGuard({
     required AuthGuardState auth,
     required String location,
@@ -62,7 +62,7 @@ abstract final class RouteGuards {
       return signIn;
     }
     if (auth.isAuthenticated && onAuthRoute) {
-      return home;
+      return documents;
     }
     return null;
   }

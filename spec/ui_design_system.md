@@ -149,12 +149,37 @@ Each component below is defined **once**, with variants/props — never re-imple
 ## 4. Composition Rule
 Feature screens are built by composing the components in §3 with feature-specific data — screens themselves contain **no new atomic widgets**, only layout (`Column`, `Row`, `Padding`, etc.) and the components above. If a screen seems to need a new atomic widget, it must be added to this document and `core/design_system` first, then consumed.
 
+**Adaptive composition:** every feature **entry** widget picks the layout variant (`_MobileLayout` / `_TabletLayout` / `_DesktopLayout`) from the current breakpoint. Layout variants share the same Riverpod providers and design-system components; they do not introduce one-off atoms. Do not invent new shell components beyond documenting adaptive shell behavior (`LexivoBottomNav`, `LexivoNavRail`, sheets, dialogs).
+
+### 4.1 Localization rule for components
+- Component props take **strings from callers** — labels, titles, helper text, empty-state copy, button text, error messages.
+- Callers obtain strings via **`AppLocalizations`** (Flutter intl / ARB). Default locale: `en`.
+- **No hardcoded English** inside design-system components except an unavoidable fallback (prefer localization keys / deferred resolution over literal English). Prefer failing the build on missing ARB keys over shipping English literals in components.
+
 ---
 
-## 5. Accessibility & Responsiveness
+## 5. Accessibility & Adaptive Layout
+
+### Accessibility
 - All components meet WCAG AA contrast at both light/dark token sets
-- All interactive components have a minimum 44x44 touch target
-- Components adapt via `Responsive Framework` breakpoints (`mobile`, `tablet`, `desktop`) using the same spacing/typography tokens scaled by breakpoint, not separate mobile/web component sets
+- All interactive components have a minimum 44×44 touch target
+- Semantic labels and focus order must be provided by callers where components expose slots; components must not strip semantics from child content
+
+### 5.1 Adaptive layout
+
+Breakpoints (same tokens scaled by density — **not** separate mobile/web component libraries):
+
+| Breakpoint | Chrome | Content structure | Overlays |
+| ---------- | ------ | ----------------- | -------- |
+| **Mobile** | `LexivoBottomNav` | Single-column | Full-screen / modal sheets (`LexivoBottomSheet`) |
+| **Tablet** | `LexivoNavRail` | Two-pane | Prefer sheets or compact dialogs as appropriate; rail stays visible |
+| **Desktop / Web** | `LexivoNavRail` | Multi-pane: nav rail + list + detail | Dialogs (`LexivoDialog`), not full-screen sheets |
+
+**Shell rules:**
+- `LexivoBottomNav` (mobile) and `LexivoNavRail` (tablet/desktop) share the same `NavItem` model and router table — one source of nav destinations.
+- Feature entry widgets select `_MobileLayout` / `_TabletLayout` / `_DesktopLayout`; business logic never branches on breakpoint.
+- **Desktop:** support hover states on interactive components and keyboard shortcuts for primary actions; density may tighten spacing within the token scale (e.g. prefer `space.sm`/`space.md` over mobile’s more generous gaps) without inventing new token values.
+- **Density:** scale spacing/typography via breakpoint multipliers on existing tokens; do not fork component implementations per platform.
 
 ---
 

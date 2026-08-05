@@ -3,10 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
-import 'package:lexivo/features/subscription/presentation/providers/subscription_providers.dart';
-import 'package:lexivo/features/subscription/presentation/screens/paywall_screen.dart';
-import 'package:lexivo/features/subscription/presentation/screens/upgrade_screen.dart';
-import 'package:lexivo/features/subscription/presentation/widgets/usage_summary.dart';
 import 'package:lexivo/features/subscription/subscription.dart';
 
 import 'fake_subscription_repository.dart';

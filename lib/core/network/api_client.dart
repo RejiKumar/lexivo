@@ -8,8 +8,9 @@ import '../utils/result.dart';
 
 /// Typed Lexivo API client for `/api/v1` paths.
 ///
-/// TODO(openapi-codegen): replace body with thin wrap of generated dart-dio
-/// client from `openapi/lexivo.openapi.json`. Do not hand-edit generated files.
+/// When OpenAPI dart-dio codegen lands, replace this body with a thin wrap of
+/// the generated client from `openapi/lexivo.openapi.json` (do not hand-edit
+/// generated files).
 class ApiClient {
   ApiClient(this._dio);
 
@@ -164,9 +165,15 @@ class ApiClient {
         (json) => SubscriptionUpgradeDto.fromJson(json),
       );
 
+  /// Public soft/force upgrade policy (no auth). See docs/app-versioning.md.
+  Future<Result<AppVersionDto>> getAppVersion() => _get(
+        '$_prefix/app/version',
+        (json) => AppVersionDto.fromJson(json),
+      );
+
   /// Multipart create + server-side StorageProvider upload + enqueue.
   ///
-  /// TODO(openapi-codegen): swap to generated multipart client when regen lands.
+  /// Multipart path stays hand-written until generated multipart client exists.
   Future<Result<DocumentDto>> createDocument({
     required List<int> bytes,
     required String filename,
