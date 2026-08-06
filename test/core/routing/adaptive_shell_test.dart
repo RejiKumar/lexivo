@@ -5,6 +5,7 @@ import 'package:lexivo/core/design_system/components/nav_bar.dart';
 import 'package:lexivo/core/routing/adaptive_authenticated_shell.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
+import 'package:lexivo/core/splash/splash_screen.dart';
 
 void main() {
   test('isDocumentDetailLocation detects deep document routes', () {
@@ -24,6 +25,7 @@ void main() {
       ProviderScope(
         overrides: [
           showcaseEnabledProvider.overrideWith((ref) => false),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           authGuardStateProvider.overrideWith(
             (ref) => const AuthGuardState(isAuthenticated: true),
           ),
@@ -48,6 +50,7 @@ void main() {
       ProviderScope(
         overrides: [
           showcaseEnabledProvider.overrideWith((ref) => false),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           authGuardStateProvider.overrideWith(
             (ref) => const AuthGuardState(isAuthenticated: true),
           ),

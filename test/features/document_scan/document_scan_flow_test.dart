@@ -5,8 +5,10 @@ import 'package:lexivo/core/design_system/components/document_card.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
+import 'package:lexivo/core/splash/splash_screen.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/features/auth/auth.dart';
+import 'package:lexivo/features/document_scan/domain/entities/document_input.dart';
 import 'package:lexivo/features/document_scan/presentation/providers/document_providers.dart';
 
 import '../../helpers/fake_auth_repository.dart';
@@ -30,6 +32,7 @@ void main() {
             FakeAuthRepository(initialSession: sampleSession()),
           ),
           ...authCoreOverrides(),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           documentRepositoryProvider.overrideWithValue(repo),
           documentInputSourceProvider.overrideWithValue(input),
           documentJobPollerProvider.overrideWithValue(
@@ -52,7 +55,7 @@ void main() {
     container.read(goRouterProvider).go(RouteGuards.documentScan);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Scan or upload'));
+    await tester.tap(find.text('Take photo'));
     await tester.pumpAndSettle();
     expect(input.forceCropInvoked, isTrue);
 
@@ -67,7 +70,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 20));
   });
 
-  testWidgets('camera unavailable → file pick → library entry', (tester) async {
+  testWidgets('gallery pick → library entry', (tester) async {
     final repo = FakeDocumentRepository(initial: []);
     final input = FakeDocumentInputSource(cameraAvailable: false);
 
@@ -78,6 +81,7 @@ void main() {
             FakeAuthRepository(initialSession: sampleSession()),
           ),
           ...authCoreOverrides(),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           documentRepositoryProvider.overrideWithValue(repo),
           documentInputSourceProvider.overrideWithValue(input),
           ...documentScanCoreOverrides(),
@@ -93,10 +97,11 @@ void main() {
     );
     container.read(goRouterProvider).go(RouteGuards.documentScan);
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Scan or upload'));
+    await tester.tap(find.text('Choose from gallery'));
     await tester.pumpAndSettle();
 
     expect(input.captureCalls, 1);
+    expect(input.lastPreference, DocumentInputPreference.gallery);
     expect(repo.documents, isNotEmpty);
     expect(repo.documents.first.status, DocumentStatus.ready);
   });

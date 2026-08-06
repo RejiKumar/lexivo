@@ -10,8 +10,9 @@ Screens never branch on `kIsWeb` / platform — they call `captureOrPick(prefere
 | Concern | Package | Notes |
 |---|---|---|
 | Camera probe + capture | `image_picker` | `ImageSource.camera`; works mobile + web (getUserMedia) |
-| File upload fallback | `file_picker` | jpeg / png / pdf |
-| Crop / edge-detect | `image_cropper` (**MVP**) | Interactive crop after camera (and optional after image pick). Not ML edge-detect |
+| Gallery pick | `image_picker` | `ImageSource.gallery` for photos from the device library |
+| File upload | `file_picker` | jpeg / png / pdf |
+| Crop / edge-detect | `image_cropper` (**MVP**) | Interactive crop after camera/gallery (and optional after image file pick). Not ML edge-detect |
 
 ## Capability probe
 
@@ -21,13 +22,14 @@ same `captureOrPick` API returns file-sourced bytes.
 
 ## Preference
 
-- `auto` — camera when available, else file
+- `auto` — camera when available, else gallery (scan UI uses explicit actions)
 - `camera` — force camera path (fails → Failure, does not silently switch unless auto)
-- `file` — force file picker
+- `gallery` — device photo library via `image_picker`
+- `file` — force file picker (PDF or image)
 
 ## Crop policy (MVP)
 
-- **Camera path:** always run `DocumentCropper` after capture (interactive crop UI from plugin).
+- **Camera / gallery path:** always run `DocumentCropper` after pick (interactive crop UI from plugin).
 - **File path:** crop only for image mime types; **skip** for PDF (bytes returned as picked).
 - When cropper unavailable (e.g. some web/desktop builds), cropper returns original bytes (pass-through) and logs — documented MVP, not production edge-detect.
 

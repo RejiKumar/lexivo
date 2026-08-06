@@ -34,6 +34,11 @@ abstract class CameraGateway {
   Future<Result<RawDocumentCapture>> capture();
 }
 
+/// Device photo gallery / media library pick (images).
+abstract class GalleryGateway {
+  Future<Result<RawDocumentCapture>> pick();
+}
+
 /// File picker for images/PDFs.
 abstract class FilePickerGateway {
   Future<Result<RawDocumentCapture>> pick();

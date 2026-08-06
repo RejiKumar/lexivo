@@ -19,6 +19,7 @@ from app.models import JobStatus, TranslationStatus
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
 from app.services.notification_service import emit_job_complete_notification
+from app.tasks.agent_errors import agent_failure_error
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_llm_provider
 
@@ -131,7 +132,7 @@ async def _run_translation_async(
         )
 
         if not agent_result.success:
-            raise RuntimeError(agent_result.error or "Translation agent failed")
+            raise agent_failure_error(agent_result, "Translation agent failed")
 
         data = agent_result.data or {}
         translated_text = str(data.get("translated_text", ""))

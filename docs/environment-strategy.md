@@ -26,7 +26,7 @@ Solo founder: keep two live surfaces only. Do **not** fork business logic by env
 | Host API / worker | Local Compose **or** Cloud Run (dev project) | Cloud Run | Cloud Run (separate services) |
 | Host web | `flutter run` / Pages preview | Cloudflare Pages | Separate Pages project |
 | DB | Local Postgres+pgvector **or** Neon **dev** | Neon **prod** | Neon **staging** |
-| Object storage | Local / R2 **dev** bucket | R2 **prod** bucket | R2 **staging** bucket |
+| Object storage | Supabase Storage **or** R2 **dev** bucket | R2 **prod** bucket (or Supabase prod) | R2 / Supabase **staging** bucket |
 | Redis / Celery | Compose Redis | Managed Redis | Managed Redis (staging) |
 | Auth | Supabase **dev** project | Supabase **prod** project | Supabase staging project |
 | Backend env file | `.env.development` (local) | `.env.production` (reference only; runtime = GH secrets → Cloud Run) | `.env.staging` (future) |
@@ -126,7 +126,7 @@ CI: GitHub Environment vars/secrets → `.github/actions/build` inputs at **buil
 | Stage | `APP_ENV` |
 | Infra | `DATABASE_URL`, `REDIS_URL`, `CELERY_BROKER_URL`, `CELERY_TASK_ALWAYS_EAGER` |
 | Auth | `AUTH_PROVIDER=supabase`, `SUPABASE_URL`, `SUPABASE_JWT_SECRET`, `SUPABASE_ANON_KEY` |
-| Storage | `STORAGE_PROVIDER=r2`, `R2_*` |
+| Storage | `STORAGE_PROVIDER=supabase` + `SUPABASE_SERVICE_ROLE_KEY` + `SUPABASE_STORAGE_BUCKET`, or `STORAGE_PROVIDER=r2` + `R2_*` |
 | AI | `LLM_PROVIDER=gemini`, `GEMINI_API_KEY` |
 | OCR | `OCR_PROVIDER=mistral`, `MISTRAL_API_KEY` |
 | Quotas | `FREE_TIER_DOCS_PER_MONTH=20`, `FREE_TIER_CHAT_MESSAGES_PER_DAY=100`, `FREE_TIER_OCR_PAGES_PER_MONTH=500` |

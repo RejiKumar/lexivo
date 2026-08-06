@@ -28,7 +28,7 @@ class DocumentScanScreen extends ConsumerWidget {
               Text('Scan document', style: LexivoTypography.headline),
               const SizedBox(height: LexivoSpacing.sm),
               Text(
-                'Capture with the camera when available, or upload a file. '
+                'Take a photo, pick one from your gallery, or upload a PDF. '
                 'Same flow on every platform.',
                 style: LexivoTypography.body,
               ),
@@ -39,11 +39,43 @@ class DocumentScanScreen extends ConsumerWidget {
               ],
               const Spacer(),
               LexivoButton(
-                label: 'Scan or upload',
+                label: 'Take photo',
                 loading: scan.isLoading,
                 onPressed: scan.isLoading
                     ? null
-                    : () => _start(context, ref),
+                    : () => _start(
+                          context,
+                          ref,
+                          DocumentInputPreference.camera,
+                        ),
+                fullWidth: true,
+              ),
+              const SizedBox(height: LexivoSpacing.sm),
+              LexivoButton(
+                label: 'Choose from gallery',
+                variant: LexivoButtonVariant.secondary,
+                loading: scan.isLoading,
+                onPressed: scan.isLoading
+                    ? null
+                    : () => _start(
+                          context,
+                          ref,
+                          DocumentInputPreference.gallery,
+                        ),
+                fullWidth: true,
+              ),
+              const SizedBox(height: LexivoSpacing.sm),
+              LexivoButton(
+                label: 'Upload file (PDF or image)',
+                variant: LexivoButtonVariant.ghost,
+                loading: scan.isLoading,
+                onPressed: scan.isLoading
+                    ? null
+                    : () => _start(
+                          context,
+                          ref,
+                          DocumentInputPreference.file,
+                        ),
                 fullWidth: true,
               ),
               const SizedBox(height: LexivoSpacing.md),
@@ -60,10 +92,14 @@ class DocumentScanScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _start(BuildContext context, WidgetRef ref) async {
+  Future<void> _start(
+    BuildContext context,
+    WidgetRef ref,
+    DocumentInputPreference preference,
+  ) async {
     final result = await ref
         .read(documentScanControllerProvider.notifier)
-        .startScan(preference: DocumentInputPreference.auto);
+        .startScan(preference: preference);
     if (!context.mounted) return;
     result.when(
       success: (_) {

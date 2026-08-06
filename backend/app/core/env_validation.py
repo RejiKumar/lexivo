@@ -76,6 +76,18 @@ def feature_env_keys(settings: Settings) -> dict[str, list[str]]:
         ]
         if storage:
             features["document storage / uploads (R2)"] = storage
+    elif settings.storage_provider == "supabase":
+        storage = [
+            name
+            for name, value in (
+                ("SUPABASE_URL", settings.supabase_url),
+                ("SUPABASE_SERVICE_ROLE_KEY", settings.supabase_service_role_key),
+                ("SUPABASE_STORAGE_BUCKET", settings.supabase_storage_bucket),
+            )
+            if _is_missing(value)
+        ]
+        if storage:
+            features["document storage / uploads (Supabase)"] = storage
 
     if settings.llm_provider == "gemini" and _is_missing(settings.gemini_api_key):
         features["summary / translation / RAG chat (Gemini)"] = ["GEMINI_API_KEY"]
@@ -141,8 +153,16 @@ def log_startup_config(settings: Settings) -> None:
     logger.info("Supabase URL: %s", settings.supabase_url or "(not set)")
     logger.info("Supabase anon key: %s", mask_secret(settings.supabase_anon_key))
     logger.info(
+        "Supabase service role key: %s",
+        mask_secret(settings.supabase_service_role_key),
+    )
+    logger.info(
         "Supabase JWT secret (legacy HS256 only): %s",
         mask_secret(settings.supabase_jwt_secret),
+    )
+    logger.info(
+        "Supabase storage bucket: %s",
+        settings.supabase_storage_bucket or "(not set)",
     )
     logger.info("Gemini API key: %s", mask_secret(settings.gemini_api_key))
     logger.info("Mistral API key: %s", mask_secret(settings.mistral_api_key))

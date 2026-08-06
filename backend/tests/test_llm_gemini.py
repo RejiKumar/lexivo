@@ -5,6 +5,7 @@ import json
 import httpx
 import pytest
 
+from app.adapters.llm.errors import LLMProviderError, LLMRateLimitError
 from app.adapters.llm.gemini_adapter import GeminiLLMAdapter
 from app.adapters.protocols import LLMProvider
 
@@ -29,7 +30,9 @@ async def test_gemini_adapter_satisfies_llm_provider_protocol() -> None:
 @pytest.mark.asyncio
 async def test_complete_returns_string_from_mocked_response() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
-        assert request.url.params.get("key") == "test-key"
+        # Key travels in a header so it never lands in URLs, logs, or errors.
+        assert request.headers["x-goog-api-key"] == "test-key"
+        assert "key=" not in str(request.url)
         assert "gemini-2.0-flash:generateContent" in str(request.url)
         payload = json.loads(request.content)
         assert payload["contents"][0]["parts"][0]["text"] == "Hello"
@@ -49,3 +52,27 @@ async def test_complete_without_api_key_raises() -> None:
     adapter = GeminiLLMAdapter(api_key="")
     with pytest.raises(RuntimeError, match="not configured"):
         await adapter.complete("Hello")
+
+
+@pytest.mark.asyncio
+async def test_rate_limited_response_raises_typed_error_without_key() -> None:
+    transport = httpx.MockTransport(lambda request: httpx.Response(429))
+    async with httpx.AsyncClient(transport=transport) as client:
+        adapter = GeminiLLMAdapter(api_key="super-secret-key", client=client)
+        with pytest.raises(LLMRateLimitError) as excinfo:
+            await adapter.complete("Hello")
+
+    assert "super-secret-key" not in str(excinfo.value)
+    assert excinfo.value.status_code == 429
+
+
+@pytest.mark.asyncio
+async def test_rejected_key_raises_provider_error_without_key() -> None:
+    transport = httpx.MockTransport(lambda request: httpx.Response(403))
+    async with httpx.AsyncClient(transport=transport) as client:
+        adapter = GeminiLLMAdapter(api_key="super-secret-key", client=client)
+        with pytest.raises(LLMProviderError) as excinfo:
+            await adapter.complete("Hello")
+
+    assert "super-secret-key" not in str(excinfo.value)
+    assert "GEMINI_API_KEY" in str(excinfo.value)

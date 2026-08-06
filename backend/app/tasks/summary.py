@@ -19,6 +19,7 @@ from app.models import JobStatus, SummaryStatus
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
 from app.services.notification_service import emit_job_complete_notification
+from app.tasks.agent_errors import agent_failure_error
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_llm_provider
 
@@ -119,7 +120,7 @@ async def _run_summary_async(
         )
 
         if not agent_result.success:
-            raise RuntimeError(agent_result.error or "Summary agent failed")
+            raise agent_failure_error(agent_result, "Summary agent failed")
 
         data = agent_result.data or {}
         short_summary = str(data.get("short_summary", ""))

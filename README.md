@@ -16,7 +16,7 @@ Full product and technical scope: [spec/spec.md](spec/spec.md). Architecture: [s
 
 ## About
 
-Lexivo is a cross-platform Flutter client backed by a FastAPI + LangGraph service layer. Documents flow through OCR, embeddings (pgvector), and specialized agents for summary, translation, RAG chat, and PDF export. Auth is Supabase; object storage is Cloudflare R2; web ships on Cloudflare Pages; API and workers run on Cloud Run.
+Lexivo is a cross-platform Flutter client backed by a FastAPI + LangGraph service layer. Documents flow through OCR, embeddings (pgvector), and specialized agents for summary, translation, RAG chat, and PDF export. Auth is Supabase; object storage is Supabase Storage (local/dev) or Cloudflare R2; web ships on Cloudflare Pages; API and workers run on Cloud Run.
 
 ## Problems Solved
 
@@ -68,7 +68,7 @@ Input strategy: [docs/document_input_source.md](docs/document_input_source.md). 
 | Jobs | Celery (+ Redis broker) |
 | Auth | Supabase Auth |
 | AI / OCR | Gemini, Mistral OCR |
-| Storage | Cloudflare R2 |
+| Storage | Supabase Storage or Cloudflare R2 |
 | Hosting | Cloud Run (API + worker), Cloudflare Pages (web) |
 
 ## Folder Structure
@@ -101,7 +101,7 @@ flutter pub get
 # Backend: copy env template, add YOUR keys, then start Postgres/Redis/API/worker
 cd backend
 cp .env.example .env          # PowerShell: copy .env.example .env
-# edit backend/.env — fill Supabase, Gemini, Mistral, R2 (never commit this file)
+# edit backend/.env — fill Supabase (+ service role for storage), Gemini, Mistral (never commit this file)
 docker compose up --build
 ```
 
@@ -131,10 +131,10 @@ Secrets live only in **gitignored** files. Templates in the repo contain placeho
 | Variable | Where |
 |---|---|
 | `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`, feature flags | Flutter (`--dart-define` / `.env.development`) |
-| `SUPABASE_JWT_SECRET`, `DATABASE_URL`, `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `R2_*`, Redis/Celery | `backend/.env` only |
+| `SUPABASE_JWT_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`, `DATABASE_URL`, `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `R2_*` (if used), Redis/Celery | `backend/.env` only |
 | `SENTRY_DSN`, `POSTHOG_*` | Optional on both sides (empty = no-op) |
 
-Never put `SUPABASE_JWT_SECRET`, Gemini, Mistral, or R2 secrets in Flutter dart-defines or source code.
+Never put `SUPABASE_JWT_SECRET`, `SUPABASE_SERVICE_ROLE_KEY`, Gemini, Mistral, or R2 secrets in Flutter dart-defines or source code.
 
 ### 1. Configure backend (`backend/.env`)
 
@@ -146,21 +146,21 @@ cp .env.example .env
 Fill at least:
 
 ```env
+STORAGE_PROVIDER=supabase
 SUPABASE_URL=
 SUPABASE_ANON_KEY=
 SUPABASE_JWT_SECRET=
+SUPABASE_SERVICE_ROLE_KEY=
+SUPABASE_STORAGE_BUCKET=lexivo
 DATABASE_URL=postgresql+psycopg://lexivo:lexivo@localhost:5432/lexivo
 GEMINI_API_KEY=
 LLM_PROVIDER=gemini
 MISTRAL_API_KEY=
 OCR_PROVIDER=mistral
-R2_ACCOUNT_ID=
-R2_ACCESS_KEY_ID=
-R2_SECRET_ACCESS_KEY=
-R2_BUCKET_NAME=
-R2_ENDPOINT_URL=
 CELERY_TASK_ALWAYS_EAGER=true
 ```
+
+For Cloudflare R2 instead, set `STORAGE_PROVIDER=r2` and the `R2_*` keys (see below).
 
 On startup the API logs **masked** values and enabled providers (never full secrets). If a required key is missing, it exits with a clear error pointing at `backend/.env`.
 
@@ -286,11 +286,17 @@ flutter run --dart-define=LEXIVO_SHOWCASE=true
 1. Create an API key in the Mistral console.
 2. Set `MISTRAL_API_KEY` and `OCR_PROVIDER=mistral` in `backend/.env`.
 
-**Cloudflare R2**
+**Supabase Storage (recommended for local / free tier)**
+
+1. Supabase dashboard → **Storage** → create a **private** bucket named `lexivo` (or match `SUPABASE_STORAGE_BUCKET`).
+2. **Project Settings → API** → copy the **service_role** key into `SUPABASE_SERVICE_ROLE_KEY` in `backend/.env` (server-only).
+3. Set `STORAGE_PROVIDER=supabase`. Optionally run `python tool/ensure_supabase_storage_bucket.py` to create the bucket from env.
+
+**Cloudflare R2 (optional)**
 
 1. Cloudflare dashboard → R2 → create a private bucket (e.g. `lexivo-dev`).
 2. Create an API token with object read/write for that bucket.
-3. Set in `backend/.env`: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ENDPOINT_URL` (S3-compatible endpoint for the account).
+3. Set `STORAGE_PROVIDER=r2` and `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ENDPOINT_URL`.
 
 Full matrix (dev/prod, GitHub Environments): [docs/environment-strategy.md](docs/environment-strategy.md).  
 Related: [docs/deployment-guide.md](docs/deployment-guide.md), [docs/security.md](docs/security.md), [docs/production-checklist.md](docs/production-checklist.md).

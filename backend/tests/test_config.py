@@ -62,7 +62,8 @@ def test_provider_selectors_default_to_launch_bindings(
     ):
         monkeypatch.delenv(key, raising=False)
 
-    settings = Settings()
+    # Ignore backend/.env so this asserts field defaults, not the developer's local file.
+    settings = Settings(_env_file=None)
 
     assert settings.auth_provider == "supabase"
     assert settings.ocr_provider == "mistral"
@@ -74,14 +75,18 @@ def test_provider_selectors_can_be_overridden(monkeypatch: pytest.MonkeyPatch) -
     monkeypatch.setenv("AUTH_PROVIDER", "clerk")
     monkeypatch.setenv("OCR_PROVIDER", "document_ai")
     monkeypatch.setenv("LLM_PROVIDER", "openai")
-    monkeypatch.setenv("STORAGE_PROVIDER", "r2")
+    monkeypatch.setenv("STORAGE_PROVIDER", "supabase")
+    monkeypatch.setenv("SUPABASE_SERVICE_ROLE_KEY", "service-role-test")
+    monkeypatch.setenv("SUPABASE_STORAGE_BUCKET", "lexivo-dev")
 
     settings = Settings()
 
     assert settings.auth_provider == "clerk"
     assert settings.ocr_provider == "document_ai"
     assert settings.llm_provider == "openai"
-    assert settings.storage_provider == "r2"
+    assert settings.storage_provider == "supabase"
+    assert settings.supabase_service_role_key == "service-role-test"
+    assert settings.supabase_storage_bucket == "lexivo-dev"
 
 
 def test_get_settings_reads_os_environ(monkeypatch: pytest.MonkeyPatch) -> None:

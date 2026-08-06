@@ -21,6 +21,7 @@ from app.core.config import Settings, get_settings
 from app.core.env_validation import log_startup_config, validate_settings_or_raise
 from app.core.exception_handlers import register_exception_handlers
 from app.core.observability import init_sentry
+from app.core.request_logging import RequestLoggingMiddleware, configure_api_logging
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +29,7 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     settings = get_settings()
+    configure_api_logging()
     log_startup_config(settings)
     validate_settings_or_raise(settings)
     init_sentry(settings)
@@ -46,6 +48,8 @@ def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(title="Lexivo API", version="0.1.0", lifespan=lifespan)
     origins = _cors_origins(settings)
+    # Outer middleware runs last-added first; log after CORS so failures still appear.
+    app.add_middleware(RequestLoggingMiddleware)
     app.add_middleware(
         CORSMiddleware,
         allow_origins=origins,

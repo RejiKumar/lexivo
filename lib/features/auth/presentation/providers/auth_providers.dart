@@ -187,7 +187,10 @@ final authAccessTokenProvider = Provider<AccessTokenReader>((ref) {
 
 final authGuardBridgeProvider = Provider<AuthGuardState>((ref) {
   final auth = ref.watch(authStateProvider);
-  return AuthGuardState(isAuthenticated: auth.isAuthenticated);
+  return AuthGuardState(
+    isAuthenticated: auth.isAuthenticated,
+    isLoading: auth.isLoading,
+  );
 });
 
 final authScreenBuildersBridgeProvider = Provider<AuthScreenBuilders>((ref) {

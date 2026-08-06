@@ -25,6 +25,7 @@ def test_mask_secret_hides_prefix() -> None:
 
 def test_required_env_keys_lists_missing_for_default_providers() -> None:
     settings = Settings(
+        storage_provider="r2",
         supabase_url="",
         supabase_anon_key="",
         supabase_jwt_secret="",
@@ -48,6 +49,7 @@ def test_required_env_keys_lists_missing_for_default_providers() -> None:
 
 def test_required_env_keys_empty_when_complete() -> None:
     settings = Settings(
+        storage_provider="r2",
         supabase_url="https://example.supabase.co",
         supabase_anon_key="anon-test-key-value",
         supabase_jwt_secret="jwt-test-secret-value-32chars!",
@@ -60,6 +62,20 @@ def test_required_env_keys_empty_when_complete() -> None:
         r2_endpoint_url="https://example.r2.cloudflarestorage.com",
     )
     assert required_env_keys(settings) == []
+
+
+def test_supabase_storage_feature_keys() -> None:
+    settings = Settings(
+        storage_provider="supabase",
+        supabase_url="https://example.supabase.co",
+        supabase_service_role_key="",
+        supabase_storage_bucket="",
+    )
+    features = feature_env_keys(settings)
+    missing = features["document storage / uploads (Supabase)"]
+    assert "SUPABASE_SERVICE_ROLE_KEY" in missing
+    assert "SUPABASE_STORAGE_BUCKET" in missing
+    assert "R2_BUCKET_NAME" not in str(features)
 
 
 def test_validate_raises_when_core_auth_config_missing(
@@ -84,6 +100,7 @@ def test_local_boots_with_missing_provider_keys(
     monkeypatch.delenv("LEXIVO_STRICT_ENV", raising=False)
     settings = Settings(
         app_env="local",
+        storage_provider="r2",
         supabase_url="https://example.supabase.co",
         supabase_anon_key="anon-test-key-value",
         supabase_jwt_secret="jwt-test-secret-value-32chars!",
@@ -116,8 +133,14 @@ def test_deployed_stage_requires_provider_keys(
 
 def test_core_and_feature_key_split() -> None:
     settings = Settings(
+        storage_provider="r2",
         supabase_url="",
         mistral_api_key="",
+        r2_account_id="acct",
+        r2_access_key_id="key",
+        r2_secret_access_key="secret",
+        r2_bucket_name="lexivo",
+        r2_endpoint_url="https://example.r2.cloudflarestorage.com",
     )
     assert "SUPABASE_URL" in core_env_keys(settings)
     assert "SUPABASE_URL" not in str(feature_env_keys(settings))

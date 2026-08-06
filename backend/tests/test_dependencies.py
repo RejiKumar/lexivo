@@ -75,7 +75,8 @@ def test_default_settings_env_selectors_match_launch_bindings(
     for key in ("AUTH_PROVIDER", "OCR_PROVIDER", "LLM_PROVIDER", "STORAGE_PROVIDER"):
         monkeypatch.delenv(key, raising=False)
 
-    settings = Settings()
+    # Ignore backend/.env so this asserts field defaults, not the developer's local file.
+    settings = Settings(_env_file=None)
     assert isinstance(get_auth_provider(settings), SupabaseAuthAdapter)
     assert isinstance(get_storage_provider(settings), R2StorageAdapter)
     assert isinstance(get_llm_provider(settings), GeminiLLMAdapter)

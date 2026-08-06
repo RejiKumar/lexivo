@@ -4,10 +4,10 @@ import 'package:lexivo/core/utils/result.dart';
 part 'document_input.freezed.dart';
 
 /// How the caller prefers to obtain document bytes.
-enum DocumentInputPreference { auto, camera, file }
+enum DocumentInputPreference { auto, camera, gallery, file }
 
 /// Provenance of obtained bytes.
-enum DocumentInputKind { camera, file }
+enum DocumentInputKind { camera, gallery, file }
 
 /// Confirmed document bytes ready for upload.
 @freezed

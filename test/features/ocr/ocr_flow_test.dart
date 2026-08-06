@@ -6,6 +6,7 @@ import 'package:lexivo/core/design_system/components/error_banner.dart';
 import 'package:lexivo/core/entities/document.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
+import 'package:lexivo/core/splash/splash_screen.dart';
 import 'package:lexivo/core/utils/job_poller.dart';
 import 'package:lexivo/features/auth/auth.dart';
 import 'package:lexivo/features/document_scan/document_scan.dart';
@@ -61,6 +62,7 @@ void main() {
             FakeAuthRepository(initialSession: sampleSession()),
           ),
           ...authCoreOverrides(),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           documentRepositoryProvider.overrideWithValue(docRepo),
           documentInputSourceProvider.overrideWithValue(
             FakeDocumentInputSource(),
@@ -112,6 +114,7 @@ void main() {
             FakeAuthRepository(initialSession: sampleSession()),
           ),
           ...authCoreOverrides(),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           documentRepositoryProvider.overrideWithValue(
             FakeDocumentRepository(
               initial: [
@@ -166,6 +169,7 @@ void main() {
             FakeAuthRepository(initialSession: sampleSession()),
           ),
           ...authCoreOverrides(),
+          splashMinDurationProvider.overrideWithValue(Duration.zero),
           documentRepositoryProvider.overrideWithValue(
             FakeDocumentRepository(),
           ),

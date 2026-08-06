@@ -1,15 +1,27 @@
 /// Reusable route guards (auth, subscription).
 library;
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 /// Snapshot of auth used by guards — no feature data imports.
 class AuthGuardState {
-  const AuthGuardState({required this.isAuthenticated});
+  const AuthGuardState({
+    required this.isAuthenticated,
+    this.isLoading = false,
+  });
 
   final bool isAuthenticated;
+  final bool isLoading;
 }
+
+/// Auth snapshot for redirects — override from auth feature barrel.
+final authGuardStateProvider = Provider<AuthGuardState>((ref) {
+  return const AuthGuardState(isAuthenticated: false);
+});
 
 /// Redirect helpers for GoRouter.
 abstract final class RouteGuards {
+  static const splash = '/splash';
   static const signIn = '/sign-in';
   static const signUp = '/sign-up';
   static const account = '/account';
@@ -50,10 +62,15 @@ abstract final class RouteGuards {
 
   /// Unauthenticated users hitting protected routes → sign-in.
   /// Authenticated users on auth screens → documents (primary home).
+  /// Splash is exempt so the branded intro can finish before routing.
   static String? authGuard({
     required AuthGuardState auth,
     required String location,
   }) {
+    if (location == splash) {
+      return null;
+    }
+
     final onAuthRoute = authRoutes.contains(location) ||
         location.startsWith('$signIn/') ||
         location.startsWith('$signUp/');

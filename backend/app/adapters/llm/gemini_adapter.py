@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import httpx
 
+from app.adapters.llm.errors import LLMProviderError, LLMRateLimitError
+
 
 class GeminiLLMAdapter:
     """LLMProvider implementation for Google Gemini."""
@@ -36,11 +38,12 @@ class GeminiLLMAdapter:
         try:
             response = await client.post(
                 url,
-                params={"key": self._api_key},
+                headers={"x-goog-api-key": self._api_key},
                 json=payload,
                 timeout=60.0,
             )
-            response.raise_for_status()
+            if response.status_code >= 400:
+                raise _upstream_error(model, response.status_code)
             data = response.json()
         finally:
             if owns_client:
@@ -49,4 +52,22 @@ class GeminiLLMAdapter:
         try:
             return data["candidates"][0]["content"]["parts"][0]["text"]
         except (KeyError, IndexError, TypeError) as exc:
-            raise RuntimeError("Unexpected Gemini response shape") from exc
+            raise LLMProviderError("Unexpected Gemini response shape") from exc
+
+
+def _upstream_error(model: str, status_code: int) -> LLMProviderError:
+    if status_code == 429:
+        return LLMRateLimitError(
+            f"Gemini rate limit / quota exceeded for {model}. Check the "
+            "GEMINI_API_KEY quota in Google AI Studio, or retry later."
+        )
+    if status_code in {401, 403}:
+        return LLMProviderError(
+            "Gemini rejected the API key (HTTP "
+            f"{status_code}). Verify GEMINI_API_KEY in backend/.env.",
+            status_code=status_code,
+        )
+    return LLMProviderError(
+        f"Gemini request for {model} failed with HTTP {status_code}.",
+        status_code=status_code,
+    )

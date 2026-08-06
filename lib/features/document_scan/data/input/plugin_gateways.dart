@@ -58,6 +58,50 @@ class ImagePickerCameraGateway implements CameraGateway {
   }
 }
 
+/// Gallery via `image_picker` — preferred path for photos on Android/iOS.
+class ImagePickerGalleryGateway implements GalleryGateway {
+  ImagePickerGalleryGateway({ImagePicker? picker})
+      : _picker = picker ?? ImagePicker();
+
+  final ImagePicker _picker;
+
+  @override
+  Future<Result<RawDocumentCapture>> pick() async {
+    try {
+      final file = await _picker.pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 92,
+      );
+      if (file == null) {
+        return Result.failure(
+          const ValidationFailure(message: 'Gallery pick cancelled'),
+        );
+      }
+      final bytes = await file.readAsBytes();
+      final name = file.name.isNotEmpty ? file.name : 'gallery.jpg';
+      final path = file.path.isNotEmpty ? file.path : null;
+      return Result.success(
+        RawDocumentCapture(
+          bytes: bytes,
+          filename: name,
+          mimeType: _mimeFor(name),
+          path: path,
+        ),
+      );
+    } catch (e) {
+      return Result.failure(
+        UnexpectedFailure(message: 'Gallery unavailable', cause: e),
+      );
+    }
+  }
+
+  String _mimeFor(String name) {
+    final lower = name.toLowerCase();
+    if (lower.endsWith('.png')) return 'image/png';
+    return 'image/jpeg';
+  }
+}
+
 class FilePickerGatewayImpl implements FilePickerGateway {
   @override
   Future<Result<RawDocumentCapture>> pick() async {

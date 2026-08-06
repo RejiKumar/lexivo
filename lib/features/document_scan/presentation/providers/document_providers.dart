@@ -26,6 +26,7 @@ final documentRepositoryProvider = Provider<DocumentRepository>((ref) {
 final documentInputSourceProvider = Provider<DocumentInputSource>((ref) {
   return DocumentInputSourceImpl(
     camera: ImagePickerCameraGateway(),
+    gallery: ImagePickerGalleryGateway(),
     files: FilePickerGatewayImpl(),
     cropper: ImageCropperDocumentCropper(),
   );

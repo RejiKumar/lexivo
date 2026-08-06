@@ -22,6 +22,7 @@ from app.repositories.export_repo import ExportRepository
 from app.repositories.job_repo import JobRepository
 from app.services.export_service import assemble_summary_text, format_chat_annotations
 from app.services.notification_service import emit_job_complete_notification
+from app.tasks.agent_errors import agent_failure_error
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_storage_provider
 
@@ -152,7 +153,7 @@ async def _run_export_async(
         )
 
         if not agent_result.success:
-            raise RuntimeError(agent_result.error or "Export agent failed")
+            raise agent_failure_error(agent_result, "Export agent failed")
 
         data = agent_result.data or {}
         storage_key = str(data.get("storage_key") or "")

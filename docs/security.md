@@ -26,11 +26,12 @@ Session: short-lived access tokens; refresh via Supabase SDK. Backend endpoints 
 
 | Rule | Detail |
 |---|---|
-| Provider | Cloudflare R2 (`STORAGE_PROVIDER=r2`) |
+| Provider | Cloudflare R2 (`STORAGE_PROVIDER=r2`) or Supabase Storage (`STORAGE_PROVIDER=supabase`) |
 | Buckets | Private; **no** public-read for user documents |
 | Access | Time-limited **signed URLs** issued by API after authz |
-| Client | Opens `signed_url` from export/document APIs only — never embeds R2 keys or uses storage SDKs in features |
+| Client | Opens `signed_url` from export/document APIs only — never embeds R2/Supabase service keys or uses storage SDKs in features |
 | Separation | Distinct buckets per environment |
+| Supabase key | `SUPABASE_SERVICE_ROLE_KEY` is **server-only** (backend `.env` / Cloud Run); never Flutter |
 
 TTL: keep short (minutes). Do not log full signed URLs (they are credentials).
 

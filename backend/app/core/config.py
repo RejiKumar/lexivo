@@ -9,7 +9,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 AuthProviderName = Literal["supabase", "clerk"]
 OcrProviderName = Literal["mistral", "document_ai"]
 LlmProviderName = Literal["gemini", "openai"]
-StorageProviderName = Literal["r2"]
+StorageProviderName = Literal["r2", "supabase"]
 AppEnvName = Literal["local", "staging", "production"]
 
 # Always resolve backend/.env relative to this package (cwd-independent).
@@ -50,10 +50,13 @@ class Settings(BaseSettings):
     llm_provider: LlmProviderName = "gemini"
     storage_provider: StorageProviderName = "r2"
 
-    # Supabase Auth
+    # Supabase Auth (+ optional Storage when STORAGE_PROVIDER=supabase)
     supabase_url: str = ""
     supabase_jwt_secret: str = ""
     supabase_anon_key: str = ""
+    # Server-only — never ship to Flutter. Required for STORAGE_PROVIDER=supabase.
+    supabase_service_role_key: str = ""
+    supabase_storage_bucket: str = "lexivo"
 
     # Clerk (alternate auth)
     clerk_secret_key: str = ""

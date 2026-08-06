@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lexivo/core/ads/admob_sdk.dart';
@@ -174,9 +175,18 @@ class _GmaBannerState extends State<_GmaBanner> {
       adUnitId: widget.adUnitId,
       listener: BannerAdListener(
         onAdLoaded: (_) {
+          if (kDebugMode) {
+            debugPrint('AdMob banner loaded (${widget.adUnitId})');
+          }
           if (mounted) setState(() => _loaded = true);
         },
-        onAdFailedToLoad: (ad, _) {
+        onAdFailedToLoad: (ad, error) {
+          if (kDebugMode) {
+            debugPrint(
+              'AdMob banner failed (${widget.adUnitId}): '
+              '${error.code} ${error.message}',
+            );
+          }
           ad.dispose();
           _ad = null;
         },

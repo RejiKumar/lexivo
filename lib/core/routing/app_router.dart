@@ -7,6 +7,7 @@ import '../app_upgrade/app_upgrade.dart';
 import '../design_system/showcase/design_system_flags.dart';
 import '../design_system/showcase/design_system_showcase.dart';
 import '../l10n/l10n.dart';
+import '../splash/splash_screen.dart';
 import '../theming/app_theme.dart';
 import 'adaptive_authenticated_shell.dart';
 import 'route_guards.dart';
@@ -14,11 +15,6 @@ import 'route_guards.dart';
 /// Whether the design-system showcase route is available.
 final showcaseEnabledProvider = Provider<bool>((ref) {
   return LexivoDesignSystemFlags.showcaseEnabled;
-});
-
-/// Auth snapshot for redirects — override from auth feature barrel.
-final authGuardStateProvider = Provider<AuthGuardState>((ref) {
-  return const AuthGuardState(isAuthenticated: false);
 });
 
 /// Optional screen builders injected from `features/auth` (and later features).
@@ -154,7 +150,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
   ref.onDispose(refresh.dispose);
 
   return GoRouter(
-    initialLocation: RouteGuards.home,
+    initialLocation: RouteGuards.splash,
     refreshListenable: refresh,
     redirect: (context, state) {
       final location = state.matchedLocation;
@@ -179,6 +175,11 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       );
     },
     routes: [
+      GoRoute(
+        path: RouteGuards.splash,
+        name: 'splash',
+        builder: (context, state) => const SplashScreen(),
+      ),
       GoRoute(
         path: RouteGuards.home,
         name: 'home',
@@ -291,6 +292,7 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 abstract final class AppRouter {
   static bool showcaseEnabled = LexivoDesignSystemFlags.showcaseEnabled;
 
+  static const String splash = RouteGuards.splash;
   static const String home = RouteGuards.home;
   static const String signIn = RouteGuards.signIn;
   static const String signUp = RouteGuards.signUp;

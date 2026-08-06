@@ -18,6 +18,7 @@ from app.adapters.protocols import (
     StorageProvider,
 )
 from app.adapters.storage.r2_adapter import R2StorageAdapter
+from app.adapters.storage.supabase_adapter import SupabaseStorageAdapter
 from app.core.config import Settings, get_settings
 
 
@@ -39,6 +40,12 @@ def build_storage_provider(settings: Settings | None = None) -> StorageProvider:
             access_key_id=cfg.r2_access_key_id,
             secret_access_key=cfg.r2_secret_access_key,
             bucket_name=cfg.r2_bucket_name,
+        )
+    if cfg.storage_provider == "supabase":
+        return SupabaseStorageAdapter(
+            supabase_url=cfg.supabase_url,
+            service_role_key=cfg.supabase_service_role_key,
+            bucket_name=cfg.supabase_storage_bucket,
         )
     raise ValueError(f"Unsupported STORAGE_PROVIDER: {cfg.storage_provider}")
 

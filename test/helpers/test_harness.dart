@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/routing/app_router.dart';
 import 'package:lexivo/core/routing/route_guards.dart';
+import 'package:lexivo/core/splash/splash_screen.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
 import 'package:lexivo/features/auth/auth.dart';
 import 'package:lexivo/features/auth/presentation/providers/auth_providers.dart';
@@ -20,6 +21,7 @@ ProviderContainer createAuthContainer({
   return ProviderContainer(
     overrides: [
       authRepositoryProvider.overrideWithValue(repo),
+      splashMinDurationProvider.overrideWithValue(Duration.zero),
       ...authCoreOverrides(),
       ...overrides,
     ],
@@ -34,6 +36,7 @@ Widget pumpAuthApp({
   return ProviderScope(
     overrides: [
       authRepositoryProvider.overrideWithValue(repository),
+      splashMinDurationProvider.overrideWithValue(Duration.zero),
       ...authCoreOverrides(),
       ...overrides,
     ],

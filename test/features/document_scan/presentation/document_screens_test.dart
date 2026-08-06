@@ -37,9 +37,14 @@ void main() {
       expect(find.byType(ElevatedButton), findsNothing);
       expect(kIsWeb, anyOf(isTrue, isFalse));
 
-      await tester.tap(find.text('Scan or upload'));
+      expect(find.text('Take photo'), findsOneWidget);
+      expect(find.text('Choose from gallery'), findsOneWidget);
+      expect(find.text('Upload file (PDF or image)'), findsOneWidget);
+
+      await tester.tap(find.text('Choose from gallery'));
       await tester.pumpAndSettle();
       expect(input.captureCalls, 1);
+      expect(input.lastPreference, DocumentInputPreference.gallery);
     });
 
     testWidgets('errors via LexivoErrorBanner', (tester) async {
@@ -55,7 +60,7 @@ void main() {
         ),
       );
       await tester.pumpAndSettle();
-      await tester.tap(find.text('Scan or upload'));
+      await tester.tap(find.text('Take photo'));
       await tester.pumpAndSettle();
       expect(find.byType(LexivoErrorBanner), findsOneWidget);
     });

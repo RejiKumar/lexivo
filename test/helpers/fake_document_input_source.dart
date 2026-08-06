@@ -5,12 +5,14 @@ class FakeDocumentInputSource implements DocumentInputSource {
   FakeDocumentInputSource({
     this.cameraAvailable = true,
     this.cameraBytes,
+    this.galleryBytes,
     this.fileBytes,
     this.forceCropInvoked = false,
   });
 
   bool cameraAvailable;
   DocumentBytes? cameraBytes;
+  DocumentBytes? galleryBytes;
   DocumentBytes? fileBytes;
   bool forceCropInvoked;
 
@@ -27,39 +29,59 @@ class FakeDocumentInputSource implements DocumentInputSource {
   }) async {
     lastPreference = preference;
     captureCalls++;
-    final useCamera = switch (preference) {
-      DocumentInputPreference.camera => true,
-      DocumentInputPreference.file => false,
-      DocumentInputPreference.auto => cameraAvailable,
-    };
-
-    if (useCamera) {
-      if (!cameraAvailable && preference == DocumentInputPreference.camera) {
-        return Result.failure(
-          const UnexpectedFailure(message: 'Camera unavailable'),
+    switch (preference) {
+      case DocumentInputPreference.camera:
+        if (!cameraAvailable) {
+          return Result.failure(
+            const UnexpectedFailure(message: 'Camera unavailable'),
+          );
+        }
+        cropInvocations++;
+        forceCropInvoked = true;
+        return Result.success(
+          cameraBytes ??
+              const DocumentBytes(
+                bytes: [1, 2, 3],
+                filename: 'capture.jpg',
+                mimeType: 'image/jpeg',
+                source: DocumentInputKind.camera,
+              ),
         );
-      }
-      cropInvocations++;
-      forceCropInvoked = true;
-      return Result.success(
-        cameraBytes ??
-            const DocumentBytes(
-              bytes: [1, 2, 3],
-              filename: 'capture.jpg',
-              mimeType: 'image/jpeg',
-              source: DocumentInputKind.camera,
-            ),
-      );
+      case DocumentInputPreference.gallery:
+      case DocumentInputPreference.auto when !cameraAvailable:
+        cropInvocations++;
+        forceCropInvoked = true;
+        return Result.success(
+          galleryBytes ??
+              const DocumentBytes(
+                bytes: [4, 5, 6],
+                filename: 'gallery.jpg',
+                mimeType: 'image/jpeg',
+                source: DocumentInputKind.gallery,
+              ),
+        );
+      case DocumentInputPreference.auto:
+        cropInvocations++;
+        forceCropInvoked = true;
+        return Result.success(
+          cameraBytes ??
+              const DocumentBytes(
+                bytes: [1, 2, 3],
+                filename: 'capture.jpg',
+                mimeType: 'image/jpeg',
+                source: DocumentInputKind.camera,
+              ),
+        );
+      case DocumentInputPreference.file:
+        return Result.success(
+          fileBytes ??
+              const DocumentBytes(
+                bytes: [37, 80, 68, 70],
+                filename: 'upload.pdf',
+                mimeType: 'application/pdf',
+                source: DocumentInputKind.file,
+              ),
+        );
     }
-
-    return Result.success(
-      fileBytes ??
-          const DocumentBytes(
-            bytes: [37, 80, 68, 70],
-            filename: 'upload.pdf',
-            mimeType: 'application/pdf',
-            source: DocumentInputKind.file,
-          ),
-    );
   }
 }

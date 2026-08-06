@@ -4,16 +4,18 @@ import 'package:lexivo/features/document_scan/data/input/input_gateways.dart';
 
 /// Concrete [DocumentInputSource] wrapping gateways + MVP cropper.
 ///
-/// Crop: camera path always crops images; file path crops images only;
+/// Crop: camera and gallery paths crop images; file path crops images only;
 /// PDFs skip crop. See `docs/document_input_source.md`.
 class DocumentInputSourceImpl implements DocumentInputSource {
   DocumentInputSourceImpl({
     required this._camera,
+    required this._gallery,
     required this._files,
     required this._cropper,
   });
 
   final CameraGateway _camera;
+  final GalleryGateway _gallery;
   final FilePickerGateway _files;
   final DocumentCropper _cropper;
 
@@ -27,11 +29,15 @@ class DocumentInputSourceImpl implements DocumentInputSource {
     switch (preference) {
       case DocumentInputPreference.file:
         return _fromFile();
+      case DocumentInputPreference.gallery:
+        return _fromGallery();
       case DocumentInputPreference.camera:
         return _fromCamera();
       case DocumentInputPreference.auto:
+        // Auto remains camera-first for callers that do not present a chooser.
+        // The scan screen uses explicit camera / gallery / file actions.
         final cam = await isCameraAvailable;
-        return cam ? _fromCamera() : _fromFile();
+        return cam ? _fromCamera() : _fromGallery();
     }
   }
 
@@ -39,6 +45,14 @@ class DocumentInputSourceImpl implements DocumentInputSource {
     final capture = await _camera.capture();
     return capture.when(
       success: (raw) => _finalize(raw, DocumentInputKind.camera, crop: true),
+      onFailure: Result.failure,
+    );
+  }
+
+  Future<Result<DocumentBytes>> _fromGallery() async {
+    final pick = await _gallery.pick();
+    return pick.when(
+      success: (raw) => _finalize(raw, DocumentInputKind.gallery, crop: true),
       onFailure: Result.failure,
     );
   }

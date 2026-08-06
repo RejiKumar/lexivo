@@ -2,6 +2,7 @@
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
 
+from app.adapters.storage.errors import StorageNotConfiguredError
 from app.adapters.types import UserIdentity
 from app.api.deps import (
     get_document_service,
@@ -44,12 +45,18 @@ async def create_document(
 ) -> DocumentResponse:
     content = await file.read()
     filename = file.filename or "upload.bin"
-    doc = await documents.create_with_upload(
-        user_id=user.id,
-        title=title or filename,
-        file_bytes=content,
-        filename=filename,
-    )
+    try:
+        doc = await documents.create_with_upload(
+            user_id=user.id,
+            title=title or filename,
+            file_bytes=content,
+            filename=filename,
+        )
+    except StorageNotConfiguredError as exc:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=exc.message,
+        ) from exc
     return DocumentResponse.model_validate(doc)
 
 
