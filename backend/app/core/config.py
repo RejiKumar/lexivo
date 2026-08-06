@@ -1,6 +1,7 @@
 """Environment-driven application settings (architecture.md §6)."""
 
 from functools import lru_cache
+from pathlib import Path
 from typing import Literal
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -11,12 +12,19 @@ LlmProviderName = Literal["gemini", "openai"]
 StorageProviderName = Literal["r2"]
 AppEnvName = Literal["local", "staging", "production"]
 
+# Always resolve backend/.env relative to this package (cwd-independent).
+_BACKEND_ROOT = Path(__file__).resolve().parents[2]
+_ENV_FILES = (
+    str(_BACKEND_ROOT / ".env"),
+    ".env",
+)
+
 
 class Settings(BaseSettings):
     """All config is env-driven; never hardcode secrets or per-env values."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=_ENV_FILES,
         env_file_encoding="utf-8",
         extra="ignore",
     )

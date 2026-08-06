@@ -19,6 +19,13 @@ import '../../helpers/fake_ocr_repository.dart';
 void main() {
   testWidgets('library card tap (processing) → OCR polls → shows text',
       (tester) async {
+    // Card tap navigates straight to OCR only on mobile; wider layouts open a
+    // detail sheet/pane instead. The default 800px test surface is tablet.
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+
     final docRepo = FakeDocumentRepository(
       initial: [
         sampleDocument(

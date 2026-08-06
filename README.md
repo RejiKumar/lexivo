@@ -92,15 +92,16 @@ lexivo/
 
 ## Dev Setup
 
-**Prerequisites:** Flutter 3.x SDK, Dart, Docker (for the local backend stack), Python 3.11+ (optional host runs).
+**Prerequisites:** Flutter 3.x SDK, Dart, Docker (for the local backend stack), Python 3.11+ (optional host runs without Compose).
 
 ```bash
 # Flutter dependencies (repo root until frontend/ migration)
 flutter pub get
 
-# Backend local stack
+# Backend: copy env template, add YOUR keys, then start Postgres/Redis/API/worker
 cd backend
-cp .env.example .env   # or: copy .env.example .env
+cp .env.example .env          # PowerShell: copy .env.example .env
+# edit backend/.env — fill Supabase, Gemini, Mistral, R2 (never commit this file)
 docker compose up --build
 ```
 
@@ -112,27 +113,202 @@ Backend notes: [backend/README.md](backend/README.md).
 - **Android:** camera and media/storage permissions as required by `image_picker` / `file_picker` (`AndroidManifest.xml`)
 - **iOS:** `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription` (`Info.plist`)
 
-## Env Setup
+## Local environment (DEBUG — do not commit secrets)
 
-Do not commit secrets. Environment matrices, secrets, and `--dart-define` / Compose variables are documented in **[docs/environment-strategy.md](docs/environment-strategy.md)**.
+Secrets live only in **gitignored** files. Templates in the repo contain placeholders only.
 
-Related: [docs/deployment-guide.md](docs/deployment-guide.md), [docs/production-checklist.md](docs/production-checklist.md).
+| File | Role | Committed? |
+|---|---|---|
+| `backend/.env.example` | Backend template | Yes (placeholders) |
+| `backend/.env` | Your backend keys (Pydantic Settings) | **No** |
+| `.env.example` | Flutter dart-define template | Yes (placeholders) |
+| `.env.development` | Your Flutter client defines — **one file for web, Android, and iOS** | **No** |
+
+`.gitignore` ignores `.env`, `.env.*`, and keeps `!.env.example` / `!.env.*.example`.
+
+**Split of responsibility**
+
+| Variable | Where |
+|---|---|
+| `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `API_BASE_URL`, feature flags | Flutter (`--dart-define` / `.env.development`) |
+| `SUPABASE_JWT_SECRET`, `DATABASE_URL`, `GEMINI_API_KEY`, `MISTRAL_API_KEY`, `R2_*`, Redis/Celery | `backend/.env` only |
+| `SENTRY_DSN`, `POSTHOG_*` | Optional on both sides (empty = no-op) |
+
+Never put `SUPABASE_JWT_SECRET`, Gemini, Mistral, or R2 secrets in Flutter dart-defines or source code.
+
+### 1. Configure backend (`backend/.env`)
+
+```bash
+cd backend
+cp .env.example .env
+```
+
+Fill at least:
+
+```env
+SUPABASE_URL=
+SUPABASE_ANON_KEY=
+SUPABASE_JWT_SECRET=
+DATABASE_URL=postgresql+psycopg://lexivo:lexivo@localhost:5432/lexivo
+GEMINI_API_KEY=
+LLM_PROVIDER=gemini
+MISTRAL_API_KEY=
+OCR_PROVIDER=mistral
+R2_ACCOUNT_ID=
+R2_ACCESS_KEY_ID=
+R2_SECRET_ACCESS_KEY=
+R2_BUCKET_NAME=
+R2_ENDPOINT_URL=
+CELERY_TASK_ALWAYS_EAGER=true
+```
+
+On startup the API logs **masked** values and enabled providers (never full secrets). If a required key is missing, it exits with a clear error pointing at `backend/.env`.
+
+### 2. Configure Flutter (`.env.development`)
+
+```bash
+# from repo root
+cp .env.example .env.development     # PowerShell: copy .env.example .env.development
+```
+
+Set `SUPABASE_URL` and `SUPABASE_ANON_KEY`; keep `API_BASE_URL=http://localhost:8000`.
+This one file serves **every** debug target — web, Android emulator, Android USB
+device, and iOS — because `tool/run_dev` tunnels the device's `localhost:8000`
+to the host with `adb reverse`. There is no per-platform env file and no
+`10.0.2.2` special case.
+
+### 3. Start PostgreSQL (and Redis / API)
+
+**Recommended — Docker Compose** (Postgres + pgvector, Redis, API, Celery worker):
+
+```bash
+cd backend
+docker compose up --build
+```
+
+Compose reads `backend/.env` and overrides DB/Redis URLs to container hostnames.
+
+**Optional — API on the host** (Compose Postgres/Redis still running, or your own Postgres):
+
+```bash
+cd backend
+python -m pip install -r requirements.txt
+# ensure backend/.env is filled
+uvicorn app.main:app --reload --app-dir .
+```
+
+Only run one API process at a time. A second uvicorn bound to `127.0.0.1:8000`
+takes precedence over one bound to `0.0.0.0:8000` on Windows, so a forgotten
+instance with stale env silently serves every request.
+
+**Optional — your own PostgreSQL install** (no Docker). Create the role, database,
+and pgvector extension that `DATABASE_URL` expects:
+
+```sql
+-- as a superuser (psql -U postgres)
+CREATE ROLE lexivo WITH LOGIN PASSWORD 'lexivo';
+CREATE DATABASE lexivo OWNER lexivo;
+\c lexivo
+CREATE EXTENSION IF NOT EXISTS vector;   -- requires the pgvector extension files
+```
+
+`CREATE EXTENSION vector` fails unless pgvector is installed for that server
+(Compose uses the `pgvector/pgvector` image, which bundles it). Without it, RAG
+chat and embeddings cannot run.
+
+### 4. Run Flutter in Debug mode
+
+Start the API first (one instance only):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tool\run_api.ps1   # -Force replaces an existing listener
+```
+
+Then launch any target from the same `.env.development`:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File tool\run_dev.ps1 -Target android   # emulator or USB phone
+powershell -ExecutionPolicy Bypass -File tool\run_dev.ps1 -Target web
+powershell -ExecutionPolicy Bypass -File tool\run_dev.ps1 -Target android -DeviceId RZCXB2B0CVT
+```
+
+macOS / Linux (required for iOS):
+
+```bash
+./tool/run_dev.sh --target ios
+./tool/run_dev.sh --target web
+```
+
+The script sets up `adb reverse tcp:8000 tcp:8000` for Android targets, so the
+device resolves `http://localhost:8000` to this machine — no `10.0.2.2`, no LAN
+IP, and no firewall rule. For a physical **iOS** device (adb cannot tunnel),
+pass your machine's LAN address; the script writes it back into the same file:
+
+```bash
+./tool/run_dev.sh --target ios --api-host 192.168.1.20
+```
+
+Plain `flutter run` still works if you prefer it:
+
+```bash
+flutter run --dart-define-from-file=.env.development -d chrome
+```
+
+If required client keys are missing, Debug mode shows a configuration screen
+instead of crashing — that screen means you launched without the env file.
+
+Design-system showcase (no backend keys required for UI only):
+
+```bash
+flutter run --dart-define=LEXIVO_SHOWCASE=true
+```
+
+### Provider setup guides
+
+**Supabase**
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. Project Settings → API: copy **Project URL** → `SUPABASE_URL`, the **anon / publishable** key → `SUPABASE_ANON_KEY` (Flutter + backend).
+3. `SUPABASE_JWT_SECRET` (**backend only**) is optional. Projects using JWT signing
+   keys issue asymmetric (ES256/RS256) access tokens, which the API verifies through
+   the project JWKS derived from `SUPABASE_URL`. Only set the secret for legacy
+   projects that still sign with HS256 (Project Settings → JWT Keys → legacy secret).
+4. Auth → URL configuration: allow `http://localhost:*` (and your Flutter web origin) for local redirects.
+
+**Google Gemini**
+
+1. Create an API key in Google AI Studio (or Vertex).
+2. Set `GEMINI_API_KEY` and `LLM_PROVIDER=gemini` in `backend/.env`.
+3. Used for summary, translation, RAG chat — never ship this key in the Flutter app.
+
+**Mistral OCR**
+
+1. Create an API key in the Mistral console.
+2. Set `MISTRAL_API_KEY` and `OCR_PROVIDER=mistral` in `backend/.env`.
+
+**Cloudflare R2**
+
+1. Cloudflare dashboard → R2 → create a private bucket (e.g. `lexivo-dev`).
+2. Create an API token with object read/write for that bucket.
+3. Set in `backend/.env`: `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `R2_ENDPOINT_URL` (S3-compatible endpoint for the account).
+
+Full matrix (dev/prod, GitHub Environments): [docs/environment-strategy.md](docs/environment-strategy.md).  
+Related: [docs/deployment-guide.md](docs/deployment-guide.md), [docs/security.md](docs/security.md), [docs/production-checklist.md](docs/production-checklist.md).
 
 ## Running the App
 
 ```bash
-# Mobile / desktop device
-flutter run
+# After backend/.env + .env.development are filled and API is up:
+flutter run --dart-define-from-file=.env.development -d chrome
 
-# Web
-flutter run -d chrome
+# Mobile / desktop device
+flutter run --dart-define-from-file=.env.development
 
 # Design-system showcase
 flutter run --dart-define=LEXIVO_SHOWCASE=true
 ```
 
-Point the client at a running API via `API_BASE_URL` (see env strategy). Typical local API: `http://localhost:8000`.
-
+Typical local API: `http://localhost:8000` (`API_BASE_URL`).
 ## Build Commands
 
 ```bash

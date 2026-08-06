@@ -1,6 +1,20 @@
 """Lexivo backend — local development.
 
-## Run API locally
+## Env (required)
+
+```bash
+cd backend
+copy .env.example .env   # PowerShell; or `cp .env.example .env`
+```
+
+Edit `.env` with your Supabase, Gemini, Mistral, and R2 keys. **Never commit `.env`.**
+
+On startup the API validates required vars, logs **masked** secrets, and prints enabled providers.
+Tests set `LEXIVO_SKIP_ENV_VALIDATION=1` so pytest can use fakes without real keys.
+
+## Run API locally (host)
+
+Requires Postgres + Redis reachable at the URLs in `.env` (or Compose services on localhost ports).
 
 ```bash
 cd backend
@@ -33,21 +47,20 @@ Compose remains the **local** developer stack only (architecture.md §6).
 ```bash
 cd backend
 copy .env.example .env   # PowerShell; or `cp .env.example .env`
+# fill secrets in .env
 docker compose up --build
 ```
 
-Services: Postgres+pgvector, Redis, API (`:8000`), Celery worker.
+Services: Postgres+pgvector, Redis, API (`:8000`), Celery worker. Compose loads `backend/.env` (gitignored).
 
 ### CI
 
 PR/main pipelines call reusable composites (`.github/actions/`) — Flutter analyze/test, pytest (eager Celery), OpenAPI snapshot check, Docker image build. See [docs/ci-cd.md](../docs/ci-cd.md).
 
-### Verify Compose smoke (task 1.9) — host verification
-
-Docker was not available in the Backend Agent CI/session environment; run this on a host with Docker:
+### Verify Compose smoke — host verification
 
 1. `cd backend`
-2. `copy .env.example .env` (or `cp .env.example .env`)
+2. `copy .env.example .env` and fill required keys
 3. `docker compose up --build -d`
 4. Wait until `postgres` and `redis` (and ideally `api`) report healthy
 5. `curl http://127.0.0.1:8000/api/v1/health` → `{"status":"ok"}`

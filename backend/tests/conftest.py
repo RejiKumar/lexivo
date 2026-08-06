@@ -5,6 +5,7 @@ Compose-backed integration tests may use marker ``compose`` (optional; needs Doc
 
 from __future__ import annotations
 
+import os
 from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
 
@@ -37,6 +38,9 @@ from tests.fakes import (
 )
 
 import app.models  # noqa: F401 — register ORM metadata
+
+# Strict env validation is for real local/prod boots; tests use fakes + overrides.
+os.environ.setdefault("LEXIVO_SKIP_ENV_VALIDATION", "1")
 
 TEST_JWT_SECRET = "shared-test-jwt-secret-32chars!!"
 

@@ -6,7 +6,7 @@ from app.adapters.auth.clerk_adapter import (
     CLERK_STUB_TOKEN,
     ClerkAuthAdapter,
 )
-from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter
+from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter, jwks_url_for
 
 __all__ = [
     "CLERK_STUB_EMAIL",
@@ -14,4 +14,5 @@ __all__ = [
     "CLERK_STUB_TOKEN",
     "ClerkAuthAdapter",
     "SupabaseAuthAdapter",
+    "jwks_url_for",
 ]

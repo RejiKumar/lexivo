@@ -2,11 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:lexivo/core/config/app_config.dart';
 import 'package:posthog_flutter/posthog_flutter.dart';
 
-/// Initialize PostHog when [AppConfig.posthogApiKey] is non-empty; otherwise no-op.
+/// Initialize PostHog when analytics is on and API key is set; otherwise no-op.
 Future<bool> initPosthogIfConfigured() async {
   if (!AppConfig.posthogEnabled) {
     if (kDebugMode) {
-      debugPrint('PostHog skipped — POSTHOG_API_KEY empty');
+      debugPrint(
+        'PostHog skipped — set ENABLE_ANALYTICS=true and POSTHOG_API_KEY',
+      );
     }
     return false;
   }

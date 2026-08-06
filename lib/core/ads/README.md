@@ -41,6 +41,11 @@ Paywall UI stays behind `SUBSCRIPTION_PAYWALL_ENABLED` (default off).
 consent is `obtained` or `notRequired`, [LexivoAdBanner] renders nothing.
 iOS ATT is handled by UMP when the advertising identifier is used.
 
+UMP is unreachable on emulators and unregistered debug devices, which would
+leave every slot blank locally. `resolveUnreachableConsent` therefore treats an
+unreachable lookup as `notRequired` **only** in debug builds using Google test
+ad units; release builds and `ADS_USE_PRODUCTION_IDS=true` stay `unknown`.
+
 ## Tests / CI
 
 Default `ENABLE_ADS=false` keeps `flutter test` free of device AdMob init.

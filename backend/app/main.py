@@ -1,5 +1,6 @@
 """FastAPI application factory."""
 
+import logging
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -17,13 +18,20 @@ from app.api.v1.routers import (
     users,
 )
 from app.core.config import Settings, get_settings
+from app.core.env_validation import log_startup_config, validate_settings_or_raise
 from app.core.exception_handlers import register_exception_handlers
 from app.core.observability import init_sentry
+
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    init_sentry(get_settings())
+    settings = get_settings()
+    log_startup_config(settings)
+    validate_settings_or_raise(settings)
+    init_sentry(settings)
+    logger.info("Lexivo API ready (providers validated).")
     yield
 
 

@@ -1,8 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lexivo/core/ads/ads.dart';
 import 'package:lexivo/core/ads/admob_ads_provider.dart';
+import 'package:lexivo/core/ads/ump_ads_consent.dart';
 import 'package:lexivo/core/config/app_config.dart';
 import 'package:lexivo/core/l10n/l10n.dart';
 import 'package:lexivo/core/theming/app_theme.dart';
@@ -114,6 +117,58 @@ void main() {
     });
   });
 
+  group('AdsBootstrap', () {
+    testWidgets('slot appears once the adapter finishes initializing',
+        (tester) async {
+      final gate = Completer<void>();
+      final recording = _SlowInitAdsProvider(gate.future);
+
+      await tester.pumpWidget(
+        _host(
+          overrides: [
+            enableAdsFlagProvider.overrideWithValue(true),
+            adsSuppressedProvider.overrideWithValue(false),
+            adsConsentGatewayProvider.overrideWithValue(
+              StubAdsConsentGateway(status: AdsConsentStatus.obtained),
+            ),
+            adsProviderProvider.overrideWithValue(recording),
+          ],
+          child: const AdsBootstrap(child: LexivoAdBanner()),
+        ),
+      );
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.byKey(RecordingAdsProvider.bannerKey), findsNothing);
+
+      gate.complete();
+      await tester.pumpAndSettle();
+
+      expect(recording.initializeCalls, 1);
+      expect(find.byKey(RecordingAdsProvider.bannerKey), findsOneWidget);
+    });
+  });
+
+  group('unreachable UMP consent', () {
+    test('debug build on test ad units renders inventory', () {
+      expect(
+        resolveUnreachableConsent(debugBuild: true, productionAdUnits: false),
+        AdsConsentStatus.notRequired,
+      );
+    });
+
+    test('production ad units stay blank', () {
+      expect(
+        resolveUnreachableConsent(debugBuild: true, productionAdUnits: true),
+        AdsConsentStatus.unknown,
+      );
+      expect(
+        resolveUnreachableConsent(debugBuild: false, productionAdUnits: false),
+        AdsConsentStatus.unknown,
+      );
+    });
+  });
+
   group('AdMobAdsProvider consent', () {
     test('does not init SDK when consent still required', () async {
       final sdk = RecordingAdMobSdk();
@@ -174,6 +229,19 @@ void main() {
       expect(recording.bannerBuilds, 0);
     });
   });
+}
+
+/// Mimics the real SDK: initialization completes well after consent resolves.
+class _SlowInitAdsProvider extends RecordingAdsProvider {
+  _SlowInitAdsProvider(this._gate);
+
+  final Future<void> _gate;
+
+  @override
+  Future<void> initialize({required AdsConsentStatus consent}) async {
+    await _gate;
+    await super.initialize(consent: consent);
+  }
 }
 
 Widget _host({

@@ -6,6 +6,21 @@ import 'package:lexivo/core/ads/ads_consent.dart';
 import 'package:lexivo/core/ads/ads_provider.dart';
 import 'package:lexivo/core/config/app_config.dart';
 
+/// Consent when UMP itself cannot be reached (emulator, unregistered debug
+/// device, no network). Release builds and builds using production ad units stay
+/// `unknown` so no inventory loads; debug builds on Google test units carry no
+/// user data, so they may render instead of leaving every slot blank.
+@visibleForTesting
+AdsConsentStatus resolveUnreachableConsent({
+  required bool debugBuild,
+  required bool productionAdUnits,
+}) {
+  if (debugBuild && !productionAdUnits) {
+    return AdsConsentStatus.notRequired;
+  }
+  return AdsConsentStatus.unknown;
+}
+
 /// UMP consent via Google Mobile Ads. No-ops safely when the platform channel
 /// is unavailable (desktop / tests without a device).
 ///
@@ -28,6 +43,7 @@ class UmpAdsConsentGateway implements AdsConsentGateway {
       return _status;
     }
 
+    var unreachable = false;
     try {
       final completer = Completer<void>();
       ConsentInformation.instance.requestConsentInfoUpdate(
@@ -36,12 +52,13 @@ class UmpAdsConsentGateway implements AdsConsentGateway {
           if (!completer.isCompleted) completer.complete();
         },
         (_) {
+          unreachable = true;
           if (!completer.isCompleted) completer.complete();
         },
       );
       await completer.future.timeout(
         const Duration(seconds: 8),
-        onTimeout: () {},
+        onTimeout: () => unreachable = true,
       );
 
       await ConsentForm.loadAndShowConsentFormIfRequired((_) {});
@@ -51,7 +68,15 @@ class UmpAdsConsentGateway implements AdsConsentGateway {
       _status = _mapStatus(raw, canRequestAds: canRequest);
     } on Object {
       // Fail closed for personalized; treat as unknown so UI stays empty.
+      unreachable = true;
       _status = AdsConsentStatus.unknown;
+    }
+
+    if (unreachable && _status == AdsConsentStatus.unknown) {
+      _status = resolveUnreachableConsent(
+        debugBuild: kDebugMode,
+        productionAdUnits: AppConfig.adsUseProductionIds,
+      );
     }
     return _status;
   }

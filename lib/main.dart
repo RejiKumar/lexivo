@@ -25,23 +25,32 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   AppRouter.showcaseEnabled = LexivoDesignSystemFlags.showcaseEnabled;
 
+  if (kDebugMode) {
+    AppConfig.logStartupConfig(debugPrint);
+  }
+
+  final missing = AppConfig.missingRequired();
+  if (missing.isNotEmpty) {
+    final message =
+        'Missing required dart-defines: ${missing.join(', ')}.\n'
+        'Copy .env.example → .env.development, fill SUPABASE_URL and '
+        'SUPABASE_ANON_KEY, then run:\n'
+        '  flutter run --dart-define-from-file=.env.development -d chrome\n'
+        'AI keys (Gemini/Mistral/R2) go in backend/.env — not Flutter.';
+    if (kDebugMode) {
+      debugPrint(message);
+    }
+    runApp(_MissingConfigApp(missingKeys: missing));
+    return;
+  }
+
   await initSentryIfConfigured();
   await initPosthogIfConfigured();
 
-  final supabaseUrl = AppConfig.supabaseUrl;
-  final supabaseAnonKey = AppConfig.supabaseAnonKey;
-
-  if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
-    await Supabase.initialize(
-      url: supabaseUrl,
-      publishableKey: supabaseAnonKey,
-    );
-  } else if (kDebugMode) {
-    debugPrint(
-      'SUPABASE_URL / SUPABASE_ANON_KEY not set — auth SDK deferred. '
-      'See .env.example.',
-    );
-  }
+  await Supabase.initialize(
+    url: AppConfig.supabaseUrl,
+    publishableKey: AppConfig.supabaseAnonKey,
+  );
 
   runApp(
     ProviderScope(
@@ -62,6 +71,38 @@ Future<void> main() async {
       child: const LexivoRouterApp(),
     ),
   );
+}
+
+/// Shown when required client env is missing — avoids a cryptic SDK crash.
+class _MissingConfigApp extends StatelessWidget {
+  const _MissingConfigApp({required this.missingKeys});
+
+  final List<String> missingKeys;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Lexivo — config required',
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: SelectableText(
+              'Lexivo cannot start: missing required configuration.\n\n'
+              'Missing: ${missingKeys.join(', ')}\n\n'
+              '1. Copy .env.example to .env.development\n'
+              '2. Set SUPABASE_URL and SUPABASE_ANON_KEY\n'
+              '3. flutter run --dart-define-from-file=.env.development -d chrome\n\n'
+              'Put GEMINI_API_KEY, MISTRAL_API_KEY, and R2_* in backend/.env only.\n'
+              'Never commit secrets.',
+              style: const TextStyle(fontSize: 14, height: 1.4),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 /// Lightweight root used by design-system showcase tests (no auth wiring).

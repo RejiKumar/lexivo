@@ -1,8 +1,8 @@
 # Lexivo local stack (architecture.md §6).
 # Hosting (Cloud Run / Railway) is deferred — Compose is local-only.
 #
-# Verify (task 1.9) when Docker is available:
-#   copy .env.example .env
+# Setup:
+#   copy .env.example .env   # then fill secrets (never commit .env)
 #   docker compose up --build -d
 #   curl http://127.0.0.1:8000/api/v1/health
 #   docker compose down
@@ -37,11 +37,13 @@ services:
   api:
     build: .
     env_file:
-      - .env.example
+      - .env
     environment:
       DATABASE_URL: postgresql+psycopg://lexivo:lexivo@postgres:5432/lexivo
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/1
+      # Workers handle OCR/embeddings; API should not run Celery in-process.
+      CELERY_TASK_ALWAYS_EAGER: "false"
     ports:
       - "8000:8000"
     depends_on:
@@ -64,11 +66,12 @@ services:
     build: .
     command: celery -A app.tasks.celery_app worker --loglevel=info
     env_file:
-      - .env.example
+      - .env
     environment:
       DATABASE_URL: postgresql+psycopg://lexivo:lexivo@postgres:5432/lexivo
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/1
+      CELERY_TASK_ALWAYS_EAGER: "false"
     depends_on:
       postgres:
         condition: service_healthy

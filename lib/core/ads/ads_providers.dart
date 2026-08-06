@@ -52,8 +52,11 @@ class _AdsBootstrapState extends ConsumerState<AdsBootstrap> {
     final gateway = ref.read(adsConsentGatewayProvider);
     final status = await gateway.resolveConsent();
     if (!mounted) return;
-    ref.read(adsConsentStatusProvider.notifier).state = status;
+    // Initialize before publishing consent: slots read the adapter's readiness
+    // synchronously, and nothing rebuilds them once the SDK finishes later.
     await ref.read(adsProviderProvider).initialize(consent: status);
+    if (!mounted) return;
+    ref.read(adsConsentStatusProvider.notifier).state = status;
   }
 
   @override

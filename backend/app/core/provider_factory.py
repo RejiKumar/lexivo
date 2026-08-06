@@ -5,7 +5,7 @@ from __future__ import annotations
 from app.adapters.analytics.posthog import PostHogAnalyticsProvider
 from app.adapters.analytics.stub import StubAnalyticsProvider
 from app.adapters.auth.clerk_adapter import ClerkAuthAdapter
-from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter
+from app.adapters.auth.supabase_adapter import SupabaseAuthAdapter, jwks_url_for
 from app.adapters.llm.gemini_adapter import GeminiLLMAdapter
 from app.adapters.llm.openai_adapter import OpenAILLMAdapter
 from app.adapters.ocr.doc_ai_adapter import DocAIAdapter
@@ -25,7 +25,10 @@ def build_auth_provider(settings: Settings | None = None) -> AuthProvider:
     cfg = settings or get_settings()
     if cfg.auth_provider == "clerk":
         return ClerkAuthAdapter(secret_key=cfg.clerk_secret_key)
-    return SupabaseAuthAdapter(jwt_secret=cfg.supabase_jwt_secret)
+    return SupabaseAuthAdapter(
+        jwt_secret=cfg.supabase_jwt_secret,
+        jwks_url=jwks_url_for(cfg.supabase_url),
+    )
 
 
 def build_storage_provider(settings: Settings | None = None) -> StorageProvider:

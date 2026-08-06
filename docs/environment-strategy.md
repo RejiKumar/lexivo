@@ -43,10 +43,17 @@ See `backend/docker-compose.yml` and `backend/README.md`. Local is always “dev
 
 ```bash
 cd backend
-cp .env.example .env.development   # or maintain .env as symlink/copy for Compose
+cp .env.example .env   # gitignored; fill secrets — Compose env_file: .env
 docker compose up --build
 curl http://127.0.0.1:8000/api/v1/health
 ```
+
+Root Flutter template: copy `.env.example` → `.env.development`. That single file
+drives **all** debug targets (web, Android emulator, Android USB device, iOS) —
+launch with `powershell -File tool\run_dev.ps1 -Target android|web` or
+`./tool/run_dev.sh --target ios`, which tunnel the device's `localhost:8000` via
+`adb reverse` instead of using per-platform base URLs. See README
+**Local environment**.
 
 CI pytest: eager Celery + fixtures (no full Compose on every PR). Same Dockerfile and Settings names as Cloud Run.
 
