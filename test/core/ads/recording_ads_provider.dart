@@ -13,6 +13,7 @@ class RecordingAdsProvider implements AdsProvider {
   bool _suppressed = false;
   bool _initialized = false;
   int bannerBuilds = 0;
+  int nativeBuilds = 0;
   int personalizedAttempts = 0;
   int blockedPersonalized = 0;
   int initializeCalls = 0;
@@ -61,7 +62,25 @@ class RecordingAdsProvider implements AdsProvider {
   }
 
   @override
-  Widget native({required String placementId}) => const SizedBox.shrink();
+  Widget native({required String placementId}) {
+    nativeBuilds++;
+    if (_suppressed || !_initialized) return const SizedBox.shrink();
+    if (_consent == AdsConsentStatus.required ||
+        _consent == AdsConsentStatus.unknown) {
+      return const SizedBox.shrink();
+    }
+    personalizedAttempts++;
+    if (!canRequestPersonalizedAds &&
+        _consent != AdsConsentStatus.denied) {
+      blockedPersonalized++;
+      return const SizedBox.shrink();
+    }
+    return const SizedBox(
+      key: Key('recording_trending_ad'),
+      height: 120,
+      width: double.infinity,
+    );
+  }
 
   @override
   Future<RewardResult?> showRewarded({required String placementId}) async =>
@@ -98,6 +117,13 @@ class RecordingAdMobSdk implements AdMobSdk {
     required bool nonPersonalizedOnly,
   }) =>
       const SizedBox(key: Key('stub_sdk_banner'), height: 50);
+
+  @override
+  Widget createTrending({
+    required String adUnitId,
+    required bool nonPersonalizedOnly,
+  }) =>
+      const SizedBox(key: Key('stub_sdk_trending'), height: 120);
 
   @override
   Future<void> showAppOpen({required String adUnitId}) async {}

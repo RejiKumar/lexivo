@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/ads/ads.dart';
 import 'package:lexivo/core/design_system/components/button.dart';
 import 'package:lexivo/core/design_system/components/error_banner.dart';
 import 'package:lexivo/core/design_system/components/snackbar.dart';
@@ -18,74 +19,78 @@ class DocumentScanScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scan = ref.watch(documentScanControllerProvider);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(LexivoSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text('Scan document', style: LexivoTypography.headline),
-              const SizedBox(height: LexivoSpacing.sm),
-              Text(
-                'Take a photo, pick one from your gallery, or upload a PDF. '
-                'Same flow on every platform.',
-                style: LexivoTypography.body,
-              ),
-              const SizedBox(height: LexivoSpacing.lg),
-              if (scan.failure != null) ...[
-                LexivoErrorBanner(message: scan.failure!.message),
+    return LexivoMenuAdsScaffold(
+      bannerPlacementId: AdsPlacements.documentScanBanner,
+      trendingPlacementId: AdsPlacements.documentScanTrending,
+      body: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(LexivoSpacing.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('Scan document', style: LexivoTypography.headline),
+                const SizedBox(height: LexivoSpacing.sm),
+                Text(
+                  'Take a photo, pick one from your gallery, or upload a PDF. '
+                  'Same flow on every platform.',
+                  style: LexivoTypography.body,
+                ),
+                const SizedBox(height: LexivoSpacing.lg),
+                if (scan.failure != null) ...[
+                  LexivoErrorBanner(message: scan.failure!.message),
+                  const SizedBox(height: LexivoSpacing.md),
+                ],
+                const Spacer(),
+                LexivoButton(
+                  label: 'Take photo',
+                  loading: scan.isLoading,
+                  onPressed: scan.isLoading
+                      ? null
+                      : () => _start(
+                            context,
+                            ref,
+                            DocumentInputPreference.camera,
+                          ),
+                  fullWidth: true,
+                ),
+                const SizedBox(height: LexivoSpacing.sm),
+                LexivoButton(
+                  label: 'Choose from gallery',
+                  variant: LexivoButtonVariant.secondary,
+                  loading: scan.isLoading,
+                  onPressed: scan.isLoading
+                      ? null
+                      : () => _start(
+                            context,
+                            ref,
+                            DocumentInputPreference.gallery,
+                          ),
+                  fullWidth: true,
+                ),
+                const SizedBox(height: LexivoSpacing.sm),
+                LexivoButton(
+                  label: 'Upload file (PDF or image)',
+                  variant: LexivoButtonVariant.ghost,
+                  loading: scan.isLoading,
+                  onPressed: scan.isLoading
+                      ? null
+                      : () => _start(
+                            context,
+                            ref,
+                            DocumentInputPreference.file,
+                          ),
+                  fullWidth: true,
+                ),
                 const SizedBox(height: LexivoSpacing.md),
+                LexivoButton(
+                  label: 'Back to library',
+                  variant: LexivoButtonVariant.ghost,
+                  onPressed: () => context.go(RouteGuards.documents),
+                  fullWidth: true,
+                ),
               ],
-              const Spacer(),
-              LexivoButton(
-                label: 'Take photo',
-                loading: scan.isLoading,
-                onPressed: scan.isLoading
-                    ? null
-                    : () => _start(
-                          context,
-                          ref,
-                          DocumentInputPreference.camera,
-                        ),
-                fullWidth: true,
-              ),
-              const SizedBox(height: LexivoSpacing.sm),
-              LexivoButton(
-                label: 'Choose from gallery',
-                variant: LexivoButtonVariant.secondary,
-                loading: scan.isLoading,
-                onPressed: scan.isLoading
-                    ? null
-                    : () => _start(
-                          context,
-                          ref,
-                          DocumentInputPreference.gallery,
-                        ),
-                fullWidth: true,
-              ),
-              const SizedBox(height: LexivoSpacing.sm),
-              LexivoButton(
-                label: 'Upload file (PDF or image)',
-                variant: LexivoButtonVariant.ghost,
-                loading: scan.isLoading,
-                onPressed: scan.isLoading
-                    ? null
-                    : () => _start(
-                          context,
-                          ref,
-                          DocumentInputPreference.file,
-                        ),
-                fullWidth: true,
-              ),
-              const SizedBox(height: LexivoSpacing.md),
-              LexivoButton(
-                label: 'Back to library',
-                variant: LexivoButtonVariant.ghost,
-                onPressed: () => context.go(RouteGuards.documents),
-                fullWidth: true,
-              ),
-            ],
+            ),
           ),
         ),
       ),

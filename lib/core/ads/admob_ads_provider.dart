@@ -109,8 +109,12 @@ class AdMobAdsProvider implements AdsProvider {
     if (!personalized && _consent != AdsConsentStatus.denied) {
       return const SizedBox.shrink();
     }
-    // Native templates need platform layout; reserve nothing until wired.
-    return const SizedBox.shrink();
+    // Medium-rectangle creatives stand in for "trending" native until a
+    // platform NativeAd factory is registered.
+    return _sdk.createTrending(
+      adUnitId: AdsUnitIds.mediumRectangle,
+      nonPersonalizedOnly: !personalized || AppConfig.childDirected,
+    );
   }
 
   @override

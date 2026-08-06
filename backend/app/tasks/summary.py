@@ -19,6 +19,10 @@ from app.models import JobStatus, SummaryStatus
 from app.repositories.document_repo import DocumentRepository
 from app.repositories.job_repo import JobRepository
 from app.services.notification_service import emit_job_complete_notification
+from app.services.summary_service import (
+    current_summary_prompt_version,
+    has_fresh_cached_summary,
+)
 from app.tasks.agent_errors import agent_failure_error
 from app.tasks.celery_app import celery_app
 from app.tasks.provider_overrides import get_task_llm_provider
@@ -99,6 +103,19 @@ async def _run_summary_async(
             else:
                 job_id = queued[0].id
 
+        # Skip LLM when a fresh cached summary already exists for this prompt version.
+        if has_fresh_cached_summary(document):
+            jobs.update(job_id, status=JobStatus.succeeded, error_message="")
+            docs.update(document_id, summary_status=SummaryStatus.ready)
+            return {
+                "document_id": document_id,
+                "job_id": job_id,
+                "summary_status": SummaryStatus.ready.value,
+                "cached": True,
+                "short_length": len(document.short_summary or ""),
+                "detailed_length": len(document.detailed_summary or ""),
+            }
+
         jobs.update(job_id, status=JobStatus.running)
         docs.update(document_id, summary_status=SummaryStatus.processing)
 
@@ -125,6 +142,9 @@ async def _run_summary_async(
         data = agent_result.data or {}
         short_summary = str(data.get("short_summary", ""))
         detailed_summary = str(data.get("detailed_summary", ""))
+        prompt_version = str(
+            data.get("prompt_version") or current_summary_prompt_version()
+        )
 
         jobs.update(job_id, status=JobStatus.succeeded, error_message="")
         docs.update(
@@ -132,6 +152,7 @@ async def _run_summary_async(
             summary_status=SummaryStatus.ready,
             short_summary=short_summary,
             detailed_summary=detailed_summary,
+            summary_prompt_version=prompt_version,
         )
 
         await emit_job_complete_notification(

@@ -169,6 +169,9 @@ class Document(Base):
     extracted_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     short_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
     detailed_summary: Mapped[str | None] = mapped_column(Text, nullable=True)
+    summary_prompt_version: Mapped[str | None] = mapped_column(
+        String(16), nullable=True
+    )
     summary_status: Mapped[SummaryStatus] = mapped_column(
         Enum(SummaryStatus, name="summary_status"),
         default=SummaryStatus.idle,

@@ -16,6 +16,12 @@ abstract class AdMobSdk {
     required bool nonPersonalizedOnly,
   });
 
+  /// Medium-rectangle inventory used for "trending" menu placements.
+  Widget createTrending({
+    required String adUnitId,
+    required bool nonPersonalizedOnly,
+  });
+
   Future<void> showAppOpen({required String adUnitId});
 
   Future<RewardResult?> showRewarded({required String adUnitId});

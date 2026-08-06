@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lexivo/core/ads/ads.dart';
 import 'package:lexivo/core/design_system/components/badge.dart';
 import 'package:lexivo/core/design_system/components/empty_state.dart';
 import 'package:lexivo/core/design_system/tokens/spacing.dart';
@@ -18,50 +19,54 @@ class NotificationsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final inbox = ref.watch(notificationsInboxProvider);
 
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(LexivoSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text('Notifications', style: LexivoTypography.headline),
-              const SizedBox(height: LexivoSpacing.md),
-              Expanded(
-                child: AsyncValueView<List<AppNotification>>(
-                  value: inbox,
-                  onRetry: () =>
-                      ref.read(notificationsInboxProvider.notifier).refresh(),
-                  builder: (context, items) {
-                    if (items.isEmpty) {
-                      return const LexivoEmptyState(
-                        title: 'No notifications yet',
-                        description:
-                            'You will see updates here when processing finishes.',
-                        icon: Icons.notifications_none_outlined,
+    return LexivoMenuAdsScaffold(
+      bannerPlacementId: AdsPlacements.notificationsBanner,
+      trendingPlacementId: AdsPlacements.notificationsTrending,
+      body: Scaffold(
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(LexivoSpacing.lg),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('Notifications', style: LexivoTypography.headline),
+                const SizedBox(height: LexivoSpacing.md),
+                Expanded(
+                  child: AsyncValueView<List<AppNotification>>(
+                    value: inbox,
+                    onRetry: () =>
+                        ref.read(notificationsInboxProvider.notifier).refresh(),
+                    builder: (context, items) {
+                      if (items.isEmpty) {
+                        return const LexivoEmptyState(
+                          title: 'No notifications yet',
+                          description:
+                              'You will see updates here when processing finishes.',
+                          icon: Icons.notifications_none_outlined,
+                        );
+                      }
+                      return RefreshIndicator(
+                        onRefresh: () => ref
+                            .read(notificationsInboxProvider.notifier)
+                            .refresh(),
+                        child: ListView.separated(
+                          itemCount: items.length,
+                          separatorBuilder: (_, _) =>
+                              const SizedBox(height: LexivoSpacing.sm),
+                          itemBuilder: (context, index) {
+                            final item = items[index];
+                            return _NotificationRow(
+                              notification: item,
+                              onTap: () => _onTap(context, ref, item),
+                            );
+                          },
+                        ),
                       );
-                    }
-                    return RefreshIndicator(
-                      onRefresh: () => ref
-                          .read(notificationsInboxProvider.notifier)
-                          .refresh(),
-                      child: ListView.separated(
-                        itemCount: items.length,
-                        separatorBuilder: (_, _) =>
-                            const SizedBox(height: LexivoSpacing.sm),
-                        itemBuilder: (context, index) {
-                          final item = items[index];
-                          return _NotificationRow(
-                            notification: item,
-                            onTap: () => _onTap(context, ref, item),
-                          );
-                        },
-                      ),
-                    );
-                  },
+                    },
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

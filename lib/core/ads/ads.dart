@@ -10,4 +10,5 @@ export 'ads_providers.dart';
 export 'ads_unit_ids.dart';
 export 'create_ads_provider.dart';
 export 'lexivo_ad_banner.dart';
+export 'lexivo_trending_ad.dart';
 export 'noop_ads_provider.dart';

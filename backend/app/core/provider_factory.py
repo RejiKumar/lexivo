@@ -54,7 +54,10 @@ def build_llm_provider(settings: Settings | None = None) -> LLMProvider:
     cfg = settings or get_settings()
     if cfg.llm_provider == "openai":
         return OpenAILLMAdapter(api_key=cfg.openai_api_key)
-    return GeminiLLMAdapter(api_key=cfg.gemini_api_key)
+    fallback: LLMProvider | None = None
+    # Always attach OpenAI (stub or real) so Gemini 429s can fail over.
+    fallback = OpenAILLMAdapter(api_key=cfg.openai_api_key)
+    return GeminiLLMAdapter(api_key=cfg.gemini_api_key, fallback=fallback)
 
 
 def build_ocr_provider(settings: Settings | None = None) -> OCRProvider:

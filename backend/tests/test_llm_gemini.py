@@ -7,6 +7,7 @@ import pytest
 
 from app.adapters.llm.errors import LLMProviderError, LLMRateLimitError
 from app.adapters.llm.gemini_adapter import GeminiLLMAdapter
+from app.adapters.llm.openai_adapter import OpenAILLMAdapter
 from app.adapters.protocols import LLMProvider
 
 
@@ -55,8 +56,49 @@ async def test_complete_without_api_key_raises() -> None:
 
 
 @pytest.mark.asyncio
-async def test_rate_limited_response_raises_typed_error_without_key() -> None:
-    transport = httpx.MockTransport(lambda request: httpx.Response(429))
+async def test_rate_limited_retries_then_falls_back_to_openai(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from tenacity import wait_none
+
+    monkeypatch.setattr(
+        "app.adapters.llm.gemini_adapter.wait_exponential",
+        lambda **_kwargs: wait_none(),
+    )
+
+    calls = {"n": 0}
+
+    def handler(_request: httpx.Request) -> httpx.Response:
+        calls["n"] += 1
+        return httpx.Response(429)
+
+    transport = httpx.MockTransport(handler)
+    fallback = OpenAILLMAdapter(api_key="openai-key")
+    async with httpx.AsyncClient(transport=transport) as client:
+        adapter = GeminiLLMAdapter(
+            api_key="super-secret-key",
+            client=client,
+            fallback=fallback,
+        )
+        result = await adapter.complete("Hello world")
+
+    assert calls["n"] == 3
+    assert result.startswith("[openai-stub")
+    assert "Hello world" in result
+
+
+@pytest.mark.asyncio
+async def test_rate_limited_without_fallback_raises_after_retries(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    from tenacity import wait_none
+
+    monkeypatch.setattr(
+        "app.adapters.llm.gemini_adapter.wait_exponential",
+        lambda **_kwargs: wait_none(),
+    )
+
+    transport = httpx.MockTransport(lambda _r: httpx.Response(429))
     async with httpx.AsyncClient(transport=transport) as client:
         adapter = GeminiLLMAdapter(api_key="super-secret-key", client=client)
         with pytest.raises(LLMRateLimitError) as excinfo:

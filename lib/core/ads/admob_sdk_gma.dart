@@ -19,6 +19,9 @@ class GoogleMobileAdsSdk implements AdMobSdk {
       await MobileAds.instance.initialize();
       await MobileAds.instance.updateRequestConfiguration(
         RequestConfiguration(
+          // Hash from device log ("Use RequestConfiguration.Builder…
+          // setTestDeviceIds") so Google serves test creatives reliably.
+          testDeviceIds: const ['9AB4E1F97E05417E52785811E6603EA6'],
           tagForChildDirectedTreatment: childDirected
               ? TagForChildDirectedTreatment.yes
               : TagForChildDirectedTreatment.unspecified,
@@ -50,7 +53,23 @@ class GoogleMobileAdsSdk implements AdMobSdk {
     if (!_ready) return const SizedBox.shrink();
     return _GmaBanner(
       adUnitId: adUnitId,
+      size: AdSize.banner,
       request: _request(nonPersonalizedOnly: nonPersonalizedOnly),
+    );
+  }
+
+  @override
+  Widget createTrending({
+    required String adUnitId,
+    required bool nonPersonalizedOnly,
+  }) {
+    if (!_ready) return const SizedBox.shrink();
+    return Center(
+      child: _GmaBanner(
+        adUnitId: adUnitId,
+        size: AdSize.mediumRectangle,
+        request: _request(nonPersonalizedOnly: nonPersonalizedOnly),
+      ),
     );
   }
 
@@ -154,10 +173,12 @@ class _GmaBanner extends StatefulWidget {
   const _GmaBanner({
     required this.adUnitId,
     required this.request,
+    this.size = AdSize.banner,
   });
 
   final String adUnitId;
   final AdRequest request;
+  final AdSize size;
 
   @override
   State<_GmaBanner> createState() => _GmaBannerState();
@@ -171,12 +192,15 @@ class _GmaBannerState extends State<_GmaBanner> {
   void initState() {
     super.initState();
     final ad = BannerAd(
-      size: AdSize.banner,
+      size: widget.size,
       adUnitId: widget.adUnitId,
       listener: BannerAdListener(
         onAdLoaded: (_) {
           if (kDebugMode) {
-            debugPrint('AdMob banner loaded (${widget.adUnitId})');
+            debugPrint(
+              'AdMob ${widget.size.width}x${widget.size.height} loaded '
+              '(${widget.adUnitId})',
+            );
           }
           if (mounted) setState(() => _loaded = true);
         },

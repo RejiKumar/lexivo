@@ -145,6 +145,47 @@ def test_summary_service_sets_processing_and_enqueues(db_session: Session) -> No
     assert enqueued == [doc.id]
 
 
+def test_summary_service_skips_llm_when_fresh_cache_exists(
+    db_session: Session,
+) -> None:
+    user, docs, doc = _ready_doc(db_session, subject="sum-cached")
+    docs.update(
+        doc.id,
+        summary_status=SummaryStatus.ready,
+        short_summary="Short cached",
+        detailed_summary="Detailed cached",
+        summary_prompt_version="v1",
+    )
+    enqueued: list[str] = []
+    service = SummaryService(
+        docs, enqueue_summary=lambda doc_id: enqueued.append(doc_id) or "job"
+    )
+    updated = service.request_summary(document_id=doc.id, user_id=user.id)
+    assert updated.summary_status == SummaryStatus.ready
+    assert updated.short_summary == "Short cached"
+    assert enqueued == []
+
+
+def test_summary_service_reenqueues_when_prompt_version_mismatches(
+    db_session: Session,
+) -> None:
+    user, docs, doc = _ready_doc(db_session, subject="sum-stale")
+    docs.update(
+        doc.id,
+        summary_status=SummaryStatus.ready,
+        short_summary="Old short",
+        detailed_summary="Old detailed",
+        summary_prompt_version="v0",
+    )
+    enqueued: list[str] = []
+    service = SummaryService(
+        docs, enqueue_summary=lambda doc_id: enqueued.append(doc_id) or "job"
+    )
+    updated = service.request_summary(document_id=doc.id, user_id=user.id)
+    assert updated.summary_status == SummaryStatus.processing
+    assert enqueued == [doc.id]
+
+
 @pytest.mark.asyncio
 async def test_run_summary_uses_master_and_persists(
     db_session: Session,

@@ -18,6 +18,13 @@ class StubAdMobSdk implements AdMobSdk {
       const SizedBox.shrink();
 
   @override
+  Widget createTrending({
+    required String adUnitId,
+    required bool nonPersonalizedOnly,
+  }) =>
+      const SizedBox.shrink();
+
+  @override
   Future<void> showAppOpen({required String adUnitId}) async {}
 
   @override

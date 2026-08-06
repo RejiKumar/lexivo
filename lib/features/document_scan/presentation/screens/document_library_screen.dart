@@ -24,13 +24,10 @@ class DocumentLibraryScreen extends ConsumerWidget {
       LexivoBreakpoint.desktop => const DocumentLibraryDesktopLayout(),
     };
 
-    return Column(
-      children: [
-        Expanded(child: body),
-        const LexivoAdBanner(
-          placementId: AdsPlacements.documentLibraryBanner,
-        ),
-      ],
+    return LexivoMenuAdsScaffold(
+      bannerPlacementId: AdsPlacements.documentLibraryBanner,
+      trendingPlacementId: AdsPlacements.documentLibraryTrending,
+      body: body,
     );
   }
 }

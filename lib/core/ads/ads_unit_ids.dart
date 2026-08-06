@@ -10,6 +10,8 @@ abstract final class AdsUnitIds {
   static const String testAppIdIos = 'ca-app-pub-3940256099942544~1458002511';
 
   static const String _testBanner = 'ca-app-pub-3940256099942544/6300978111';
+  static const String _testMediumRectangle =
+      'ca-app-pub-3940256099942544/6300978111';
   static const String _testInterstitial =
       'ca-app-pub-3940256099942544/1033173712';
   static const String _testRewarded = 'ca-app-pub-3940256099942544/5224354917';
@@ -18,6 +20,7 @@ abstract final class AdsUnitIds {
 
   // Production placeholders — replace before enabling ADS_USE_PRODUCTION_IDS.
   static const String _prodBanner = _testBanner;
+  static const String _prodMediumRectangle = _testMediumRectangle;
   static const String _prodInterstitial = _testInterstitial;
   static const String _prodRewarded = _testRewarded;
   static const String _prodNative = _testNative;
@@ -26,6 +29,8 @@ abstract final class AdsUnitIds {
   static bool get _useProd => AppConfig.adsUseProductionIds;
 
   static String get banner => _useProd ? _prodBanner : _testBanner;
+  static String get mediumRectangle =>
+      _useProd ? _prodMediumRectangle : _testMediumRectangle;
   static String get interstitial =>
       _useProd ? _prodInterstitial : _testInterstitial;
   static String get rewarded => _useProd ? _prodRewarded : _testRewarded;

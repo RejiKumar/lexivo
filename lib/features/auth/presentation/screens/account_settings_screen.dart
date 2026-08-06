@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../core/ads/ads.dart';
 import '../../../../core/design_system/components/button.dart';
 import '../../../../core/design_system/components/input.dart';
 import '../../../../core/design_system/components/snackbar.dart';
@@ -70,47 +71,51 @@ class _AccountSettingsScreenState extends ConsumerState<AccountSettingsScreen> {
       appBar: AppBar(
         title: Text(l10n.accountTitle, style: LexivoTypography.title),
       ),
-      body: AsyncValueView<AuthUser>(
-        value: profile,
-        onRetry: () => ref.invalidate(accountProfileProvider),
-        builder: (context, AuthUser user) {
-          _displayName ??=
-              TextEditingController(text: user.displayName ?? '');
-          _email ??= TextEditingController(text: user.email);
+      body: LexivoMenuAdsScaffold(
+        bannerPlacementId: AdsPlacements.accountBanner,
+        trendingPlacementId: AdsPlacements.accountTrending,
+        body: AsyncValueView<AuthUser>(
+          value: profile,
+          onRetry: () => ref.invalidate(accountProfileProvider),
+          builder: (context, AuthUser user) {
+            _displayName ??=
+                TextEditingController(text: user.displayName ?? '');
+            _email ??= TextEditingController(text: user.email);
 
-          return Padding(
-            padding: const EdgeInsets.all(LexivoSpacing.lg),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                LexivoTextField(
-                  controller: _displayName,
-                  label: l10n.displayNameLabel,
-                ),
-                const SizedBox(height: LexivoSpacing.md),
-                LexivoTextField(
-                  controller: _email,
-                  label: l10n.emailLabel,
-                ),
-                const SizedBox(height: LexivoSpacing.lg),
-                LexivoButton(
-                  label: l10n.saveAction,
-                  loading: _saving,
-                  onPressed: _save,
-                  fullWidth: true,
-                ),
-                const SizedBox(height: LexivoSpacing.md),
-                LexivoButton(
-                  label: l10n.signOutAction,
-                  variant: LexivoButtonVariant.ghost,
-                  onPressed: () =>
-                      ref.read(authStateProvider.notifier).signOut(),
-                  fullWidth: true,
-                ),
-              ],
-            ),
-          );
-        },
+            return Padding(
+              padding: const EdgeInsets.all(LexivoSpacing.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  LexivoTextField(
+                    controller: _displayName,
+                    label: l10n.displayNameLabel,
+                  ),
+                  const SizedBox(height: LexivoSpacing.md),
+                  LexivoTextField(
+                    controller: _email,
+                    label: l10n.emailLabel,
+                  ),
+                  const SizedBox(height: LexivoSpacing.lg),
+                  LexivoButton(
+                    label: l10n.saveAction,
+                    loading: _saving,
+                    onPressed: _save,
+                    fullWidth: true,
+                  ),
+                  const SizedBox(height: LexivoSpacing.md),
+                  LexivoButton(
+                    label: l10n.signOutAction,
+                    variant: LexivoButtonVariant.ghost,
+                    onPressed: () =>
+                        ref.read(authStateProvider.notifier).signOut(),
+                    fullWidth: true,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
